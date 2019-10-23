@@ -70,7 +70,8 @@ public class DebtorForm extends JPanel {
 	private JTextField marriageStatusField;
 	private JTextField occupationField;
 	private JTextField nationalityField;
-	private JComboBox amountBorrowedComboBox;
+//	private JComboBox amountBorrowedComboBox;
+	private JTextField amountBorrowedField;
 	
 	private FormListener formListener;
 	
@@ -121,7 +122,8 @@ public class DebtorForm extends JPanel {
 		marriageStatusField = new JTextField(width);
 		occupationField = new JTextField(width);
 		nationalityField = new JTextField(width);
-		amountBorrowedComboBox = new JComboBox();
+//		amountBorrowedComboBox = new JComboBox();
+		amountBorrowedField = new JTextField(width);
 		
 		// Gender Radio Button
 		maleRadio = new JRadioButton("Male");
@@ -135,17 +137,17 @@ public class DebtorForm extends JPanel {
 		genderGroup.add(maleRadio);
 		genderGroup.add(femaleRadio);
 		
-		DefaultComboBoxModel amtBorrowedModel = new DefaultComboBoxModel();
-		amtBorrowedModel.addElement("Rp.500,000");
-		amtBorrowedModel.addElement("Rp.1,000,000");
-		amtBorrowedModel.addElement("Rp.2,500,000");
-		amtBorrowedModel.addElement("Rp.5,000,000");
-		amtBorrowedModel.addElement("Rp.10,000,000");
-		
-		amountBorrowedComboBox.setModel(amtBorrowedModel);
-		amountBorrowedComboBox.setSelectedIndex(0);
-		amountBorrowedComboBox.setEditable(false);
-		
+//		DefaultComboBoxModel amtBorrowedModel = new DefaultComboBoxModel();
+//		amtBorrowedModel.addElement("Rp.500,000");
+//		amtBorrowedModel.addElement("Rp.1,000,000");
+//		amtBorrowedModel.addElement("Rp.2,500,000");
+//		amtBorrowedModel.addElement("Rp.5,000,000");
+//		amtBorrowedModel.addElement("Rp.10,000,000");
+//		
+//		amountBorrowedComboBox.setModel(amtBorrowedModel);
+//		amountBorrowedComboBox.setSelectedIndex(0);
+//		amountBorrowedComboBox.setEditable(false);
+//		
 		addBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -161,25 +163,7 @@ public class DebtorForm extends JPanel {
 				String marriageStatus = marriageStatusField.getText();
 				String occupation = occupationField.getText();
 				String nationality = nationalityField.getText();
-				int amountBorrowed = amountBorrowedComboBox.getSelectedIndex();
-				
-				switch(amountBorrowed) {
-				case 0:
-					amountBorrowed = 500000;
-					break;
-				case 1:
-					amountBorrowed = 1000000;
-					break;
-				case 2:
-					amountBorrowed = 2500000;
-					break;
-				case 3:
-					amountBorrowed = 5000000;
-					break;
-				case 4:
-					amountBorrowed = 10000000;
-					break;
-				}
+				int amountBorrowed=  Integer.parseInt(amountBorrowedField.getText());
 				
 				FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
 						marriageStatus, occupation, nationality, amountBorrowed);
@@ -202,25 +186,7 @@ public class DebtorForm extends JPanel {
 				String marriageStatus = marriageStatusField.getText();
 				String occupation = occupationField.getText();
 				String nationality = nationalityField.getText();
-				int amountBorrowed = amountBorrowedComboBox.getSelectedIndex();
-				
-				switch(amountBorrowed) {
-				case 0:
-					amountBorrowed = 500000;
-					break;
-				case 1:
-					amountBorrowed = 1000000;
-					break;
-				case 2:
-					amountBorrowed = 2500000;
-					break;
-				case 3:
-					amountBorrowed = 5000000;
-					break;
-				case 4:
-					amountBorrowed = 10000000;
-					break;
-				}
+				int amountBorrowed = Integer.parseInt(amountBorrowedField.getText());				
 
 				FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
 						marriageStatus, occupation, nationality, amountBorrowed);
@@ -255,7 +221,7 @@ public class DebtorForm extends JPanel {
 		marriageStatusField.setText("");
 		occupationField.setText("");
 		nationalityField.setText("");
-		amountBorrowedComboBox.setSelectedIndex(0);;
+		amountBorrowedField.setText("");
 	}
 	
 	public void setFormData(FormEvent e) {
@@ -280,26 +246,7 @@ public class DebtorForm extends JPanel {
 		marriageStatusField.setText(e.getMarriageStatus());
 		occupationField.setText(e.getOccupation());
 		nationalityField.setText(e.getNationality());
-		
-		switch(e.getAmount()) {
-		case 500000:
-			e.setAmount(0);
-			break;
-		case 1000000:
-			e.setAmount(1);
-			break;
-		case 2500000:
-			e.setAmount(2);
-			break;
-		case 5000000:
-			e.setAmount(3);
-			break;
-		case 10000000:
-			e.setAmount(4);
-			break;
-		}
-		
-		amountBorrowedComboBox.setSelectedIndex(e.getAmount());
+		amountBorrowedField.setText(String.valueOf(e.getAmount()));
 	}
 	
 	public void setFormListener(FormListener listener) {
@@ -488,7 +435,7 @@ public class DebtorForm extends JPanel {
 		add(nationalityField, c);
 		
 		c.gridy++;
-		add(amountBorrowedComboBox, c);
+		add(amountBorrowedField, c);
 		
 		// Button
 		

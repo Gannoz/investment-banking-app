@@ -161,7 +161,7 @@ public class Controller {
 		
 		Debtor debtor = db.getDebtor(id);
 		
-		return personToForm(debtor, debtor.getAmountBorrowedId());
+		return personToForm(debtor, debtor.getAmountBorrowed());
 	}
 	
 	public void addDebtor(FormEvent e) {

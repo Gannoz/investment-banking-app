@@ -71,7 +71,7 @@ public class Database {
 	}
 	
 	public void addDebtor(Debtor debtor) {
-		System.out.println(debtor.getAmountBorrowedId());
+		System.out.println(debtor.getAmountBorrowed());
 		
 		debtors.add(debtor);
 	}

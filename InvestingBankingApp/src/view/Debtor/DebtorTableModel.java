@@ -53,7 +53,7 @@ public class DebtorTableModel extends AbstractTableModel{
 			case 8:
 				return debtor.getNationality();
 			case 9:
-				return debtor.getAmountBorrowedId();
+				return debtor.getAmountBorrowed();
 		}
 		return null;
 	}

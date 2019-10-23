@@ -39,7 +39,7 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 		case 0:
 			return debtor.getName();
 		case 1:
-			return debtor.getAmountBorrowedId();
+			return debtor.getAmountBorrowed();
 		case 2:
 			return debtor.getNik();
 		}
@@ -55,8 +55,8 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 			Debtor topDebtor = null;
 			max = 0;
 			for(Debtor debtor : list) {
-				if (debtor.getAmountBorrowedId() > max) {
-					max = debtor.getAmountBorrowedId();
+				if (debtor.getAmountBorrowed() > max) {
+					max = debtor.getAmountBorrowed();
 					topDebtor = debtor;
 				}
 			}
