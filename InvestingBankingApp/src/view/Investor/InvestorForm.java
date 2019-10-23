@@ -134,31 +134,8 @@ public class InvestorForm extends JPanel {
 		addBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
-				String nik = NIKField.getText();
-				String name = nameField.getText();
-				String gender = genderGroup.getSelection().getActionCommand();
-				String address = addressField.getText();
-				String rtrw = rtrwField.getText();
-				String village = villageField.getText();
-				String district = districtField.getText();
-				String religion = religionField.getText();
-				String marriageStatus = marriageStatusField.getText();
-				String occupation = occupationField.getText();
-				String nationality = nationalityField.getText();
 				
-				int amountInvested;
-				
-				if (!amountInvestedField.getText().isEmpty()) {
-					amountInvested = Integer.parseInt(amountInvestedField.getText());
-				}else {
-					amountInvested = 0;
-				}
-
-				FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
-						marriageStatus, occupation, nationality, amountInvested);
-				
-				formListener.formAddRequest(ev);
+				formListener.formAddRequest(getForm());
 				
 			}
 
@@ -167,35 +144,14 @@ public class InvestorForm extends JPanel {
 		editBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String nik = NIKField.getText();
-				String name = nameField.getText();
-				String gender = genderGroup.getSelection().getActionCommand();
-				String address = addressField.getText();
-				String rtrw = rtrwField.getText();
-				String village = villageField.getText();
-				String district = districtField.getText();
-				String religion = religionField.getText();
-				String marriageStatus = marriageStatusField.getText();
-				String occupation = occupationField.getText();
-				String nationality = nationalityField.getText();
-				
-				int amountInvested;
-				
-				if (!amountInvestedField.getText().isEmpty()) {
-					amountInvested = Integer.parseInt(amountInvestedField.getText());
-				}else {
-					amountInvested = 0;
-				}
-
-				FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
-						marriageStatus, occupation, nationality, amountInvested);
-				
-				formListener.formEditRequest(ev);
+				formListener.formEditRequest(getForm());
 			}
 		});
 		
 		removeBtn.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
+				
 				formListener.formRemoveRequest();
 			}
 		});
@@ -206,6 +162,7 @@ public class InvestorForm extends JPanel {
 	}
 	
 	public void resetForm() {
+		
 		NIKField.setText("");
 		nameField.setText("");
 		
@@ -224,14 +181,18 @@ public class InvestorForm extends JPanel {
 	}
 	
 	public void setFormData(FormEvent e) {
+		
 		NIKField.setText(e.getNik());
 		nameField.setText(e.getName());
 		
 		genderField.setText(e.getGender());
+		
 		if (e.getGender().equalsIgnoreCase("male")) {
+			
 			maleRadio.setSelected(true);
 			femaleRadio.setSelected(false);
 		}else if (e.getGender().equalsIgnoreCase("female")) {
+			
 			maleRadio.setSelected(false);
 			femaleRadio.setSelected(true);
 		}
@@ -249,10 +210,12 @@ public class InvestorForm extends JPanel {
 	}
 
 	public void setFormListener(FormListener listener) {
+		
 		formListener = listener;
 	}
 
 	private void setDesign() {
+		
 		Color lightBlue = new Color(204, 247, 255);
 
 		setBackground(lightBlue);
@@ -264,6 +227,33 @@ public class InvestorForm extends JPanel {
 		addInvestorLabel.setFont(new Font("sanserif", Font.PLAIN, size));
 		addInvestorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+	}
+	
+	private FormEvent getForm() {
+		
+		String nik = NIKField.getText();
+		String name = nameField.getText();
+		String gender = genderGroup.getSelection().getActionCommand();
+		String address = addressField.getText();
+		String rtrw = rtrwField.getText();
+		String village = villageField.getText();
+		String district = districtField.getText();
+		String religion = religionField.getText();
+		String marriageStatus = marriageStatusField.getText();
+		String occupation = occupationField.getText();
+		String nationality = nationalityField.getText();
+		
+		int amountInvested = 0;
+		try {
+			amountInvested = Integer.parseInt(amountInvestedField.getText());
+		}catch(NumberFormatException numFormatErr) {
+			amountInvested = 0;
+		}
+
+		FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
+				marriageStatus, occupation, nationality, amountInvested);
+		
+		return ev;
 	}
 
 	private void layoutComponents() {

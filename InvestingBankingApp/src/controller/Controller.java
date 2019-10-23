@@ -2,28 +2,28 @@ package controller;
 
 import java.util.List;
 
-import model.Database;
 import model.Debtor;
 import model.Gender;
 import model.Investor;
+import model.MainModel;
 import model.Person;
+import model.Database.Database;
 import view.FormEvent;
 import view.MainView;
 import view.MainViewListener;
 
 public class Controller {
 	
-	private Database db;
+	private MainModel mainModel;
 	
 	private MainView mainView;
 	
 	public Controller () {
 		
-		db = new Database();
-		
-		// Initialize view requirements ======================================
-		
 		mainView = new MainView();
+		mainModel = new MainModel();
+		
+		// Initialize model-> view connection ======================================
 		
 		mainView.setTableData(getInvestors(), getDebtors());
 		
@@ -115,17 +115,18 @@ public class Controller {
 		return person;
 	}
 	
+	// Initialize view -> model connection ======================================
 	
 	// INVESTOR ======================================
 	
 	public List<Investor> getInvestors(){
 		
-		return db.getInvestors();
+		return mainModel.getInvestors();
 	}
 	
 	public FormEvent getInvestor(int id) {
 		
-		Investor investor = db.getInvestor(id);
+		Investor investor = mainModel.getInvestor(id);
 		
 		return personToForm(investor, investor.getAmountInvested());
 	}
@@ -134,7 +135,7 @@ public class Controller {
 		
 		Investor investor = new Investor(formToPerson(e), e.getAmount());
 		
-		db.addInvestor(investor);
+		mainModel.addInvestor(investor);
 		
 	}
 	
@@ -142,24 +143,24 @@ public class Controller {
 		
 		Investor newInvestor = new Investor(id, formToPerson(e), e.getAmount());
 		
-		db.editInvestor(id, newInvestor);
+		mainModel.editInvestor(id, newInvestor);
 	}
 	
 	public void removeInvestor(int id) {
 		
-		db.removeInvestor(id);
+		mainModel.removeInvestor(id);
 	}
 	
 	// DEBTOR ======================================
 	
 	public List<Debtor> getDebtors(){
 		
-		return db.getDebtors();
+		return mainModel.getDebtors();
 	}
 	
 	public FormEvent getDebtor(int id) {
 		
-		Debtor debtor = db.getDebtor(id);
+		Debtor debtor = mainModel.getDebtor(id);
 		
 		return personToForm(debtor, debtor.getAmountBorrowed());
 	}
@@ -168,7 +169,7 @@ public class Controller {
 		
 		Debtor debtor = new Debtor(formToPerson(e), e.getAmount());
 		
-		db.addDebtor(debtor);
+		mainModel.addDebtor(debtor);
 		
 	}
 	
@@ -176,11 +177,11 @@ public class Controller {
 		
 		Debtor newDebtor = new Debtor(id, formToPerson(e), e.getAmount());
 		
-		db.editDebtor(id, newDebtor);
+		mainModel.editDebtor(id, newDebtor);
 	}
 	
 	public void removeDebtor(int id) {
 		
-		db.removeDebtor(id);
+		mainModel.removeDebtor(id);
 	}
 }

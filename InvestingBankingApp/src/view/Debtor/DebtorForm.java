@@ -137,61 +137,19 @@ public class DebtorForm extends JPanel {
 		genderGroup.add(maleRadio);
 		genderGroup.add(femaleRadio);
 		
-//		DefaultComboBoxModel amtBorrowedModel = new DefaultComboBoxModel();
-//		amtBorrowedModel.addElement("Rp.500,000");
-//		amtBorrowedModel.addElement("Rp.1,000,000");
-//		amtBorrowedModel.addElement("Rp.2,500,000");
-//		amtBorrowedModel.addElement("Rp.5,000,000");
-//		amtBorrowedModel.addElement("Rp.10,000,000");
-//		
-//		amountBorrowedComboBox.setModel(amtBorrowedModel);
-//		amountBorrowedComboBox.setSelectedIndex(0);
-//		amountBorrowedComboBox.setEditable(false);
-//		
 		addBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
-				String nik = NIKField.getText();
-				String name = nameField.getText();
-				String gender = genderGroup.getSelection().getActionCommand();
-				String address = addressField.getText();
-				String rtrw = rtrwField.getText();
-				String village = villageField.getText();
-				String district = districtField.getText();
-				String religion = religionField.getText();
-				String marriageStatus = marriageStatusField.getText();
-				String occupation = occupationField.getText();
-				String nationality = nationalityField.getText();
-				int amountBorrowed=  Integer.parseInt(amountBorrowedField.getText());
-				
-				FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
-						marriageStatus, occupation, nationality, amountBorrowed);
-				
-				formListener.formAddRequest(ev);
+							
+				formListener.formAddRequest(getForm());
 				
 			}
 		});
 		
 		editBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nik = NIKField.getText();
-				String name = nameField.getText();
-				String gender = genderGroup.getSelection().getActionCommand();
-				String address = addressField.getText();
-				String rtrw = rtrwField.getText();
-				String village = villageField.getText();
-				String district = districtField.getText();
-				String religion = religionField.getText();
-				String marriageStatus = marriageStatusField.getText();
-				String occupation = occupationField.getText();
-				String nationality = nationalityField.getText();
-				int amountBorrowed = Integer.parseInt(amountBorrowedField.getText());				
-
-				FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
-						marriageStatus, occupation, nationality, amountBorrowed);
 				
-				formListener.formEditRequest(ev);
+				formListener.formEditRequest(getForm());
 			}
 		});
 		
@@ -225,7 +183,6 @@ public class DebtorForm extends JPanel {
 	}
 	
 	public void setFormData(FormEvent e) {
-		System.out.println(e.getAmount());
 		NIKField.setText(e.getNik());
 		nameField.setText(e.getName());
 		
@@ -267,6 +224,32 @@ public class DebtorForm extends JPanel {
 		
 		
 		
+	}
+	
+	private FormEvent getForm() {
+		String nik = NIKField.getText();
+		String name = nameField.getText();
+		String gender = genderGroup.getSelection().getActionCommand();
+		String address = addressField.getText();
+		String rtrw = rtrwField.getText();
+		String village = villageField.getText();
+		String district = districtField.getText();
+		String religion = religionField.getText();
+		String marriageStatus = marriageStatusField.getText();
+		String occupation = occupationField.getText();
+		String nationality = nationalityField.getText();
+		
+		int amountBorrowed = 0;
+		try {
+			amountBorrowed = Integer.parseInt(amountBorrowedField.getText());
+		}catch(NumberFormatException numFormatErr) {
+			amountBorrowed = 0;
+		}
+		
+		FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
+				marriageStatus, occupation, nationality, amountBorrowed);
+		
+		return ev;
 	}
 	
 	private void layoutComponents() {

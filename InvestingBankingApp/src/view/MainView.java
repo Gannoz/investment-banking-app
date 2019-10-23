@@ -52,6 +52,9 @@ public class MainView extends JFrame{
 		debtorPanel = new DebtorPanel();
 		panelContainer = new PanelContainer(dashboardPanel, managePanel, investorPanel, debtorPanel);
 		
+		// INVESTOR LISTENER
+		// Send investor form information to MainView
+		
 		investorPanel.setInvestorListener(new InvestorListener() {
 
 			public void addInvestorInfo(FormEvent e) {
@@ -70,6 +73,9 @@ public class MainView extends JFrame{
 				viewListener.getInvestorInfo(id);
 			}
 		});
+		
+		// DEBTOR LISTENER
+		// Send debtor form information to MainView
 		
 		debtorPanel.setDebtorListener(new DebtorListener() {
 			
