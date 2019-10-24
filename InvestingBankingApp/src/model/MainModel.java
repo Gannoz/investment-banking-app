@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 
 import model.Database.Database;
-import model.Database.DatabaseListener;
 
 public class MainModel{
 
@@ -13,16 +12,22 @@ public class MainModel{
 		
 		db = new Database();
 		
-		db.setDatabaseListener(new DatabaseListener() {
-			
-		});
-		
 	}
 	
 	// DATABASE ======================================================
 	
+	// INVESTOR
+	
 	public List<Investor> getInvestors(){
 		return db.getInvestors();
+	}
+	
+	public List<Investor> getUnmanagedInvestors(){
+		return db.getUnmanagedInvestors();
+	}
+	
+	public List<Investor> getManagedInvestors(){
+		return db.getManagedInvestors();
 	}
 	
 	public Investor getInvestor(int id) {
@@ -41,8 +46,18 @@ public class MainModel{
 		db.removeInvestor(id);
 	}
 	
+	// DEBTOR
+	
 	public List<Debtor> getDebtors() {
 		return db.getDebtors();
+	}
+	
+	public List<Debtor> getUnmanagedDebtors() {
+		return db.getUnmanagedDebtors();
+	}
+	
+	public List<Debtor> getManagedDebtors() {
+		return db.getManagedDebtors();
 	}
 	
 	public Debtor getDebtor(int id) {

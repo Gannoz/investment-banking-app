@@ -25,7 +25,7 @@ public class Controller {
 		
 		// Initialize model-> view connection ======================================
 		
-		mainView.setTableData(getInvestors(), getDebtors());
+		mainView.setTableData(getInvestors(), getDebtors(), getUnmanagedInvestors(), getUnmanagedDebtors(), getManagedInvestors(), getManagedDebtors());
 		
 		mainView.setViewListener(new MainViewListener() {
 			
@@ -124,6 +124,16 @@ public class Controller {
 		return mainModel.getInvestors();
 	}
 	
+	public List<Investor> getUnmanagedInvestors(){
+		
+		return mainModel.getUnmanagedInvestors();
+	}	
+	
+	public List<Investor> getManagedInvestors(){
+		
+		return mainModel.getManagedInvestors();
+	}	
+	
 	public FormEvent getInvestor(int id) {
 		
 		Investor investor = mainModel.getInvestor(id);
@@ -156,6 +166,16 @@ public class Controller {
 	public List<Debtor> getDebtors(){
 		
 		return mainModel.getDebtors();
+	}
+	
+	public List<Debtor> getUnmanagedDebtors(){
+		
+		return mainModel.getUnmanagedDebtors();
+	}
+	
+	public List<Debtor> getManagedDebtors(){
+		
+		return mainModel.getManagedDebtors();
 	}
 	
 	public FormEvent getDebtor(int id) {

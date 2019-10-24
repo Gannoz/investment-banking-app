@@ -50,8 +50,6 @@ public class DebtorTablePanel extends JPanel {
 		
 		tableSP = new JScrollPane(table);
 		tableSP.setPreferredSize(new Dimension(940,490));
-		
-		
 
 		setDesign();
 		layoutComponents();
@@ -61,14 +59,17 @@ public class DebtorTablePanel extends JPanel {
 	}
 	
 	public void setDebtorTableListener(DebtorTableListener listener) {
+		
 		debtorTableListener = listener;
 	}
 	
 	public void refreshTable() {
+		
 		debtorTableModel.fireTableDataChanged();
 	}
 	
 	public void setData(List<Debtor> db) {
+		
 		debtorTableModel.setData(db);
 	}
 

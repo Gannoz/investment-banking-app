@@ -14,22 +14,39 @@ public class ManagePaymentsPayableTableModel extends AbstractTableModel{
 	String [] colNames = {"Name", "Amount Borrowed", "Payments Payable"};
 	
 	public String getColumnName(int column) {
+		
 		return colNames[column];
-	}
-	
-	public int getRowCount() {
-		return db.size();
-	}
-
-	public int getColumnCount() {
-		return 3;
-	}
-
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		return null;
 	}
 	
 	public void setData(List<Investor> db) {
 		
+		this.db = db;
 	}
+	
+	public int getRowCount() {
+		
+		return db.size();
+	}
+
+	public int getColumnCount() {
+		
+		return 3;
+	}
+	
+	public Object getValueAt(int rowIndex, int columnIndex) {
+	
+		Investor investor = db.get(rowIndex);
+		
+		switch(columnIndex) {
+		case 0:
+			return investor.getName();
+		case 1:
+			return investor.getAmountInvested();
+		case 2:
+			return investor.getNik();
+		}
+		return null;
+	}
+	
+	
 }

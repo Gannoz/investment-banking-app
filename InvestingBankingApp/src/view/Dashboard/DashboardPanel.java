@@ -26,12 +26,8 @@ public class DashboardPanel extends JPanel {
 		
 	}
 	
-	public void setInvestorTableData(List<Investor> db) {
-		dashboardMain.setInvestorTableData(db);
-	}
-	
-	public void setDebtorTableData(List<Debtor> db) {
-		dashboardMain.setDebtorTableData(db);
+	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
+		dashboardMain.setTableData(investors, debtors);
 	}
 	
 	public void refreshTables() {

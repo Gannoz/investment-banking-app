@@ -17,12 +17,14 @@ import javax.swing.SwingConstants;
 import model.Debtor;
 
 public class ManageDebtorRequestsTablePanel extends JPanel{
+	
 	private JLabel topInvestorsLabel;
 	private JTable table;
 	private ManageDebtorRequestsTableModel tableModel;
 	private JScrollPane tableSP;
 	
 	public ManageDebtorRequestsTablePanel() {
+		
 		topInvestorsLabel = new JLabel("Debtor Requests");
 		
 		tableModel = new ManageDebtorRequestsTableModel();
@@ -38,14 +40,18 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 	}
 	
 	public void setTableData(List<Debtor> db) {
+		
 		tableModel.setData(db);
 	}
 	
 	public void refreshTable() {
+		
 		tableModel.fireTableDataChanged();
+		
 	}
 	
 	private void setDesign() {
+		
 		Color lightBlue = new Color(204,247,255);
 		
 		int size = 25;
@@ -57,6 +63,7 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 	}
 	
 	private void layoutComponents() {
+		
 		setLayout(new GridBagLayout());
 		
 		GridBagConstraints gc = new GridBagConstraints();
@@ -73,8 +80,7 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 		
 		// First Row
 		gc.gridy = 0;
-		
-//		gc.fill = GridBagConstraints.NONE;
+
 		gc.gridx = 0;
 		gc.weighty = 0.1;
 		gc.insets = new Insets(30,15,30,15);
@@ -86,7 +92,6 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 		gc.gridy++;
 		gc.weighty = 1;
 		gc.insets = new Insets(0,25,20,25);
-//		gc.fill = GridBagConstraints.NONE;
 		add(tableSP, gc);
 		
 	}

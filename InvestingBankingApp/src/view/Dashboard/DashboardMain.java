@@ -37,12 +37,13 @@ public class DashboardMain extends JPanel{
 		topDebtors.refreshTable();
 	}
 	
-	public void setInvestorTableData(List<Investor> db) {
-		topInvestors.setTableData(db);
+	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
+		topInvestors.setTableData(investors);
+		topDebtors.setTableData(debtors);
 	}
 	
-	public void setDebtorTableData(List<Debtor> db) {
-		topDebtors.setTableData(db);
+	public void setDebtorTableData() {
+		
 	}
 	
 	private void setDesign() {

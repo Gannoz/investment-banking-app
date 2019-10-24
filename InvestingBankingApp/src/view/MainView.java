@@ -32,6 +32,7 @@ public class MainView extends JFrame{
 	private int frameHeight = 770;
 	
 	public MainView() {
+		
 		super("Investment Banking App");
 		
 		setVisible(true);
@@ -56,7 +57,7 @@ public class MainView extends JFrame{
 		// Send investor form information to MainView
 		
 		investorPanel.setInvestorListener(new InvestorListener() {
-
+			
 			public void addInvestorInfo(FormEvent e) {
 				viewListener.addInvestorInfo(e);
 			}
@@ -68,7 +69,7 @@ public class MainView extends JFrame{
 			public void removeInvestorInfo(int index) {
 				viewListener.removeInvestorInfo(index);
 			}
-
+			
 			public void getInvestorInfo(int id) {
 				viewListener.getInvestorInfo(id);
 			}
@@ -104,25 +105,29 @@ public class MainView extends JFrame{
 		screenChanger.setScreenChangerListener(new ScreenChangerListener() {
 
 			public void overviewPressed() {
+				
 				frameWidth = 1500;
 				frameHeight = 770;
 				panelContainer.displayDashboardPanel();
 				dashboardPanel.refreshTables();
 				setSize(frameWidth,frameHeight);
-				
 			}
 			
 			public void managePressed() {
+				
 				panelContainer.displayManagePanel();
+				managePanel.refreshTables();
 				setSize(frameWidth,frameHeight);
 			}
-
+			
 			public void investorPressed() {
+				
 				panelContainer.displayInvestorPanel();
 				setSize(frameWidth,frameHeight);
 			}
 
 			public void debtorPressed() {
+				
 				panelContainer.displayDebtorPanel();
 				setSize(frameWidth,frameHeight);
 			}
@@ -135,11 +140,11 @@ public class MainView extends JFrame{
 		viewListener = listener;
 	}
 	
-	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
-		dashboardPanel.setInvestorTableData(investors);
-		dashboardPanel.setDebtorTableData(debtors);
+	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors, List<Investor> managedInvestors, List<Debtor> managedDebtors) {
+		dashboardPanel.setTableData(investors, debtors);
 		investorPanel.setTableData(investors);
 		debtorPanel.setTableData(debtors);
+		managePanel.setTableData(unmanagedInvestors, unmanagedDebtors, managedInvestors, managedDebtors);
 		
 	}
 	

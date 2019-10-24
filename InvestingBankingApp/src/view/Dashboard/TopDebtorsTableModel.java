@@ -15,24 +15,27 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 	String[] colNames = {"Name", "Amount Borrowed", "Monthly Expense"};
 	
 	public String getColumnName(int column) {
+		
 		return colNames[column];
 	}
 	
 	public void setData(List<Debtor> db) {
+		
 		this.db = db;
 	}
-
+	
 	public int getRowCount() {
+		
 		return db.size();
 	}
-
-
+	
 	public int getColumnCount() {
+		
 		return 3;
 	}
 	
-
 	public Object getValueAt(int rowIndex, int columnIndex) {
+		
 		Debtor debtor = db.get(rowIndex);
 		
 		switch(columnIndex) {
@@ -47,6 +50,7 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 	}
 	
 	private List<Debtor> sortData(List<Debtor> list){
+		
 		int max;
 		
 		List<Debtor> topDebtorsList = new LinkedList<Debtor>();

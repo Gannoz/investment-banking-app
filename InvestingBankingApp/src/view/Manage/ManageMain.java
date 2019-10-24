@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import model.Debtor;
+import model.Investor;
 
 public class ManageMain extends JPanel{
 	
@@ -18,7 +22,7 @@ public class ManageMain extends JPanel{
 	private ManageInfoPanel manageInfoPanel;
 	
 	public ManageMain() {
-		
+			
 		debtorRequestsTablePanel = new ManageDebtorRequestsTablePanel();
 		paymentsReceivableTablePanel = new ManagePendingPaymentsTablePanel();
 		investorOffersTablePanel = new ManageInvestorOffersTablePanel();
@@ -77,5 +81,21 @@ public class ManageMain extends JPanel{
 		c.insets = new Insets(0,0,25,25);
 		add(paymentsPayableTablePanel, c);
 		
+	}
+	
+	public void setTableData(List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors, List<Investor> managedInvestors, List<Debtor> managedDebtors) {
+		
+		investorOffersTablePanel.setTableData(unmanagedInvestors);
+		debtorRequestsTablePanel.setTableData(unmanagedDebtors);
+		paymentsPayableTablePanel.setTableData(managedInvestors);
+		paymentsReceivableTablePanel.setTableData(managedDebtors);
+		
+	}
+	
+	public void refreshTables() {
+		investorOffersTablePanel.refreshTable();
+		debtorRequestsTablePanel.refreshTable();
+		paymentsPayableTablePanel.refreshTable();
+		paymentsReceivableTablePanel.refreshTable();
 	}
 }

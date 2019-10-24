@@ -10,7 +10,7 @@ import model.Debtor;
 public class DebtorTableModel extends AbstractTableModel{
 
 	private List<Debtor> db = new LinkedList<Debtor>();
-		
+	
 	String[] columnNames = {"ID", "NIK", "Name", "Gender", "Address", "Religion", "Marriage Status", "Occupation",
 	"Nationality", "Amount Borrowed"};
 	
