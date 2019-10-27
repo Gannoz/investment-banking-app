@@ -10,7 +10,6 @@ public class InvestmentBankingApp {
 		
 		SwingUtilities.invokeLater(new Runnable() {
 
-			
 			public void run() {
 				
 				new Controller();

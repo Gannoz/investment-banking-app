@@ -45,6 +45,7 @@ public class MainView extends JFrame{
 		setLocation((int)dim.getWidth()- frameWidth, (int)dim.getHeight() - frameHeight);
 		
 		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		screenChanger = new ScreenChanger();
 		dashboardPanel = new DashboardPanel();
@@ -137,10 +138,12 @@ public class MainView extends JFrame{
 	}
 	
 	public void setViewListener(MainViewListener listener) {
+		
 		viewListener = listener;
 	}
 	
 	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors, List<Investor> managedInvestors, List<Debtor> managedDebtors) {
+		
 		dashboardPanel.setTableData(investors, debtors);
 		investorPanel.setTableData(investors);
 		debtorPanel.setTableData(debtors);
@@ -149,11 +152,13 @@ public class MainView extends JFrame{
 	}
 	
 	public void setInvestorFormData(FormEvent e) {
+		
 		investorPanel.setFormData(e);
 		
 	}
 	
 	public void setDebtorFormData(FormEvent e) {
+		
 		debtorPanel.setFormData(e);
 	}
 	

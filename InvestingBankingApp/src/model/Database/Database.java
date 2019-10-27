@@ -94,6 +94,7 @@ public class Database {
 	}
 	
 	public void manageInvestor(int id) {
+		
 		Investor investorManaged = null;
 		
 		for(Investor investor: investors) {

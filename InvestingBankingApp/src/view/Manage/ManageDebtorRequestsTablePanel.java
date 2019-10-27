@@ -47,7 +47,6 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 	public void refreshTable() {
 		
 		tableModel.fireTableDataChanged();
-		
 	}
 	
 	private void setDesign() {
@@ -73,16 +72,10 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 		gc.fill = GridBagConstraints.BOTH;
 		gc.anchor = GridBagConstraints.PAGE_START;
 		
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.CENTER;
-		
 		// First Row
 		gc.gridy = 0;
-
+		gc.weightx = 1;
 		gc.gridx = 0;
-		gc.weighty = 0.1;
 		gc.insets = new Insets(30,15,30,15);
 		gc.anchor = GridBagConstraints.CENTER;
 		

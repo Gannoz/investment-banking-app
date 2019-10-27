@@ -22,6 +22,7 @@ public class ManageHeader extends JPanel{
 	private int oneYearPL = 3;
 	
 	public ManageHeader() {
+		
 		setBackground(Color.black);
 		
 		investorLabel = new JLabel("Manage");
@@ -61,6 +62,7 @@ public class ManageHeader extends JPanel{
 	}
 	
 	private void layoutComponents() {
+		
 		setLayout(new GridBagLayout());
 		
 		GridBagConstraints gc = new GridBagConstraints();

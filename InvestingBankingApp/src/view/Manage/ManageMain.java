@@ -20,15 +20,17 @@ public class ManageMain extends JPanel{
 	private ManageInvestorOffersTablePanel investorOffersTablePanel;
 	private ManagePaymentsPayableTablePanel paymentsPayableTablePanel;
 	private ManageInfoPanel manageInfoPanel;
+	private ManageControlPanel manageControlPanel;
 	
 	public ManageMain() {
-			
+		
 		debtorRequestsTablePanel = new ManageDebtorRequestsTablePanel();
 		paymentsReceivableTablePanel = new ManagePendingPaymentsTablePanel();
 		investorOffersTablePanel = new ManageInvestorOffersTablePanel();
 		paymentsPayableTablePanel = new ManagePaymentsPayableTablePanel();
 		
 		manageInfoPanel = new ManageInfoPanel();
+		manageControlPanel = new ManageControlPanel();
 		
 		setDesign();
 		layoutComponents();
@@ -62,13 +64,18 @@ public class ManageMain extends JPanel{
 		
 		c.gridheight=1;
 		c.weightx = 0.6;
-		c.weighty = 1;
+		c.weighty = 0.5;
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.CENTER;
 		c.gridx++;
 		c.gridy = 0;
 		c.insets = new Insets(25,0,25,25);
 		add(manageInfoPanel, c);
+		
+		c.weighty = 0.5;
+		c.gridy++;
+		c.insets = new Insets(0,0,25,25);
+		add(manageControlPanel, c);
 		
 		c.weightx = 0.2;
 		c.weighty = 1;
