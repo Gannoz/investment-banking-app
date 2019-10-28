@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import model.Investor;
 import view.FormEvent;
 import view.FormListener;
+import view.InvestorTableListener;
 
 public class InvestorMain extends JPanel {
 	

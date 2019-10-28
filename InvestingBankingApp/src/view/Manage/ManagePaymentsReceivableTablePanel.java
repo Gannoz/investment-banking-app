@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -15,18 +17,21 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import model.Debtor;
+import view.DebtorTableListener;
 
-public class ManagePendingPaymentsTablePanel extends JPanel{
+public class ManagePaymentsReceivableTablePanel extends JPanel{
 	
 	private JLabel paymentReceivableLabel;
 	private JTable table;
-	private ManagePendingPaymentsTableModel tableModel;
+	private ManagePaymentsReceivableTableModel tableModel;
 	private JScrollPane tableSP;
 	
-	public ManagePendingPaymentsTablePanel() {
+	private DebtorTableListener listener;
+	
+	public ManagePaymentsReceivableTablePanel() {
 		paymentReceivableLabel = new JLabel("Payments Receivable");
 		
-		tableModel = new ManagePendingPaymentsTableModel();
+		tableModel = new ManagePaymentsReceivableTableModel();
 		
 		table = new JTable(tableModel);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
@@ -34,8 +39,30 @@ public class ManagePendingPaymentsTablePanel extends JPanel{
 		tableSP = new JScrollPane(table);
 		tableSP.setPreferredSize(new Dimension(250,150));
 		
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				try {
+					int row = table.rowAtPoint(e.getPoint());
+					int id = tableModel.getData().get(row).getId();
+					
+					listener.sendDebtorId(id);
+				}catch(IndexOutOfBoundsException ex) {
+					
+				}
+				
+			}
+		});
+		
 		setDesign();
 		layoutComponents();
+	}
+	
+	public void clearSelection() {
+		table.clearSelection();
+	}
+	
+	public void setTableListener(DebtorTableListener listener) {
+		this.listener = listener;
 	}
 	
 	public void setTableData(List<Debtor> db) {

@@ -107,6 +107,20 @@ public class Database {
 		managedInvestors.add(investorManaged);
 	}
 	
+	public void unmanageInvestor(int id) {
+		
+		Investor investorUnmanaged = null;
+		
+		for(Investor investor: investors) {
+			if (investor.getId() == id) {
+				investorUnmanaged = investor;
+			}
+		}
+		
+		unmanagedInvestors.add(investorUnmanaged);
+		managedInvestors.remove(investorUnmanaged);
+	}
+	
 	public void removeInvestor(int id) {
 		
 		Investor investorRemoved = null;
@@ -205,6 +219,18 @@ public class Database {
 		managedDebtors.add(debtorManaged);
 	}
 	
+	public void unmanageDebtor(int id) {
+		
+		Debtor debtorUnmanaged = null;
+		for(Debtor debtor: debtors) {
+			if (debtor.getId() == id) {
+				debtorUnmanaged = debtor;
+			}
+		}
+		unmanagedDebtors.add(debtorUnmanaged);
+		managedDebtors.remove(debtorUnmanaged);
+	}
+	
 	public void removeDebtor(int id) {
 		
 		Debtor debtorRemoved = null;
@@ -213,6 +239,7 @@ public class Database {
 				debtorRemoved = debtor;
 			}
 		}
+		
 		debtors.remove(debtorRemoved);
 		
 		try {

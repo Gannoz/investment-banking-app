@@ -14,6 +14,7 @@ import view.Debtor.DebtorListener;
 import view.Debtor.DebtorPanel;
 import view.Investor.InvestorListener;
 import view.Investor.InvestorPanel;
+import view.Manage.ManageListener;
 import view.Manage.ManagePanel;
 
 public class MainView extends JFrame{
@@ -95,6 +96,50 @@ public class MainView extends JFrame{
 			
 			public void getDebtorInfo(int id) {
 				viewListener.getDebtorInfo(id);
+			}
+		});
+		
+		// MANAGE LISTENER
+		// Listen to manage panel
+		
+		managePanel.setManageListener(new ManageListener() {
+			
+			@Override
+			public void manageDebtorRequest(int id) {
+				
+				viewListener.manageDebtorRequest(id);
+				
+			}
+
+			@Override
+			public void unmanageDebtorRequest(int id) {
+				
+				viewListener.unmanageDebtorRequest(id);
+			}
+
+			@Override
+			public void fullfillDebtorRequest(int id) {
+				
+				viewListener.fulfillDebtorRequest(id);
+			}
+
+			@Override
+			public void manageInvestorRequest(int id) {
+				// TODO Auto-generated method stub
+				viewListener.manageInvestorRequest(id);
+				
+			}
+
+			@Override
+			public void unmanageInvestorRequest(int id) {
+				// TODO Auto-generated method stub
+				viewListener.unmanageInvestorRequest(id);
+			}
+
+			@Override
+			public void fullfillInvestorRequest(int id) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		

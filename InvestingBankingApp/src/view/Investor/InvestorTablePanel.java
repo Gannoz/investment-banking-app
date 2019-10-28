@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import model.Investor;
+import view.InvestorTableListener;
 
 public class InvestorTablePanel extends JPanel {
 	

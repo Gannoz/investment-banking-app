@@ -32,6 +32,10 @@ public class ManageDebtorRequestsTableModel extends AbstractTableModel{
 		
 		return 3;
 	}
+	
+	public List<Debtor> getData(){
+		return db;
+	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		

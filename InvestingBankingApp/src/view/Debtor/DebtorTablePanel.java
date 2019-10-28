@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import model.Debtor;
+import view.DebtorTableListener;
 
 public class DebtorTablePanel extends JPanel {
 	

@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import model.Debtor;
 
-public class ManagePendingPaymentsTableModel extends AbstractTableModel{
+public class ManagePaymentsReceivableTableModel extends AbstractTableModel{
 	
 	List<Debtor> db = new LinkedList<Debtor>();
 	
@@ -21,6 +21,10 @@ public class ManagePendingPaymentsTableModel extends AbstractTableModel{
 	public void setData(List<Debtor> db) {
 		
 		this.db = db;
+	}
+	
+	public List<Debtor> getData(){
+		return db;
 	}
 	
 	public int getRowCount() {

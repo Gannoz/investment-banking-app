@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,14 +18,50 @@ public class ManageControlPanel extends JPanel {
 	private JButton unmanageButton;
 	private JButton fullfillButton;
 	
+	private ManageControlListener listener;
+	
 	public ManageControlPanel() {
 		
 		manageButton = new JButton("Manage");
 		unmanageButton = new JButton("Unmanage");
 		fullfillButton = new JButton("Fulfill");
 		
+		// Add functionality to buttons
+		
+		manageButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				
+				listener.managePerson();
+				
+			}
+		});
+		
+		unmanageButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				
+				listener.unmanagePerson();
+			}
+		});
+		
+		fullfillButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				listener.fulfillPerson();
+			}
+		});
+		
 		setDesign();
 		layoutComponents();
+	}
+	
+	public void setManageControlListener(ManageControlListener listener) {
+		this.listener = listener;
 	}
 	
 	private void setDesign() {
@@ -34,8 +72,6 @@ public class ManageControlPanel extends JPanel {
 		
 		setBackground(lightBlue);
 		
-//		topInvestorsLabel.setFont(new Font("montserrat", Font.PLAIN, size));
-//		topInvestorsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 	
 	private void layoutComponents() {

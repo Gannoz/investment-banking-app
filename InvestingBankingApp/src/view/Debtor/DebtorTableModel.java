@@ -25,9 +25,13 @@ public class DebtorTableModel extends AbstractTableModel{
 	public int getRowCount() {
 		return db.size();
 	}
-
+	
 	public int getColumnCount() {
 		return 10;
+	}
+	
+	public List<Debtor> getData(){
+		return db;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {

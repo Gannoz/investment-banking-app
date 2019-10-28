@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import model.Debtor;
+import view.DebtorTableListener;
 import view.FormEvent;
 import view.FormListener;
 

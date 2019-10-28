@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import model.Debtor;
+import view.DebtorTableListener;
 
 public class ManageDebtorRequestsTablePanel extends JPanel{
 	
@@ -22,6 +25,8 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 	private JTable table;
 	private ManageDebtorRequestsTableModel tableModel;
 	private JScrollPane tableSP;
+	
+	private DebtorTableListener listener;
 	
 	public ManageDebtorRequestsTablePanel() {
 		
@@ -35,8 +40,30 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 		tableSP = new JScrollPane(table);
 		tableSP.setPreferredSize(new Dimension(250,150));
 		
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				try {
+					int row = table.rowAtPoint(e.getPoint());
+					int id = tableModel.getData().get(row).getId();
+					
+					listener.sendDebtorId(id);
+				}catch(IndexOutOfBoundsException ex) {
+					
+				}
+				
+			}
+		});
+		
 		setDesign();
 		layoutComponents();
+	}
+	
+	public void clearSelection() {
+		table.clearSelection();
+	}
+	
+	public void setTableListener(DebtorTableListener listener) {
+		this.listener = listener;
 	}
 	
 	public void setTableData(List<Debtor> db) {

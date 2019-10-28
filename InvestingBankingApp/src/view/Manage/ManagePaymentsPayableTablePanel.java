@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -15,12 +17,15 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import model.Investor;
+import view.InvestorTableListener;
 
 public class ManagePaymentsPayableTablePanel extends JPanel{
 	private JLabel topInvestorsLabel;
 	private JTable table;
 	private ManagePaymentsPayableTableModel tableModel;
 	private JScrollPane tableSP;
+	
+	private InvestorTableListener listener;
 	
 	public ManagePaymentsPayableTablePanel() {
 		topInvestorsLabel = new JLabel("Payments Payable");
@@ -33,8 +38,31 @@ public class ManagePaymentsPayableTablePanel extends JPanel{
 		tableSP = new JScrollPane(table);
 		tableSP.setPreferredSize(new Dimension(250,150));
 		
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				try {
+					int row = table.rowAtPoint(e.getPoint());
+					int id = tableModel.getData().get(row).getId();
+					
+					listener.sendInvestorId(id);
+				}catch(IndexOutOfBoundsException ex) {
+					
+				}
+				
+			}
+		});
+		
 		setDesign();
 		layoutComponents();
+	}
+	
+	public void clearSelection() {
+		table.clearSelection();
+	}
+	
+	
+	public void setTableListener(InvestorTableListener listener) {
+		this.listener = listener;
 	}
 	
 	public void setTableData(List<Investor> db) {

@@ -23,6 +23,10 @@ public class ManagePaymentsPayableTableModel extends AbstractTableModel{
 		this.db = db;
 	}
 	
+	public List<Investor> getData(){
+		return db;
+	}
+	
 	public int getRowCount() {
 		
 		return db.size();

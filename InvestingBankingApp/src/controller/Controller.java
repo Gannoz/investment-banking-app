@@ -7,7 +7,6 @@ import model.Gender;
 import model.Investor;
 import model.MainModel;
 import model.Person;
-import model.Database.Database;
 import view.FormEvent;
 import view.MainView;
 import view.MainViewListener;
@@ -45,6 +44,25 @@ public class Controller {
 				mainView.setInvestorFormData(getInvestor(id));
 			}
 			
+			@Override
+			public void manageInvestorRequest(int id) {
+				
+				manageInvestor(id);
+			}
+
+			@Override
+			public void unmanageInvestorRequest(int id) {
+				// TODO Auto-generated method stub
+				
+				unmanageInvestor(id);
+			}
+
+			@Override
+			public void fulfillInvestorRequest(int id) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 			public void addDebtorInfo(FormEvent e) {
 				addDebtor(e);
 			}
@@ -60,6 +78,22 @@ public class Controller {
 			public void getDebtorInfo(int id) {
 				mainView.setDebtorFormData(getDebtor(id));
 			}
+
+			public void manageDebtorRequest(int id) {
+				manageDebtor(id);
+				
+			}
+
+			public void unmanageDebtorRequest(int id) {
+				
+				unmanageDebtor(id);
+			}
+
+			public void fulfillDebtorRequest(int id) {
+				
+			}
+
+			
 			
 		});
 		
@@ -134,6 +168,16 @@ public class Controller {
 		return mainModel.getManagedInvestors();
 	}	
 	
+	public void unmanageInvestor(int id) {
+		
+		mainModel.unmanageInvestor(id);
+	}
+	
+	public void manageInvestor(int id) {
+		
+		mainModel.manageInvestor(id);
+	}
+	
 	public FormEvent getInvestor(int id) {
 		
 		Investor investor = mainModel.getInvestor(id);
@@ -178,6 +222,15 @@ public class Controller {
 		return mainModel.getManagedDebtors();
 	}
 	
+	public void manageDebtor(int id) {
+		
+		mainModel.manageDebtor(id);
+	}
+	
+	public void unmanageDebtor(int id) {
+		mainModel.unmanageDebtor(id);
+	}
+	
 	public FormEvent getDebtor(int id) {
 		
 		Debtor debtor = mainModel.getDebtor(id);
@@ -204,4 +257,5 @@ public class Controller {
 		
 		mainModel.removeDebtor(id);
 	}
+	
 }

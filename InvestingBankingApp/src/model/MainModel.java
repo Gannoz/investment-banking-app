@@ -30,6 +30,14 @@ public class MainModel{
 		return db.getManagedInvestors();
 	}
 	
+	public void manageInvestor(int id) {
+		db.manageInvestor(id);
+	}
+	
+	public void unmanageInvestor(int id) {
+		db.unmanageInvestor(id);
+	}
+	
 	public Investor getInvestor(int id) {
 		return db.getInvestor(id);
 	}
@@ -58,6 +66,18 @@ public class MainModel{
 	
 	public List<Debtor> getManagedDebtors() {
 		return db.getManagedDebtors();
+	}
+	
+	public void manageDebtor(int id) {
+		db.manageDebtor(id);
+	}
+	
+	public void unmanageDebtor(int id) {
+		db.unmanageDebtor(id);
+	}
+	
+	public void fulfillDebtor(int id) {
+		db.unmanageDebtor(id);
 	}
 	
 	public Debtor getDebtor(int id) {

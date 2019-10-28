@@ -74,7 +74,7 @@ public class InvestorForm extends JPanel {
 
 	public InvestorForm() {
 
-		addInvestorLabel = new JLabel("Add Investor");
+		addInvestorLabel = new JLabel("Investor Info");
 		NIKLabel = new JLabel("NIK");
 		nameLabel = new JLabel("Name");
 		genderLabel = new JLabel("Gender");
