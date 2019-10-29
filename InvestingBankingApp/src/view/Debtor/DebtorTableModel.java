@@ -27,7 +27,7 @@ public class DebtorTableModel extends AbstractTableModel{
 	}
 	
 	public int getColumnCount() {
-		return 10;
+		return columnNames.length;
 	}
 	
 	public List<Debtor> getData(){

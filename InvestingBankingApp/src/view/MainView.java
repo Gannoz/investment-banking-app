@@ -12,6 +12,7 @@ import model.Investor;
 import view.Dashboard.DashboardPanel;
 import view.Debtor.DebtorListener;
 import view.Debtor.DebtorPanel;
+import view.Fee.FeeListener;
 import view.Fee.FeePanel;
 import view.Investor.InvestorListener;
 import view.Investor.InvestorPanel;
@@ -130,7 +131,6 @@ public class MainView extends JFrame{
 			public void manageInvestorRequest(int id) {
 				// TODO Auto-generated method stub
 				viewListener.manageInvestorRequest(id);
-				
 			}
 
 			@Override
@@ -144,6 +144,24 @@ public class MainView extends JFrame{
 				// TODO Auto-generated method stub
 				
 			}
+		});
+		
+		// FEE LISTENERS
+		
+		feePanel.setFeeLisener(new FeeListener() {
+
+			@Override
+			public void sendInvestorId(int id) {
+				viewListener.paidInvestorRequest(id);
+				
+			}
+
+			@Override
+			public void sendDebtorId(int id) {
+				viewListener.paidDebtorRequest(id);
+				
+			}
+			
 		});
 		
 		setLayout(new BorderLayout());
@@ -185,6 +203,7 @@ public class MainView extends JFrame{
 			
 			public void feePressed() {
 				panelContainer.displayFeePanel();
+				feePanel.refreshTables();
 				setSize(frameWidth, frameHeight);
 			}
 			
@@ -197,13 +216,13 @@ public class MainView extends JFrame{
 		viewListener = listener;
 	}
 	
-	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors, List<Investor> managedInvestors, List<Debtor> managedDebtors) {
+	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors, List<Investor> managedInvestors, List<Debtor> managedDebtors, List<Investor> unpaidInvestors, List<Debtor> unpaidDebtors) {
 		
 		dashboardPanel.setTableData(investors, debtors);
 		investorPanel.setTableData(investors);
 		debtorPanel.setTableData(debtors);
 		managePanel.setTableData(unmanagedInvestors, unmanagedDebtors, managedInvestors, managedDebtors);
-		
+		feePanel.setTableData(unpaidInvestors, unpaidDebtors);
 	}
 	
 	public void setInvestorFormData(FormEvent e) {

@@ -24,7 +24,7 @@ public class Controller {
 		
 		// Initialize model-> view connection ======================================
 		
-		mainView.setTableData(getInvestors(), getDebtors(), getUnmanagedInvestors(), getUnmanagedDebtors(), getManagedInvestors(), getManagedDebtors());
+		mainView.setTableData(getInvestors(), getDebtors(), getUnmanagedInvestors(), getUnmanagedDebtors(), getManagedInvestors(), getManagedDebtors(), getUnpaidInvestors(), getUnpaidDebtors());
 		
 		mainView.setViewListener(new MainViewListener() {
 			
@@ -90,6 +90,18 @@ public class Controller {
 			}
 
 			public void fulfillDebtorRequest(int id) {
+				
+			}
+
+			@Override
+			public void paidInvestorRequest(int id) {
+				paidInvestor(id);
+				
+			}
+
+			@Override
+			public void paidDebtorRequest(int id) {
+				paidDebtor(id);
 				
 			}
 
@@ -168,6 +180,11 @@ public class Controller {
 		return mainModel.getManagedInvestors();
 	}	
 	
+	public List<Investor> getUnpaidInvestors() {
+		
+		return mainModel.getUnpaidInvestors();
+	}
+	
 	public void unmanageInvestor(int id) {
 		
 		mainModel.unmanageInvestor(id);
@@ -176,6 +193,10 @@ public class Controller {
 	public void manageInvestor(int id) {
 		
 		mainModel.manageInvestor(id);
+	}
+	
+	public void paidInvestor(int id) {
+		mainModel.paidInvestor(id);
 	}
 	
 	public FormEvent getInvestor(int id) {
@@ -222,6 +243,10 @@ public class Controller {
 		return mainModel.getManagedDebtors();
 	}
 	
+	public List<Debtor> getUnpaidDebtors() {
+		return mainModel.getUnpaidDebtors();
+	}
+	
 	public void manageDebtor(int id) {
 		
 		mainModel.manageDebtor(id);
@@ -229,6 +254,10 @@ public class Controller {
 	
 	public void unmanageDebtor(int id) {
 		mainModel.unmanageDebtor(id);
+	}
+	
+	public void paidDebtor(int id) {
+		mainModel.paidDebtor(id);
 	}
 	
 	public FormEvent getDebtor(int id) {

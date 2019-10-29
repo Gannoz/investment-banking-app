@@ -23,5 +23,9 @@ public interface MainViewListener {
 	public void unmanageDebtorRequest(int id);
 	public void fulfillDebtorRequest(int id);
 	
+	// FEE
+	public void paidInvestorRequest(int id);
+	public void paidDebtorRequest(int id);
+	
 	
 }

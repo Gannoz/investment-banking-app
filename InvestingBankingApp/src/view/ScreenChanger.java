@@ -25,7 +25,7 @@ public class ScreenChanger extends JPanel implements ActionListener{
 		
 		dashboardBtn = new JButton("Dashboard");
 		manageBtn = new JButton("Manage");
-		investorBtn = new JButton("Investor");
+		investorBtn = new JButton("Investor");	
 		debtorBtn = new JButton("Debtor");
 		feeBtn = new JButton("Fee");
 		

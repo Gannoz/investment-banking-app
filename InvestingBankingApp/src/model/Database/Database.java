@@ -14,18 +14,23 @@ public class Database {
 	private List<Investor> investors;
 	private List<Investor> unmanagedInvestors;
 	private List<Investor> managedInvestors;
+	private List<Investor> unpaidInvestors;
+	
 	private List<Debtor> debtors;
 	private List<Debtor> unmanagedDebtors;
 	private List<Debtor> managedDebtors;
+	private List<Debtor> unpaidDebtors;
 	
 	public Database() {
 		
 		investors = new LinkedList<Investor>();
 		unmanagedInvestors = new LinkedList<Investor>();
 		managedInvestors = new LinkedList<Investor>();
+		unpaidInvestors = new LinkedList<Investor>();
 		debtors = new LinkedList<Debtor>();
 		unmanagedDebtors = new LinkedList<Debtor>();
 		managedDebtors = new LinkedList<Debtor>();
+		unpaidDebtors = new LinkedList<Debtor>();
 		
 	}
 	
@@ -43,7 +48,11 @@ public class Database {
 
 	public List<Investor> getManagedInvestors(){
 	
-	return Collections.unmodifiableList(managedInvestors);
+		return Collections.unmodifiableList(managedInvestors);
+	}
+	
+	public List<Investor> getUnpaidInvestors(){
+		return Collections.unmodifiableList(unpaidInvestors);
 	}
 	
 	public Investor getInvestor(int id) {
@@ -59,7 +68,6 @@ public class Database {
 	}
 	
 	
-	
 	public void addInvestor(Investor investor) {
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -68,6 +76,7 @@ public class Database {
 		
 		investors.add(investor);
 		unmanagedInvestors.add(investor);
+		unpaidInvestors.add(investor);
 	}
 	
 	public void editInvestor(int id, Investor newInvestor) {
@@ -105,6 +114,7 @@ public class Database {
 		
 		for(Investor investor: investors) {
 			if (investor.getId() == id) {
+				investor.setManaged(true);
 				investorManaged = investor;
 			}
 		}
@@ -119,12 +129,27 @@ public class Database {
 		
 		for(Investor investor: investors) {
 			if (investor.getId() == id) {
+				investor.setManaged(false);
 				investorUnmanaged = investor;
 			}
 		}
 		
 		unmanagedInvestors.add(investorUnmanaged);
 		managedInvestors.remove(investorUnmanaged);
+	}
+	
+	public void paidInvestor(int id) {
+		
+		Investor unpaidInvestor = null;
+		
+		for(Investor investor: investors) {
+			if (investor.getId() == id) {
+				investor.setPaid(true);
+				unpaidInvestor = investor;
+			}
+		}
+		
+		unpaidInvestors.remove(unpaidInvestor);
 	}
 	
 	public void removeInvestor(int id) {
@@ -164,7 +189,11 @@ public class Database {
 
 	public List<Debtor> getManagedDebtors(){
 		
-	return Collections.unmodifiableList(managedDebtors);
+		return Collections.unmodifiableList(managedDebtors);
+	}
+	
+	public List<Debtor> getUnpaidDebtors(){
+		return Collections.unmodifiableList(unpaidDebtors);
 	}
 	
 	public Debtor getDebtor(int id) {
@@ -186,6 +215,7 @@ public class Database {
 		
 		debtors.add(debtor);
 		unmanagedDebtors.add(debtor);
+		unpaidDebtors.add(debtor);
 	}
 	
 	public void editDebtor(int id, Debtor newDebtor) {
@@ -239,6 +269,19 @@ public class Database {
 		}
 		unmanagedDebtors.add(debtorUnmanaged);
 		managedDebtors.remove(debtorUnmanaged);
+	}
+	
+	public void paidDebtor(int id) {
+		
+		Debtor unpaidDebtor = null;
+		for(Debtor debtor: debtors) {
+			if (debtor.getId() == id) {
+				debtor.setPaid(true);
+				unpaidDebtor = debtor;
+			}
+		}
+		
+		unpaidDebtors.remove(unpaidDebtor);
 	}
 	
 	public void removeDebtor(int id) {

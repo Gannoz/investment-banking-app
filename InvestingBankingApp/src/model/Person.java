@@ -19,6 +19,7 @@ public class Person {
 	private String occupation;
 	private String nationality;
 	private boolean managed = false;
+	private boolean paid = false;
 	private String timeCreated;
 	
 	public Person(String nik, String name, Gender gender, String address, String rtrw, String village,
@@ -196,6 +197,14 @@ public class Person {
 
 	public void setTimeCreated(String timeCreated) {
 		this.timeCreated = timeCreated;
+	}
+
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
 	}
 	
 	

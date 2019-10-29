@@ -22,7 +22,6 @@ import view.DebtorTableListener;
 
 public class DebtorTablePanel extends JPanel {
 	
-	private JLabel minimumSize;
 	private JLabel listOfDebtorsLabel;
 	private JTable table;
 	private DebtorTableModel debtorTableModel;
@@ -32,7 +31,6 @@ public class DebtorTablePanel extends JPanel {
 
 	public DebtorTablePanel() {
 
-		minimumSize = new JLabel();
 		listOfDebtorsLabel = new JLabel("List Of Debtors");
 		debtorTableModel = new DebtorTableModel();
 		table = new JTable(debtorTableModel);
@@ -55,7 +53,6 @@ public class DebtorTablePanel extends JPanel {
 		setDesign();
 		layoutComponents();
 		
-		System.out.println(getPreferredSize());
 
 	}
 	
@@ -80,8 +77,6 @@ public class DebtorTablePanel extends JPanel {
 		setBackground(lightBlue);
 		
 		int size = 25;
-		
-		minimumSize.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		listOfDebtorsLabel.setFont(new Font("sanserif", Font.PLAIN, size));
 		listOfDebtorsLabel.setHorizontalAlignment(SwingConstants.CENTER);
