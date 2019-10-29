@@ -42,7 +42,7 @@ public class ManageDebtorRequestsTablePanel extends JPanel{
 		
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				try {
+				try {		
 					int row = table.rowAtPoint(e.getPoint());
 					int id = tableModel.getData().get(row).getId();
 					

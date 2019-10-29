@@ -5,4 +5,5 @@ public interface ScreenChangerListener {
 	public void managePressed();
 	public void investorPressed();
 	public void debtorPressed();
+	public void feePressed();
 }

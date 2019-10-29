@@ -194,6 +194,7 @@ public class ManageMain extends JPanel{
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
+		// Column 0
 		c.weightx = 0.2;
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
@@ -203,13 +204,13 @@ public class ManageMain extends JPanel{
 		c.gridheight=1;
 		
 		c.insets = new Insets(25,25,25,25);
-		
-		add(debtorRequestsTablePanel, c);
+		add(investorOffersTablePanel, c);
 		
 		c.gridy++;
 		c.insets = new Insets(0,25,25,25);
-		add(paymentsReceivableTablePanel, c);
+		add(paymentsPayableTablePanel, c);
 		
+		// Column 1
 		c.gridheight=1;
 		c.weightx = 0.6;
 		c.weighty = 0.5;
@@ -225,16 +226,17 @@ public class ManageMain extends JPanel{
 		c.insets = new Insets(0,0,25,25);
 		add(manageControlPanel, c);
 		
+		// Column 2
 		c.weightx = 0.2;
 		c.weighty = 1;
 		c.gridx++;
 		c.gridy = 0;
 		c.insets = new Insets(25,0,25,25);
-		add(investorOffersTablePanel, c);
+		add(debtorRequestsTablePanel, c);
 		
 		c.gridy++;
 		c.insets = new Insets(0,0,25,25);
-		add(paymentsPayableTablePanel, c);
+		add(paymentsReceivableTablePanel, c);
 		
 	}
 	

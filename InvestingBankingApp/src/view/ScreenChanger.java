@@ -16,6 +16,7 @@ public class ScreenChanger extends JPanel implements ActionListener{
 	private JButton manageBtn;
 	private JButton investorBtn;
 	private JButton debtorBtn;
+	private JButton feeBtn;
 	private Dimension buttonSize;
 	
 	private ScreenChangerListener screenChangerListener;
@@ -26,6 +27,7 @@ public class ScreenChanger extends JPanel implements ActionListener{
 		manageBtn = new JButton("Manage");
 		investorBtn = new JButton("Investor");
 		debtorBtn = new JButton("Debtor");
+		feeBtn = new JButton("Fee");
 		
 		buttonSize = new Dimension(0, 30);
 		
@@ -33,11 +35,13 @@ public class ScreenChanger extends JPanel implements ActionListener{
 		manageBtn.setPreferredSize(buttonSize);
 		investorBtn.setPreferredSize(buttonSize);
 		debtorBtn.setPreferredSize(buttonSize);
+		feeBtn.setPreferredSize(buttonSize);
 
 		dashboardBtn.addActionListener(this);
 		manageBtn.addActionListener(this);
 		investorBtn.addActionListener(this);
 		debtorBtn.addActionListener(this);
+		feeBtn.addActionListener(this);
 		
 		setDesign();
 		layoutComponents();
@@ -50,6 +54,7 @@ public class ScreenChanger extends JPanel implements ActionListener{
 		manageBtn.setBackground(lightBlue);
 		investorBtn.setBackground(lightBlue);
 		debtorBtn.setBackground(lightBlue);
+		feeBtn.setBackground(lightBlue);
 		
 //		dashboardBtn.setForeground(Color.white);
 //		investorBtn.setForeground(Color.white);
@@ -71,7 +76,7 @@ public class ScreenChanger extends JPanel implements ActionListener{
 		
 		gc.gridx = 0;
 		add(dashboardBtn, gc);
-		
+			
 		gc.gridx++;
 		add(manageBtn, gc);
 		
@@ -80,6 +85,9 @@ public class ScreenChanger extends JPanel implements ActionListener{
 		
 		gc.gridx++;
 		add(debtorBtn,gc);
+		
+		gc.gridx++;
+		add(feeBtn, gc);
 		
 	}
 	
@@ -98,6 +106,8 @@ public class ScreenChanger extends JPanel implements ActionListener{
 			screenChangerListener.investorPressed();
 		}else if (clicked == debtorBtn) {
 			screenChangerListener.debtorPressed();
+		}else if (clicked == feeBtn) {
+			screenChangerListener.feePressed();
 		}
 	}
 	

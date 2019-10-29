@@ -12,6 +12,7 @@ import model.Investor;
 import view.Dashboard.DashboardPanel;
 import view.Debtor.DebtorListener;
 import view.Debtor.DebtorPanel;
+import view.Fee.FeePanel;
 import view.Investor.InvestorListener;
 import view.Investor.InvestorPanel;
 import view.Manage.ManageListener;
@@ -26,6 +27,7 @@ public class MainView extends JFrame{
 	private ManagePanel managePanel;
 	private InvestorPanel investorPanel;
 	private DebtorPanel debtorPanel;
+	private FeePanel feePanel;
 	
 	private MainViewListener viewListener;
 	
@@ -53,7 +55,8 @@ public class MainView extends JFrame{
 		managePanel = new ManagePanel();
 		investorPanel = new InvestorPanel();
 		debtorPanel = new DebtorPanel();
-		panelContainer = new PanelContainer(dashboardPanel, managePanel, investorPanel, debtorPanel);
+		feePanel = new FeePanel();
+		panelContainer = new PanelContainer(dashboardPanel, managePanel, investorPanel, debtorPanel, feePanel);
 		
 		// INVESTOR LISTENER
 		// Send investor form information to MainView
@@ -148,6 +151,8 @@ public class MainView extends JFrame{
 		add(screenChanger, BorderLayout.NORTH);
 		add(panelContainer, BorderLayout.CENTER);
 		
+		// Screen Changer
+		
 		screenChanger.setScreenChangerListener(new ScreenChangerListener() {
 
 			public void overviewPressed() {
@@ -176,6 +181,11 @@ public class MainView extends JFrame{
 				
 				panelContainer.displayDebtorPanel();
 				setSize(frameWidth,frameHeight);
+			}
+			
+			public void feePressed() {
+				panelContainer.displayFeePanel();
+				setSize(frameWidth, frameHeight);
 			}
 			
 		});

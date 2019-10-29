@@ -11,7 +11,7 @@ public class ManagePaymentsPayableTableModel extends AbstractTableModel{
 	
 	List<Investor> db = new LinkedList<Investor>();
 	
-	String [] colNames = {"Name", "Amount Borrowed", "Payments Payable"};
+	String [] colNames = {"Id", "Amount Borrowed", "Payments Payable"};
 	
 	public String getColumnName(int column) {
 		
@@ -43,11 +43,11 @@ public class ManagePaymentsPayableTableModel extends AbstractTableModel{
 		
 		switch(columnIndex) {
 		case 0:
-			return investor.getName();
+			return investor.getId();
 		case 1:
 			return investor.getAmountInvested();
 		case 2:
-			return investor.getNik();
+			return investor.getTimeCreated();
 		}
 		return null;
 	}

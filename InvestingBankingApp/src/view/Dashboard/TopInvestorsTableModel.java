@@ -11,7 +11,7 @@ public class TopInvestorsTableModel extends AbstractTableModel{
 
 	private List<Investor> db = new LinkedList<Investor>();
 	
-	String [] colNames = {"Name", "Amount Invested", "Share %"};
+	String [] colNames = {"Id", "Amount Invested", "Share %"};
 	
 	public String getColumnName(int column) {
 		return colNames[column];
@@ -36,7 +36,7 @@ public class TopInvestorsTableModel extends AbstractTableModel{
 		
 		switch (columnIndex) {
 			case 0:
-				return investor.getName();
+				return investor.getId();
 			case 1:
 				return investor.getAmountInvested();
 			case 2:

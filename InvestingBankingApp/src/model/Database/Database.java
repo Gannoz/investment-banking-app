@@ -1,5 +1,7 @@
 package model.Database;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,6 +61,10 @@ public class Database {
 	
 	
 	public void addInvestor(Investor investor) {
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		investor.setTimeCreated(LocalDateTime.now().format(dtf));
 		
 		investors.add(investor);
 		unmanagedInvestors.add(investor);
@@ -173,6 +179,10 @@ public class Database {
 	}
 	
 	public void addDebtor(Debtor debtor) {
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		debtor.setTimeCreated(LocalDateTime.now().format(dtf));
 		
 		debtors.add(debtor);
 		unmanagedDebtors.add(debtor);

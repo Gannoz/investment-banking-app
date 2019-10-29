@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDateTime;
+
 import view.FormEvent;
 
 public class Person {
@@ -17,6 +19,7 @@ public class Person {
 	private String occupation;
 	private String nationality;
 	private boolean managed = false;
+	private String timeCreated;
 	
 	public Person(String nik, String name, Gender gender, String address, String rtrw, String village,
 			String district, String religion, String marriageStatus, String occupation, String nationality) {
@@ -185,6 +188,14 @@ public class Person {
 
 	public void setManaged(boolean managed) {
 		this.managed = managed;
+	}
+
+	public String getTimeCreated() {
+		return timeCreated;
+	}
+
+	public void setTimeCreated(String timeCreated) {
+		this.timeCreated = timeCreated;
 	}
 	
 	

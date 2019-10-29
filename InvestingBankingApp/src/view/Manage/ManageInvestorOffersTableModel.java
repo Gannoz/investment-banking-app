@@ -12,7 +12,7 @@ public class ManageInvestorOffersTableModel extends AbstractTableModel{
 	
 	List<Investor> db = new LinkedList<Investor>();
 	
-	String [] colNames = {"Name", "Amount Offered", "Offer Date"};
+	String [] colNames = {"Id", "Amount Offered", "Offer Date"};
 	
 	public String getColumnName(int column) {
 		
@@ -44,11 +44,11 @@ public class ManageInvestorOffersTableModel extends AbstractTableModel{
 		
 		switch(columnIndex) {
 		case 0:
-			return investor.getName();
+			return investor.getId();
 		case 1:
 			return investor.getAmountInvested();
 		case 2:
-			return investor.getNik();
+			return investor.getTimeCreated();
 		}
 		return null;
 	}

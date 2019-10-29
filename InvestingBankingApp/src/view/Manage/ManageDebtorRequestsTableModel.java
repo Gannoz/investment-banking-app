@@ -11,7 +11,7 @@ public class ManageDebtorRequestsTableModel extends AbstractTableModel{
 	
 	List<Debtor> db = new LinkedList<Debtor>();
 	
-	String [] colNames = {"Name", "Amount Requested", "Request Date"};
+	String [] colNames = {"Id", "Amount Requested", "Request Date"};
 	
 	public String getColumnName(int column) {
 		
@@ -43,11 +43,11 @@ public class ManageDebtorRequestsTableModel extends AbstractTableModel{
 		
 		switch(columnIndex) {
 		case 0:
-			return debtor.getName();
+			return debtor.getId();
 		case 1:
 			return debtor.getAmountBorrowed();
 		case 2:
-			return debtor.getNik();
+			return debtor.getTimeCreated();
 		}
 		return null;
 	}

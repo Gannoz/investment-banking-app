@@ -12,7 +12,7 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 	
 	private List<Debtor> db = new LinkedList<Debtor>();
 	
-	String[] colNames = {"Name", "Amount Borrowed", "Monthly Expense"};
+	String[] colNames = {"Id", "Amount Borrowed", "Monthly Expense"};
 	
 	public String getColumnName(int column) {
 		
@@ -40,7 +40,7 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 		
 		switch(columnIndex) {
 		case 0:
-			return debtor.getName();
+			return debtor.getId();
 		case 1:
 			return debtor.getAmountBorrowed();
 		case 2:
