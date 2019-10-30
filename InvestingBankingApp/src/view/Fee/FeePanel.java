@@ -8,55 +8,54 @@ import javax.swing.JPanel;
 import model.Debtor;
 import model.Investor;
 
-public class FeePanel extends JPanel{
+public class FeePanel extends JPanel {
 
 	private FeeHeader feeHeader;
 	private FeeMain feeMain;
-	
+
 	private FeeListener listener;
-	
+
 	public FeePanel() {
-		
+
 		feeHeader = new FeeHeader();
 		feeMain = new FeeMain();
-		
+
 		feeMain.setFeeListener(new FeeListener() {
 
 			@Override
 			public void sendInvestorId(int id) {
-				
+
 				listener.sendInvestorId(id);
-				
+
 			}
 
 			@Override
 			public void sendDebtorId(int id) {
-				
+
 				listener.sendDebtorId(id);
 			}
-			
+
 		});
-		
-		
+
 		layoutComponents();
 	}
-	
+
 	public void setFeeLisener(FeeListener listener) {
 		this.listener = listener;
 	}
-	
+
 	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
 		feeMain.setTableData(investors, debtors);
 	}
-	
+
 	public void refreshTables() {
 		feeMain.refreshTables();
 	}
-	
+
 	private void layoutComponents() {
-		
+
 		setLayout(new BorderLayout());
-		
+
 		add(feeHeader, BorderLayout.NORTH);
 		add(feeMain, BorderLayout.CENTER);
 	}

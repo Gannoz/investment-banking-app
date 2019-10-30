@@ -7,20 +7,20 @@ import javax.swing.table.AbstractTableModel;
 
 import model.Investor;
 
-public class TopInvestorsTableModel extends AbstractTableModel{
+public class TopInvestorsTableModel extends AbstractTableModel {
 
 	private List<Investor> db = new LinkedList<Investor>();
-	
-	String [] colNames = {"Id", "Amount Invested", "Share %"};
-	
+
+	String[] colNames = { "Id", "Amount Invested", "Share %" };
+
 	public String getColumnName(int column) {
 		return colNames[column];
 	}
-	
+
 	public void setData(List<Investor> db) {
 		this.db = db;
 	}
-	
+
 	public int getRowCount() {
 		return db.size();
 	}
@@ -33,28 +33,28 @@ public class TopInvestorsTableModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Investor investor = db.get(rowIndex);
-		
+
 		switch (columnIndex) {
-			case 0:
-				return investor.getId();
-			case 1:
-				return investor.getAmountInvested();
-			case 2:
-				return investor.getNik();
+		case 0:
+			return investor.getId();
+		case 1:
+			return investor.getAmountInvested();
+		case 2:
+			return investor.getNik();
 		}
 		return null;
-		
+
 	}
-	
-	private List<Investor> sortData(List<Investor> list){
+
+	private List<Investor> sortData(List<Investor> list) {
 		int max;
-		
+
 		List<Investor> topInvestorsList = new LinkedList<Investor>();
-		
-		for(int i = 0; i < list.size(); i++) {
+
+		for (int i = 0; i < list.size(); i++) {
 			Investor topInvestor = null;
 			max = 0;
-			for(Investor investor : list) {
+			for (Investor investor : list) {
 				if (investor.getAmountInvested() > max) {
 					max = investor.getAmountInvested();
 					topInvestor = investor;
@@ -62,9 +62,9 @@ public class TopInvestorsTableModel extends AbstractTableModel{
 			}
 			topInvestorsList.add(topInvestor);
 		}
-		
+
 		return topInvestorsList;
-		
+
 	}
 
 }

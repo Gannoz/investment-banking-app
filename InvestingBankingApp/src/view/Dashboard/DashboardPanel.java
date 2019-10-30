@@ -22,18 +22,17 @@ public class DashboardPanel extends JPanel {
 
 		add(dashboardHeader, BorderLayout.NORTH);
 		add(dashboardMain, BorderLayout.CENTER);
-		
-		
+
 	}
-	
-	public void setData(long totalInvestments, long totalInvested) {
-		dashboardMain.setData(totalInvestments, totalInvested);
+
+	public void setData(long totalInvestments, long totalInvested, long totalEarnings) {
+		dashboardMain.setData(totalInvestments, totalInvested, totalEarnings);
 	}
-	
+
 	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
 		dashboardMain.setTableData(investors, debtors);
 	}
-	
+
 	public void refreshTables() {
 		dashboardMain.refreshTables();
 	}

@@ -12,62 +12,74 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class ManageInfoPanel extends JPanel{
-	
+public class ManageInfoPanel extends JPanel {
+
 	private JLabel investorEquityLabel;
 	private JLabel investorEquityContainer;
-	
+
 	private JLabel earningsLabel;
 	private JLabel earningsContainer;
-	
+
 	private JLabel fundsAvailableLabel;
 	private JLabel fundsAvailableContainer;
-	
+
 	private JButton investButton;
 	private JButton withdrawButton;
-	
+
+	private long investorEquity;
+	private long earnings;
+	private long fundsAvailable;
+
 	public ManageInfoPanel() {
 		investorEquityLabel = new JLabel("Investor Equity");
 		investorEquityContainer = new JLabel();
-		
+
 		earningsLabel = new JLabel("Earnings");
 		earningsContainer = new JLabel();
-		
+
 		fundsAvailableLabel = new JLabel("Funds Available");
 		fundsAvailableContainer = new JLabel();
-		
+
 		setDesign();
 		update();
 		layoutComponents();
-		
+
 	}
-	
-	private String numberToCommaString(int number) {
+
+	public void setData(long investorEquity, long earnings) {
+
+		this.investorEquity = investorEquity;
+		this.earnings = earnings;
+		this.fundsAvailable = investorEquity + earnings;
+
+		update();
+	}
+
+	private String numberToCommaString(long number) {
 		return NumberFormat.getNumberInstance(Locale.US).format(number);
 	}
-	
+
 	private void update() {
-		investorEquityContainer.setText(numberToCommaString(6000000));
-		earningsContainer.setText(numberToCommaString(3000000));
-		fundsAvailableContainer.setText(numberToCommaString(9000000));
+		investorEquityContainer.setText(numberToCommaString(investorEquity));
+		earningsContainer.setText(numberToCommaString(earnings));
+		fundsAvailableContainer.setText(numberToCommaString(fundsAvailable));
 	}
-	
+
 	private void setDesign() {
-		Color lightBlue = new Color(204,247,255);
-		
+		Color lightBlue = new Color(204, 247, 255);
+
 		setBackground(lightBlue);
-		
+
 		int size = 25;
 		investorEquityLabel.setFont(new Font("montserrat", Font.PLAIN, size));
 		earningsLabel.setFont(new Font("montserrat", Font.PLAIN, size));
 		fundsAvailableLabel.setFont(new Font("montserrat", Font.PLAIN, size));
-		
+
 		size = 30;
 		investorEquityContainer.setFont(new Font("montserrat", Font.BOLD, size));
 		earningsContainer.setFont(new Font("montserrat", Font.BOLD, size));
 		fundsAvailableContainer.setFont(new Font("montserrat", Font.BOLD, size));
-		
-		
+
 		investorEquityLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		investorEquityContainer.setHorizontalAlignment(SwingConstants.CENTER);
 		earningsLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -75,37 +87,37 @@ public class ManageInfoPanel extends JPanel{
 		fundsAvailableLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		fundsAvailableContainer.setHorizontalAlignment(SwingConstants.CENTER);
 	}
-	
-	private void layoutComponents(){
+
+	private void layoutComponents() {
 		setLayout(new GridBagLayout());
-		
+
 		GridBagConstraints c = new GridBagConstraints();
-		
+
 		c.fill = GridBagConstraints.BOTH;
-		
+
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridy = 0;
 		c.gridx = 0;
 		c.anchor = GridBagConstraints.CENTER;
 		add(investorEquityLabel, c);
-		
+
 		c.gridx++;
 		add(investorEquityContainer, c);
-		
+
 		c.gridx = 0;
 		c.gridy++;
 		add(earningsLabel, c);
-		
+
 		c.gridx++;
 		add(earningsContainer, c);
-		
+
 		c.gridx = 0;
 		c.gridy++;
 		add(fundsAvailableLabel, c);
-		
+
 		c.gridx++;
 		add(fundsAvailableContainer, c);
-		
+
 	}
 }

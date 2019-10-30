@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import view.FormEvent;
 
 public class Person {
-	
+
 	protected int id;
 	private String nik;
 	private String name;
@@ -21,10 +21,10 @@ public class Person {
 	private boolean managed = false;
 	private boolean paid = false;
 	private String timeCreated;
-	
-	public Person(String nik, String name, Gender gender, String address, String rtrw, String village,
-			String district, String religion, String marriageStatus, String occupation, String nationality) {
-		
+
+	public Person(String nik, String name, Gender gender, String address, String rtrw, String village, String district,
+			String religion, String marriageStatus, String occupation, String nationality) {
+
 		this.nik = nik;
 		this.name = name;
 		this.gender = gender;
@@ -36,22 +36,20 @@ public class Person {
 		this.marriageStatus = marriageStatus;
 		this.occupation = occupation;
 		this.nationality = nationality;
-		
 
 	}
-	
+
 	public Person(int id, String nik, String name, Gender gender, String address, String rtrw, String village,
 			String district, String religion, String marriageStatus, String occupation, String nationality) {
-		
-		this(nik, name, gender, address, rtrw, village, district, religion,
-				marriageStatus, occupation, nationality);
-		
+
+		this(nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);
+
 		this.id = id;
 
 	}
-	
+
 	public Person(FormEvent e) {
-		
+
 		this.nik = e.getNik();
 		this.name = e.getName();
 		String genderCat = e.getGender();
@@ -63,16 +61,16 @@ public class Person {
 		this.marriageStatus = e.getMarriageStatus();
 		this.occupation = e.getOccupation();
 		this.nationality = e.getNationality();
-		
+
 		Gender gender = null;
-		
+
 		if (genderCat.equalsIgnoreCase("male")) {
 			this.gender = Gender.male;
-		}else if (genderCat.equalsIgnoreCase("female")) {
+		} else if (genderCat.equalsIgnoreCase("female")) {
 			this.gender = Gender.female;
 		}
 	}
-	
+
 	public Person(Person p) {
 		this.nik = p.getNik();
 		this.name = p.getName();
@@ -206,7 +204,5 @@ public class Person {
 	public void setPaid(boolean paid) {
 		this.paid = paid;
 	}
-	
-	
-	
+
 }

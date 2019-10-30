@@ -23,7 +23,7 @@ import view.FormListener;
 public class InvestorForm extends JPanel {
 
 	private FormListener formListener;
-	
+
 	private JLabel addInvestorLabel;
 	private JLabel NIKLabel;
 	private JLabel nameLabel;
@@ -63,7 +63,7 @@ public class InvestorForm extends JPanel {
 	private JTextField occupationField;
 	private JTextField nationalityField;
 	private JTextField amountInvestedField;
-	
+
 	private JRadioButton maleRadio;
 	private JRadioButton femaleRadio;
 	private ButtonGroup genderGroup;
@@ -104,7 +104,7 @@ public class InvestorForm extends JPanel {
 		colon10 = new JLabel(":");
 		colon11 = new JLabel(":");
 		colon12 = new JLabel(":");
-		
+
 		int width = 17;
 
 		NIKField = new JTextField(width);
@@ -119,39 +119,39 @@ public class InvestorForm extends JPanel {
 		occupationField = new JTextField(width);
 		nationalityField = new JTextField(width);
 		amountInvestedField = new JTextField(width);
-		
+
 		maleRadio = new JRadioButton("Male");
 		femaleRadio = new JRadioButton("Female");
-		
+
 		maleRadio.setActionCommand("male");
 		femaleRadio.setActionCommand("female");
-		
+
 		genderGroup = new ButtonGroup();
 		maleRadio.setSelected(true);
 		genderGroup.add(maleRadio);
 		genderGroup.add(femaleRadio);
-		
+
 		addBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
+
 				formListener.formAddRequest(getForm());
-				
+
 			}
 
 		});
-		
+
 		editBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				formListener.formEditRequest(getForm());
 			}
 		});
-		
+
 		removeBtn.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				
+
 				formListener.formRemoveRequest();
 			}
 		});
@@ -160,15 +160,15 @@ public class InvestorForm extends JPanel {
 		layoutComponents();
 
 	}
-	
+
 	public void resetForm() {
-		
+
 		NIKField.setText("");
 		nameField.setText("");
-		
+
 		maleRadio.setSelected(true);
 		femaleRadio.setSelected(false);
-		
+
 		addressField.setText("");
 		rtrwField.setText("");
 		villageField.setText("");
@@ -179,24 +179,24 @@ public class InvestorForm extends JPanel {
 		nationalityField.setText("");
 		amountInvestedField.setText("");
 	}
-	
+
 	public void setFormData(FormEvent e) {
-		
+
 		NIKField.setText(e.getNik());
 		nameField.setText(e.getName());
-		
+
 		genderField.setText(e.getGender());
-		
+
 		if (e.getGender().equalsIgnoreCase("male")) {
-			
+
 			maleRadio.setSelected(true);
 			femaleRadio.setSelected(false);
-		}else if (e.getGender().equalsIgnoreCase("female")) {
-			
+		} else if (e.getGender().equalsIgnoreCase("female")) {
+
 			maleRadio.setSelected(false);
 			femaleRadio.setSelected(true);
 		}
-			
+
 		addressField.setText(e.getAddress());
 		rtrwField.setText(e.getRtrw());
 		villageField.setText(e.getVillage());
@@ -206,16 +206,16 @@ public class InvestorForm extends JPanel {
 		occupationField.setText(e.getOccupation());
 		nationalityField.setText(e.getNationality());
 		amountInvestedField.setText(String.valueOf(e.getAmount()));
-	
+
 	}
 
 	public void setFormListener(FormListener listener) {
-		
+
 		formListener = listener;
 	}
 
 	private void setDesign() {
-		
+
 		Color lightBlue = new Color(204, 247, 255);
 
 		setBackground(lightBlue);
@@ -228,9 +228,9 @@ public class InvestorForm extends JPanel {
 		addInvestorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 	}
-	
+
 	private FormEvent getForm() {
-		
+
 		String nik = NIKField.getText();
 		String name = nameField.getText();
 		String gender = genderGroup.getSelection().getActionCommand();
@@ -242,17 +242,17 @@ public class InvestorForm extends JPanel {
 		String marriageStatus = marriageStatusField.getText();
 		String occupation = occupationField.getText();
 		String nationality = nationalityField.getText();
-		
+
 		int amountInvested = 0;
 		try {
 			amountInvested = Integer.parseInt(amountInvestedField.getText());
-		}catch(NumberFormatException numFormatErr) {
+		} catch (NumberFormatException numFormatErr) {
 			amountInvested = 0;
 		}
 
 		FormEvent ev = new FormEvent(this, nik, name, gender, address, rtrw, village, district, religion,
 				marriageStatus, occupation, nationality, amountInvested);
-		
+
 		return ev;
 	}
 
@@ -325,7 +325,7 @@ public class InvestorForm extends JPanel {
 //		c.insets = new Insets(0,0,35,0);
 		c.gridy++;
 		add(nationalityLabel, c);
-		
+
 		c.gridy++;
 		add(amountInvestedLabel, c);
 
@@ -369,7 +369,7 @@ public class InvestorForm extends JPanel {
 //		c.insets = new Insets(0,0,35,0);
 		c.gridy++;
 		add(colon11, c);
-		
+
 		c.gridy++;
 		add(colon12, c);
 
@@ -386,10 +386,10 @@ public class InvestorForm extends JPanel {
 
 		c.gridy++;
 		add(nameField, c);
-		
+
 		c.gridy++;
 		add(maleRadio, c);
-		
+
 		c.gridy++;
 		add(femaleRadio, c);
 
@@ -417,12 +417,12 @@ public class InvestorForm extends JPanel {
 //		c.insets = new Insets(0,0,35,0);
 		c.gridy++;
 		add(nationalityField, c);
-		
+
 		c.gridy++;
 		add(amountInvestedField, c);
 
 		// Button
-		
+
 		c.weightx = 1;
 
 		c.gridx = 0;
@@ -431,43 +431,43 @@ public class InvestorForm extends JPanel {
 		c.gridwidth = 3;
 		c.anchor = GridBagConstraints.CENTER;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.insets = new Insets(0,35,10,35);
-		
+		c.insets = new Insets(0, 35, 10, 35);
+
 		ButtonPanel bp = new ButtonPanel();
 		add(bp, c);
 
 	}
-	
-	private class ButtonPanel extends JPanel{
+
+	private class ButtonPanel extends JPanel {
 		public ButtonPanel() {
 			setLayout(new GridBagLayout());
-			Color lightBlue = new Color(204,247,255);
+			Color lightBlue = new Color(204, 247, 255);
 			setBackground(lightBlue);
-			
-			Dimension size = new Dimension(80,28);
-			
+
+			Dimension size = new Dimension(80, 28);
+
 			addBtn.setPreferredSize(size);
 			editBtn.setPreferredSize(size);
 			removeBtn.setPreferredSize(size);
-			
+
 			GridBagConstraints c = new GridBagConstraints();
-			
+
 			c.weightx = 1;
 			c.weighty = 1;
 			c.anchor = GridBagConstraints.CENTER;
 			c.fill = GridBagConstraints.NONE;
-			
+
 			c.gridx = 0;
 			c.gridy = 0;
 			add(addBtn, c);
-			
+
 			c.gridx++;
 			add(editBtn, c);
-			
+
 			c.gridx++;
 			add(removeBtn, c);
 		}
-		
+
 	}
 
 }

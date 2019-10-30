@@ -8,41 +8,41 @@ import javax.swing.table.AbstractTableModel;
 import model.Debtor;
 import model.Investor;
 
-public class ManageInvestorOffersTableModel extends AbstractTableModel{
-	
+public class ManageInvestorOffersTableModel extends AbstractTableModel {
+
 	List<Investor> db = new LinkedList<Investor>();
-	
-	String [] colNames = {"Id", "Amount Offered", "Offer Date"};
-	
+
+	String[] colNames = { "Id", "Amount Offered", "Offer Date" };
+
 	public String getColumnName(int column) {
-		
+
 		return colNames[column];
 	}
-	
+
 	public void setData(List<Investor> db) {
-		
+
 		this.db = db;
 	}
-	
-	public List<Investor> getData(){
+
+	public List<Investor> getData() {
 		return db;
 	}
-	
+
 	public int getRowCount() {
-		
+
 		return db.size();
 	}
 
 	public int getColumnCount() {
-		
+
 		return 3;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		
+
 		Investor investor = db.get(rowIndex);
-		
-		switch(columnIndex) {
+
+		switch (columnIndex) {
 		case 0:
 			return investor.getId();
 		case 1:
@@ -52,6 +52,5 @@ public class ManageInvestorOffersTableModel extends AbstractTableModel{
 		}
 		return null;
 	}
-	
-	
+
 }

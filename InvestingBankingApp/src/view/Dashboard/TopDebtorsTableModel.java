@@ -8,37 +8,37 @@ import javax.swing.table.AbstractTableModel;
 import model.Debtor;
 import model.Debtor;
 
-public class TopDebtorsTableModel extends AbstractTableModel{
-	
+public class TopDebtorsTableModel extends AbstractTableModel {
+
 	private List<Debtor> db = new LinkedList<Debtor>();
-	
-	String[] colNames = {"Id", "Amount Borrowed", "Monthly Expense"};
-	
+
+	String[] colNames = { "Id", "Amount Borrowed", "Monthly Expense" };
+
 	public String getColumnName(int column) {
-		
+
 		return colNames[column];
 	}
-	
+
 	public void setData(List<Debtor> db) {
-		
+
 		this.db = db;
 	}
-	
+
 	public int getRowCount() {
-		
+
 		return db.size();
 	}
-	
+
 	public int getColumnCount() {
-		
+
 		return 3;
 	}
-	
+
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		
+
 		Debtor debtor = db.get(rowIndex);
-		
-		switch(columnIndex) {
+
+		switch (columnIndex) {
 		case 0:
 			return debtor.getId();
 		case 1:
@@ -48,17 +48,17 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 		}
 		return null;
 	}
-	
-	private List<Debtor> sortData(List<Debtor> list){
-		
+
+	private List<Debtor> sortData(List<Debtor> list) {
+
 		int max;
-		
+
 		List<Debtor> topDebtorsList = new LinkedList<Debtor>();
-		
-		for(int i = 0; i < list.size(); i++) {
+
+		for (int i = 0; i < list.size(); i++) {
 			Debtor topDebtor = null;
 			max = 0;
-			for(Debtor debtor : list) {
+			for (Debtor debtor : list) {
 				if (debtor.getAmountBorrowed() > max) {
 					max = debtor.getAmountBorrowed();
 					topDebtor = debtor;
@@ -66,9 +66,9 @@ public class TopDebtorsTableModel extends AbstractTableModel{
 			}
 			topDebtorsList.add(topDebtor);
 		}
-		
+
 		return topDebtorsList;
-		
+
 	}
 
 }

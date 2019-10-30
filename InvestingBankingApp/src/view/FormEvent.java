@@ -15,7 +15,7 @@ public class FormEvent extends EventObject {
 	private String marriageStatus;
 	private String occupation;
 	private String nationality;
-	
+
 	private int amount;
 
 	public FormEvent(Object source) {
@@ -44,10 +44,11 @@ public class FormEvent extends EventObject {
 	public FormEvent(Object source, String nik, String name, String gender, String address, String rtrw, String village,
 			String district, String religion, String marriageStatus, String occupation, String nationality,
 			int amount) {
-		
-		this(source, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);
+
+		this(source, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation,
+				nationality);
 		this.amount = amount;
-		
+
 	}
 
 	public String getNik() {
@@ -137,7 +138,7 @@ public class FormEvent extends EventObject {
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-	
+
 	public int getAmount() {
 		return amount;
 	}

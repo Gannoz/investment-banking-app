@@ -7,22 +7,21 @@ import javax.swing.table.AbstractTableModel;
 
 import model.Investor;
 
-public class InvestorTableModel extends AbstractTableModel{
-	
+public class InvestorTableModel extends AbstractTableModel {
+
 	private List<Investor> db = new LinkedList<Investor>();
-	
-	String[] columnNames = {"ID", "NIK", "Name", "Gender", "Address", "Religion", "Marriage Status", "Occupation",
-	"Nationality", "Amount Invested"};
-	
-	
+
+	String[] columnNames = { "ID", "NIK", "Name", "Gender", "Address", "Religion", "Marriage Status", "Occupation",
+			"Nationality", "Amount Invested" };
+
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
-	
+
 	public void setData(List<Investor> db) {
 		this.db = db;
 	}
-	
+
 	public int getRowCount() {
 		return db.size();
 	}
@@ -33,7 +32,7 @@ public class InvestorTableModel extends AbstractTableModel{
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Investor investor = db.get(rowIndex);
-		
+
 		switch (columnIndex) {
 		case 0:
 			return investor.getId();
