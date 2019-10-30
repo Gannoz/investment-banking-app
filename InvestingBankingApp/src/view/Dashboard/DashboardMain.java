@@ -39,7 +39,6 @@ public class DashboardMain extends JPanel{
 	
 	public void setData(long totalInvestments, long totalInvested) {
 		investmentSummary.setData(totalInvestments, totalInvested);
-		System.out.println("works?");
 	}
 	
 	public void setTableData(List<Investor> investors, List<Debtor> debtors) {

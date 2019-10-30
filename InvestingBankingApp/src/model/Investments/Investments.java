@@ -4,11 +4,6 @@ public class Investments {
 	
 	private long totalInvestments;
 	private long totalInvested;
-
-	public Investments(){
-		
-		
-	}
 	
 	public void addTotalInvestment(long investment) {
 		totalInvestments += investment;

@@ -38,8 +38,6 @@ public class MainModel{
 	public void manageInvestor(int id) {
 		db.manageInvestor(id);
 		investments.addTotalInvestment(db.getInvestor(id).getAmountInvested());
-		System.out.println("update dashboard");
-		System.out.println(investments.getTotalInvestments());
 	}
 	
 	public void unmanageInvestor(int id) {
@@ -86,6 +84,7 @@ public class MainModel{
 	
 	public void manageDebtor(int id) {
 		db.manageDebtor(id);
+		investments.addTotalInvested(db.getDebtor(id).getAmountBorrowed());
 	}
 	
 	public void unmanageDebtor(int id) {

@@ -48,7 +48,6 @@ public class Controller {
 			public void manageInvestorRequest(int id) {
 				manageInvestor(id);
 				mainView.setData(getTotalInvestments(), getTotalInvested());
-				System.out.println("Updated dashboard with " + getTotalInvestments() + " and " + getTotalInvested());
 			}
 
 			@Override
@@ -81,7 +80,7 @@ public class Controller {
 
 			public void manageDebtorRequest(int id) {
 				manageDebtor(id);
-				
+				mainView.setData(getTotalInvestments(), getTotalInvested());
 			}
 
 			public void unmanageDebtorRequest(int id) {
