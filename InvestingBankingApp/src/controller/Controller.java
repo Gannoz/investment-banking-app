@@ -22,7 +22,7 @@ public class Controller {
 		mainView = new MainView();
 		mainModel = new MainModel();
 		
-		// Initialize model-> view connection ======================================
+		// Set MainView Listener  ======================================
 		
 		mainView.setTableData(getInvestors(), getDebtors(), getUnmanagedInvestors(), getUnmanagedDebtors(), getManagedInvestors(), getManagedDebtors(), getUnpaidInvestors(), getUnpaidDebtors());
 		
@@ -46,13 +46,13 @@ public class Controller {
 			
 			@Override
 			public void manageInvestorRequest(int id) {
-				
 				manageInvestor(id);
+				mainView.setData(getTotalInvestments(), getTotalInvested());
+				System.out.println("Updated dashboard with " + getTotalInvestments() + " and " + getTotalInvested());
 			}
 
 			@Override
 			public void unmanageInvestorRequest(int id) {
-				// TODO Auto-generated method stub
 				
 				unmanageInvestor(id);
 			}
@@ -109,6 +109,8 @@ public class Controller {
 			
 		});
 		
+		
+		
 	}
 	
 	// Model-View Methods ======================================
@@ -161,7 +163,17 @@ public class Controller {
 		return person;
 	}
 	
-	// Initialize view -> model connection ======================================
+	// Initialize view - model connection ======================================
+	
+	// DASHBOARD ======================================
+	
+	public long getTotalInvestments() {
+		return mainModel.getTotalInvestments();
+	}
+	
+	public long getTotalInvested() {
+		return mainModel.getTotalInvested();
+	}
 	
 	// INVESTOR ======================================
 	

@@ -3,18 +3,19 @@ package model;
 import java.util.List;
 
 import model.Database.Database;
+import model.Investments.Investments;
 
 public class MainModel{
 
 	private Database db;
+	private Investments investments;
 	
 	public MainModel() {
 		
 		db = new Database();
-		
+		investments = new Investments();
 	}
 	
-	// DATABASE ======================================================
 	
 	// INVESTOR
 	
@@ -36,6 +37,9 @@ public class MainModel{
 	
 	public void manageInvestor(int id) {
 		db.manageInvestor(id);
+		investments.addTotalInvestment(db.getInvestor(id).getAmountInvested());
+		System.out.println("update dashboard");
+		System.out.println(investments.getTotalInvestments());
 	}
 	
 	public void unmanageInvestor(int id) {
@@ -110,6 +114,15 @@ public class MainModel{
 	
 	public void removeDebtor(int id) {
 		db.removeDebtor(id);
+	}
+	
+	
+	public long getTotalInvestments() {
+		return investments.getTotalInvestments();
+	}
+	
+	public long getTotalInvested() {
+		return investments.getTotalInvested();
 	}
 	
 }

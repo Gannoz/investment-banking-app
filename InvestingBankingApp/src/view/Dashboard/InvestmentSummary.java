@@ -24,9 +24,9 @@ public class InvestmentSummary extends JPanel{
 	private JLabel totalInvestmentsContainer;
 	private JLabel totalInvestedContainer;
 	private JLabel fundsAvailableContainer;
-	private int totalInvestments = 50000000;
-	private int totalInvested = 44000000;
-	private int fundsAvailable = 9000000;
+	private long totalInvestments;
+	private long totalInvested;
+	private long fundsAvailable;
 	
 	private JButton test;
 	
@@ -56,7 +56,19 @@ public class InvestmentSummary extends JPanel{
 		
 	}
 	
-	private String numberToCommaString(int number) {
+	
+	public void setData(long totalInvestments, long totalInvested) {
+		
+		this.totalInvestments = totalInvestments;
+		this.totalInvested = totalInvested;
+		this.fundsAvailable = totalInvestments - totalInvested;
+		
+		update();
+	}
+
+
+
+	private String numberToCommaString(long number) {
 		return NumberFormat.getNumberInstance(Locale.US).format(number);
 	}
 	

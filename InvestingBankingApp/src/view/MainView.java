@@ -216,6 +216,10 @@ public class MainView extends JFrame{
 		viewListener = listener;
 	}
 	
+	public void setData(long totalInvestments, long totalInvested) {
+		dashboardPanel.setData(totalInvestments, totalInvested);
+	}
+	
 	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors, List<Investor> managedInvestors, List<Debtor> managedDebtors, List<Investor> unpaidInvestors, List<Debtor> unpaidDebtors) {
 		
 		dashboardPanel.setTableData(investors, debtors);
