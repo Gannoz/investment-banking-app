@@ -116,6 +116,10 @@ public class Database {
 				investorManaged = investor;
 			}
 		}
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		investorManaged.setTimeManaged(LocalDateTime.now().format(dtf));
 
 		unmanagedInvestors.remove(investorManaged);
 		managedInvestors.add(investorManaged);
@@ -254,6 +258,11 @@ public class Database {
 				debtorManaged = debtor;
 			}
 		}
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		debtorManaged.setTimeManaged(LocalDateTime.now().format(dtf));
+		
 		unmanagedDebtors.remove(debtorManaged);
 		managedDebtors.add(debtorManaged);
 		unpaidDebtors.add(debtorManaged);

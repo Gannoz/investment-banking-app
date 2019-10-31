@@ -1,5 +1,7 @@
 package model.Earnings;
 
+import java.util.Calendar;
+
 public class Earnings {
 
 	private static long totalEarnings;
@@ -7,6 +9,13 @@ public class Earnings {
 	private static int currentMonth;
 	private static long monthEarnings;
 	private static long yearEarnings;
+	
+	public Earnings() {
+		
+		Calendar c = Calendar.getInstance();
+		currentYear = c.get(Calendar.YEAR);
+		currentMonth = c.get(Calendar.MONTH) + 1;
+	}
 
 	public long calcDebtorFeeAmount(long amount) {
 

@@ -1,7 +1,5 @@
 package model;
 
-import view.FormEvent;
-
 public class Debtor extends Person {
 
 	private static int count = 1;

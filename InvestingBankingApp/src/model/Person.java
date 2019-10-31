@@ -21,6 +21,7 @@ public class Person {
 	private boolean managed = false;
 	private boolean paid = false;
 	private String timeCreated;
+	private String timeManaged;
 
 	public Person(String nik, String name, Gender gender, String address, String rtrw, String village, String district,
 			String religion, String marriageStatus, String occupation, String nationality) {
@@ -205,4 +206,12 @@ public class Person {
 		this.paid = paid;
 	}
 
+	public String getTimeManaged() {
+		return timeManaged;
+	}
+
+	public void setTimeManaged(String timeManaged) {
+		this.timeManaged = timeManaged;
+	}
+	
 }
