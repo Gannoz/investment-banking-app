@@ -91,8 +91,8 @@ public class InvestorMain extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.CENTER;
 
-		c.weightx = 0.1;
-		c.weighty = 0.3;
+		c.weightx = 0.2;
+		c.weighty = 1;
 
 		// Investor Form
 
@@ -107,8 +107,8 @@ public class InvestorMain extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.PAGE_START;
 
-		c.weightx = 0.9;
-		c.weighty = 0.7;
+		c.weightx = 0.8;
+		c.weighty = 1;
 
 		c.gridy = 0;
 		c.gridx++;

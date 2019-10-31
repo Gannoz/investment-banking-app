@@ -92,7 +92,7 @@ public class DebtorTablePanel extends JPanel {
 
 		c.weightx = 1;
 		c.weighty = 0.1;
-		c.fill = GridBagConstraints.NONE;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_START;
 
 		c.gridx = 0;
@@ -106,7 +106,7 @@ public class DebtorTablePanel extends JPanel {
 
 		c.weightx = 1;
 		c.weighty = 0.9;
-
+		c.fill = GridBagConstraints.BOTH;
 		c.gridy++;
 		c.insets = new Insets(0, 25, 25, 25);
 		add(tableSP, c);

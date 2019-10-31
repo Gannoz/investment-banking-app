@@ -275,9 +275,9 @@ public class InvestorForm extends JPanel {
 
 		c.weighty = 0.9;
 
-		double labelWeightX = 0.05;
-		double columnWeightX = 0.05;
-		double fieldWeightX = 0.9;
+		double labelWeightX = 0.2;
+		double colonWeightX = 0.1;
+		double fieldWeightX = 0.7;
 
 		// Label Column
 
@@ -331,7 +331,7 @@ public class InvestorForm extends JPanel {
 
 		// Colon Column
 
-		c.weightx = columnWeightX;
+		c.weightx = colonWeightX;
 		c.gridx = 1;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;

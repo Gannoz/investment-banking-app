@@ -43,6 +43,7 @@ public class MainModel {
 	}
 
 	public void unmanageInvestor(int id) {
+		investments.subtractTotalInvestment(db.getInvestor(id).getAmountInvested());
 		db.unmanageInvestor(id);
 	}
 
@@ -90,6 +91,7 @@ public class MainModel {
 	}
 
 	public void unmanageDebtor(int id) {
+		investments.subtractTotalInvested(db.getDebtor(id).getAmountBorrowed());
 		db.unmanageDebtor(id);
 	}
 

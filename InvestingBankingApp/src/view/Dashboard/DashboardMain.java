@@ -66,7 +66,7 @@ public class DashboardMain extends JPanel {
 		gc.weightx = 1;
 		gc.weighty = 1;
 		gc.anchor = GridBagConstraints.CENTER;
-		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.fill = GridBagConstraints.BOTH;
 
 		gc.insets = new Insets(25, 25, 25, 25);
 		gc.gridx = 0;
@@ -86,8 +86,8 @@ public class DashboardMain extends JPanel {
 		gc.gridy++;
 
 		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.weightx = 0.1;
-		gc.weighty = 0.1;
+		gc.weightx = 1;
+		gc.weighty = 1;
 		gc.gridx = 0;
 		gc.insets = new Insets(0, 25, 25, 25);
 		add(earningsSummary, gc);

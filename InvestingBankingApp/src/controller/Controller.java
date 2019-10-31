@@ -59,6 +59,7 @@ public class Controller {
 			public void unmanageInvestorRequest(int id) {
 
 				unmanageInvestor(id);
+				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
 			}
 
 			@Override
@@ -97,9 +98,9 @@ public class Controller {
 				// Change the fee percentage and fee amount of the debtor
 				Debtor debtor = mainModel.getDebtor(id);
 				long amountBorrowed = debtor.getAmountBorrowed();
-				float feePercentage = mainModel.calcDebtorFeeMultiplier(amountBorrowed);
-				debtor.setFeePercentage(feePercentage * 100);
-				debtor.setFeeAmount((long) (amountBorrowed * feePercentage));
+				float feeMultiplier = mainModel.calcDebtorFeeMultiplier(amountBorrowed);
+				debtor.setFeePercentage(feeMultiplier * 100);
+				debtor.setFeeAmount((long) (amountBorrowed * feeMultiplier));
 
 				// Set data to view
 				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
@@ -108,6 +109,7 @@ public class Controller {
 			public void unmanageDebtorRequest(int id) {
 
 				unmanageDebtor(id);
+				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
 			}
 
 			public void fulfillDebtorRequest(int id) {

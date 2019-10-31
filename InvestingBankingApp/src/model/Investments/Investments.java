@@ -12,6 +12,14 @@ public class Investments {
 	public void addTotalInvested(long invested) {
 		totalInvested += invested;
 	}
+	
+	public void subtractTotalInvestment(long investment) {
+		totalInvestments -= investment;
+	}
+
+	public void subtractTotalInvested(long invested) {
+		totalInvested -= invested;
+	}
 
 	public long getTotalInvestments() {
 		return totalInvestments;
