@@ -135,6 +135,7 @@ public class Database {
 
 		unmanagedInvestors.add(investorUnmanaged);
 		managedInvestors.remove(investorUnmanaged);
+		unpaidInvestors.remove(investorUnmanaged);
 	}
 
 	public void paidInvestor(int id) {
@@ -268,6 +269,7 @@ public class Database {
 		}
 		unmanagedDebtors.add(debtorUnmanaged);
 		managedDebtors.remove(debtorUnmanaged);
+		unpaidDebtors.remove(debtorUnmanaged);
 	}
 
 	public void paidDebtor(int id) {

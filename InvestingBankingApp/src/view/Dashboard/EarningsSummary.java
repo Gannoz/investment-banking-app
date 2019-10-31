@@ -24,9 +24,9 @@ public class EarningsSummary extends JPanel {
 	private JLabel paidDebtorsContainer;
 	private JLabel currentMonthContainer;
 	private JLabel currentYearContainer;
-	private int paidDebtors = 96;
-	private int currentMonth = 500000;
-	private int currentYear = 3000000;
+	private long paidDebtors;
+	private long currentMonth;
+	private long currentYear;
 
 	private JButton test;
 
@@ -52,8 +52,15 @@ public class EarningsSummary extends JPanel {
 		layoutComponents();
 
 	}
+	
+	public void setData(long monthEarnings, long totalEarnings) {
+		currentMonth = monthEarnings;
+		currentYear = totalEarnings;
+		
+		update();
+	}
 
-	private String numberToCommaString(int number) {
+	private String numberToCommaString(long number) {
 		return NumberFormat.getNumberInstance(Locale.US).format(number);
 	}
 
