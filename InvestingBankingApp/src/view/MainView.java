@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -174,7 +175,8 @@ public class MainView extends JFrame {
 		screenChanger.setScreenChangerListener(new ScreenChangerListener() {
 
 			public void overviewPressed() {
-
+				
+				System.out.println(LocalDateTime.now());
 				frameWidth = 1500;
 				frameHeight = 770;
 				panelContainer.displayDashboardPanel();
@@ -216,9 +218,9 @@ public class MainView extends JFrame {
 		viewListener = listener;
 	}
 
-	public void setData(long totalInvestments, long totalInvested, long totalEarnings) {
+	public void setData(long totalInvestments, long totalInvested, long totalEarnings, long monthEarnings) {
 
-		dashboardPanel.setData(totalInvestments, totalInvested, totalEarnings);
+		dashboardPanel.setData(totalInvestments, totalInvested, totalEarnings, monthEarnings);
 		managePanel.setData(totalInvestments - totalInvested, totalEarnings);
 	}
 

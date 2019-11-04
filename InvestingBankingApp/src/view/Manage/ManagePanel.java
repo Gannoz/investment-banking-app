@@ -70,8 +70,8 @@ public class ManagePanel extends JPanel {
 		this.listener = listener;
 	}
 
-	public void setData(long investorEquity, long earnings) {
-		manageMain.setData(investorEquity, earnings);
+	public void setData(long investorEquity, long totalEarnings) {
+		manageMain.setData(investorEquity, totalEarnings);
 	}
 
 	public void setTableData(List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors,

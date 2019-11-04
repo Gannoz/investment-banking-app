@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import model.Database.Database;
@@ -11,6 +12,7 @@ public class MainModel {
 	private Database db;
 	private Investments investments;
 	private Earnings earnings;
+	private LocalDateTime time;
 
 	public MainModel() {
 
@@ -58,7 +60,7 @@ public class MainModel {
 	public void addInvestor(Investor investor) {
 		db.addInvestor(investor);
 	}
-
+	
 	public void editInvestor(int id, Investor newInvestor) {
 		db.editInvestor(id, newInvestor);
 	}
@@ -139,8 +141,16 @@ public class MainModel {
 		return earnings.getTotalEarnings();
 	}
 	
+	public long getMonthEarnings() {
+		return earnings.getMonthEarnings();
+	}
+	
+	public long getYearEarnings() {
+		return earnings.getYearEarnings();
+	}
+	
 	public void addTotalEarnings(long earning) {
-		earnings.addEarnings(earning);
+		earnings.addEarnings(earning, LocalDateTime.now());
 	}
 
 }

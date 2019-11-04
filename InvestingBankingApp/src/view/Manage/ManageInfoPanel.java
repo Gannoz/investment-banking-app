@@ -46,11 +46,11 @@ public class ManageInfoPanel extends JPanel {
 
 	}
 
-	public void setData(long investorEquity, long earnings) {
+	public void setData(long investorEquity, long totalEarnings) {
 
 		this.investorEquity = investorEquity;
-		this.earnings = earnings;
-		this.fundsAvailable = investorEquity + earnings;
+		this.earnings = totalEarnings;
+		this.fundsAvailable = investorEquity + totalEarnings;
 
 		update();
 	}

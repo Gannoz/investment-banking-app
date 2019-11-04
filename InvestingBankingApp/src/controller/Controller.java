@@ -52,14 +52,14 @@ public class Controller {
 				manageInvestor(id);
 
 				// Set the data on the view
-				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
+				setData();
 			}
 
 			@Override
 			public void unmanageInvestorRequest(int id) {
 
 				unmanageInvestor(id);
-				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
+				setData();
 			}
 
 			@Override
@@ -103,13 +103,13 @@ public class Controller {
 				debtor.setFeeAmount((long) (amountBorrowed * feeMultiplier));
 
 				// Set data to view
-				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
+				setData();
 			}
 
 			public void unmanageDebtorRequest(int id) {
 
 				unmanageDebtor(id);
-				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
+				setData();
 			}
 
 			public void fulfillDebtorRequest(int id) {
@@ -122,11 +122,15 @@ public class Controller {
 				mainModel.addTotalEarnings(debtor.getFeeAmount());
 				paidDebtor(id);
 				
-				mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings());
+				setData();
 			}
 
 		});
 
+	}
+	
+	public void setData() {
+		mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings(), getMonthEarnings());
 	}
 
 	// Model-View Methods ======================================
@@ -193,6 +197,10 @@ public class Controller {
 
 	public long getTotalEarnings() {
 		return mainModel.getTotalEarnings();
+	}
+	
+	public long getMonthEarnings() {
+		return mainModel.getMonthEarnings();
 	}
 
 	// INVESTOR ======================================

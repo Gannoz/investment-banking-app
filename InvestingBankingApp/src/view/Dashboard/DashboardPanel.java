@@ -25,8 +25,8 @@ public class DashboardPanel extends JPanel {
 
 	}
 
-	public void setData(long totalInvestments, long totalInvested, long totalEarnings) {
-		dashboardMain.setData(totalInvestments, totalInvested, totalEarnings);
+	public void setData(long totalInvestments, long totalInvested, long totalEarnings, long monthEarnings) {
+		dashboardMain.setData(totalInvestments, totalInvested, totalEarnings, monthEarnings);
 	}
 
 	public void setTableData(List<Investor> investors, List<Debtor> debtors) {

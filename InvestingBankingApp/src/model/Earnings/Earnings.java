@@ -1,5 +1,6 @@
 package model.Earnings;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class Earnings {
@@ -16,9 +17,9 @@ public class Earnings {
 		currentYear = c.get(Calendar.YEAR);
 		currentMonth = c.get(Calendar.MONTH) + 1;
 	}
-
+	
 	public long calcDebtorFeeAmount(long amount) {
-
+		
 		return (long) (amount * calcDebtorFeeMultiplier(amount));
 	}
 
@@ -44,8 +45,16 @@ public class Earnings {
 		return 0;
 	}
 
-	public void addEarnings(long earnings) {
+	public void addEarnings(long earnings, LocalDateTime time) {
 		this.totalEarnings += earnings;
+		
+		if (time.getMonthValue() == currentMonth) {
+			this.monthEarnings += earnings;
+		}
+		
+		if (time.getYear() == currentYear) {
+			this.yearEarnings += earnings;
+		}
 	}
 
 	public long getTotalEarnings() {

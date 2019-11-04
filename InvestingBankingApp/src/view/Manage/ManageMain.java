@@ -177,8 +177,8 @@ public class ManageMain extends JPanel {
 		this.listener = listener;
 	}
 
-	public void setData(long investorEquity, long earnings) {
-		manageInfoPanel.setData(investorEquity, earnings);
+	public void setData(long investorEquity, long totalEarnings) {
+		manageInfoPanel.setData(investorEquity, totalEarnings);
 	}
 
 	private void setDesign() {
