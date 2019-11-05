@@ -66,9 +66,9 @@ public class Person {
 		Gender gender = null;
 
 		if (genderCat.equalsIgnoreCase("male")) {
-			this.gender = Gender.male;
+			this.gender = Gender.M;
 		} else if (genderCat.equalsIgnoreCase("female")) {
-			this.gender = Gender.female;
+			this.gender = Gender.F;
 		}
 	}
 

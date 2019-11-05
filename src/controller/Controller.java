@@ -172,9 +172,9 @@ public class Controller {
 		Gender gender = null;
 
 		if (genderCategory.equalsIgnoreCase("male")) {
-			gender = Gender.male;
+			gender = Gender.M;
 		} else if (genderCategory.equalsIgnoreCase("female")) {
-			gender = Gender.female;
+			gender = Gender.F;
 		}
 
 		Person person = new Person(nik, name, gender, address, rtrw, village, district, religion, marriageStatus,

@@ -1,5 +1,10 @@
 package model.Database;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -20,6 +25,10 @@ public class Database {
 	private List<Debtor> unmanagedDebtors;
 	private List<Debtor> managedDebtors;
 	private List<Debtor> unpaidDebtors;
+	
+	Connection con = null;
+	Statement stt = null;
+	ResultSet rs = null;
 
 	public Database() {
 
@@ -31,7 +40,71 @@ public class Database {
 		unmanagedDebtors = new LinkedList<Debtor>();
 		managedDebtors = new LinkedList<Debtor>();
 		unpaidDebtors = new LinkedList<Debtor>();
+		
+		String url 		= "jdbc:mysql://localhost:3306/InvestmentBankingApp?serverTimezone=UTC";
+		String user 	= "root";
+		String password = "testpassword";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+				
+			stt = con.createStatement();
+			
+			// Create and Select DB
+			stt.execute("CREATE DATABASE IF NOT EXISTS InvestmentBankingApp");
+			stt.execute("USE InvestmentBankingApp");
+			
+			// CREATE TABLES
+			stt.execute("DROP TABLE IF EXISTS investors");
+			stt.execute("CREATE TABLE IF NOT EXISTS investors("
+					+ "id PRIMARY KEY BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "name VARCHAR(50),"
+					+ "gender enum('M', 'F'),"
+					+ "address VARCHR(50),"
+					+ "rtrw VARCHAR(50),"
+					+ "village VARCHAR(50),"
+					+ "district VARCHAR(50),"
+					+ "religion VARCHAR(20),"
+					+ "marriageStatus VARCHAR(20),"
+					+ "occupation VARCHAR(20),"
+					+ "nationality VARCHAR(20),"
+					+ "amountInvested BIGINT"
+					+ ")");
+			
+			stt.execute("DROP TABLE IF EXISTS debtors");
+			stt.execute("CREATE TABLE IF NOT EXISTS debtors("
+					+ "id PRIMARY KEY BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "name VARCHAR(50),"
+					+ "gender enum('M', 'F'),"
+					+ "address VARCHR(50),"
+					+ "rtrw VARCHAR(50),"
+					+ "village VARCHAR(50),"
+					+ "district VARCHAR(50),"
+					+ "religion VARCHAR(20),"
+					+ "marriageStatus VARCHAR(20),"
+					+ "occupation VARCHAR(20),"
+					+ "nationality VARCHAR(20),"
+					+ "amountBorrowed BIGINT"
+					+ ")");
+			
+			while(rs.next()) {
+				System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 
+	}
+	
+	// SQL
+	
+	private void close() {
+		try { rs.close(); } catch(Exception e) { };
+		try { stt.close(); } catch(Exception e) { };
+		try { con.close(); } catch(Exception e) { };
 	}
 
 	// INVESTOR

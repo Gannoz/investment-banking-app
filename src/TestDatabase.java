@@ -1,4 +1,7 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class TestDatabase {
 	public static void main(String[] args) {
@@ -8,15 +11,20 @@ public class TestDatabase {
 		String user 	= "root";
 		String password = "testpassword";
 		
+		Connection con = null;
+		Statement stt = null;
+		ResultSet res = null;
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			Connection con = DriverManager.getConnection(url, user, password);
-			
-			Statement stt = con.createStatement();
+			con = DriverManager.getConnection(url, user, password);
+				
+			stt = con.createStatement();
 			
 			// Create and Select DB
-			stt.execute("CREATE DATABASE IF NOT EXISTS test");
-			stt.execute("USE test");
+			
+			stt.execute("CREATE DATABASE IF NOT EXISTS InvestmentBankingApp");
+			stt.execute("USE InvestmentBankingApp");
 			
 			// CREATE TABLE
 			stt.execute("DROP TABLE IF EXISTS people");
@@ -32,7 +40,7 @@ public class TestDatabase {
 					+ "('Jill', 'Hill'),('Joe', 'Bloggs'),('Mary', 'Bloggs')");
 			
 			// Get people with surname Bloggs
-			ResultSet res = stt.executeQuery("SELECT * FROM people WHERE lname = 'Bloggs'");
+			res = stt.executeQuery("SELECT * FROM people WHERE lname = 'Bloggs'");
 			
 			while(res.next()) {
 				System.out.println(res.getString("fname") + " " + res.getString("lname"));
@@ -40,6 +48,11 @@ public class TestDatabase {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			try { res.close(); } catch (Exception e) { /* ignored */ };
+	     	try { stt.close(); } catch (Exception e) { /* ignored */ };
+		    try { con.close(); } catch (Exception e) { /* ignored */ };
 		}
 	}
 }
