@@ -48,7 +48,7 @@ public class Database {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 			con = DriverManager.getConnection(url, user, password);
-				
+			
 			stt = con.createStatement();
 			
 			// Create and Select DB
@@ -58,10 +58,10 @@ public class Database {
 			// CREATE TABLES
 			stt.execute("DROP TABLE IF EXISTS investors");
 			stt.execute("CREATE TABLE IF NOT EXISTS investors("
-					+ "id PRIMARY KEY BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "id BIGINT PRIMARY KEY AUTO_INCREMENT,"
 					+ "name VARCHAR(50),"
-					+ "gender enum('M', 'F'),"
-					+ "address VARCHR(50),"
+					+ "gender ENUM('M', 'F'),"
+					+ "address VARCHAR(50),"
 					+ "rtrw VARCHAR(50),"
 					+ "village VARCHAR(50),"
 					+ "district VARCHAR(50),"
@@ -69,15 +69,23 @@ public class Database {
 					+ "marriageStatus VARCHAR(20),"
 					+ "occupation VARCHAR(20),"
 					+ "nationality VARCHAR(20),"
-					+ "amountInvested BIGINT"
+					+ "amountInvested BIGINT,"
+					+ "managed BOOLEAN,"	
+					+ "paid BOOLEAN,"
+					+ "timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "timeManaged TIMESTAMP"
 					+ ")");
 			
+			stt.execute("DROP TABLE IF EXISTS debtorFees");
+			stt.execute("DROP TABLE IF EXISTS debtorManaged");
+			stt.execute("DROP TABLE IF EXISTS debtorRequests");
 			stt.execute("DROP TABLE IF EXISTS debtors");
+			
 			stt.execute("CREATE TABLE IF NOT EXISTS debtors("
-					+ "id PRIMARY KEY BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
 					+ "name VARCHAR(50),"
-					+ "gender enum('M', 'F'),"
-					+ "address VARCHR(50),"
+					+ "gender ENUM('M', 'F'),"
+					+ "address VARCHAR(50),"
 					+ "rtrw VARCHAR(50),"
 					+ "village VARCHAR(50),"
 					+ "district VARCHAR(50),"
@@ -85,12 +93,37 @@ public class Database {
 					+ "marriageStatus VARCHAR(20),"
 					+ "occupation VARCHAR(20),"
 					+ "nationality VARCHAR(20),"
-					+ "amountBorrowed BIGINT"
+					+ "PRIMARY KEY(id)"
 					+ ")");
 			
-			while(rs.next()) {
-				System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
-			}
+			stt.execute("CREATE TABLE IF NOT EXISTS debtorRequests("
+					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "debtorId BIGINT,"
+					+ "amtRequested BIGINT,"
+					+ "managed BOOLEAN,"
+					+ "timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "PRIMARY KEY (id),"
+					+ "FOREIGN KEY (debtorId) REFERENCES debtors(id)"
+					+ ")");
+			
+			stt.execute("CREATE TABLE IF NOT EXISTS debtorManaged("
+					+ "requestId BIGINT,"
+					+ "fulfilled BOOLEAN,"
+					+ "timeManaged TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "PRIMARY KEY (requestId),"
+					+ "FOREIGN KEY (requestId) REFERENCES debtorRequests(id)"
+					+ ")");
+			
+			stt.execute("CREATE TABLE IF NOT EXISTS debtorFees("
+					+ "requestId BIGINT,"
+					+ "lastPaid TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "feePercent FLOAT,"
+					+ "feePending FLOAT,"
+					+ "PRIMARY KEY (requestId),"
+					+ "FOREIGN KEY (requestId) REFERENCES debtorRequests(id)"
+					+ ")");
+			
+				
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
