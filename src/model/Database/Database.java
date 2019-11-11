@@ -58,7 +58,8 @@ public class Database {
 			// CREATE TABLES
 			stt.execute("DROP TABLE IF EXISTS investors");
 			stt.execute("CREATE TABLE IF NOT EXISTS investors("
-					+ "id BIGINT PRIMARY KEY AUTO_INCREMENT,"
+					+ "id BIGINT AUTO_INCREMENT,"
+					+ "nik BIGINT,"
 					+ "name VARCHAR(50),"
 					+ "gender ENUM('M', 'F'),"
 					+ "address VARCHAR(50),"
@@ -73,7 +74,9 @@ public class Database {
 					+ "managed BOOLEAN,"	
 					+ "paid BOOLEAN,"
 					+ "timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
-					+ "timeManaged TIMESTAMP"
+					+ "timeManaged TIMESTAMP,"
+					+ "PRIMARY KEY(id),"
+					+ "UNIQUE(nik)"
 					+ ")");
 			
 			stt.execute("DROP TABLE IF EXISTS debtorFees");
@@ -83,6 +86,7 @@ public class Database {
 			
 			stt.execute("CREATE TABLE IF NOT EXISTS debtors("
 					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "nik BIGINT,"
 					+ "name VARCHAR(50),"
 					+ "gender ENUM('M', 'F'),"
 					+ "address VARCHAR(50),"
@@ -93,7 +97,8 @@ public class Database {
 					+ "marriageStatus VARCHAR(20),"
 					+ "occupation VARCHAR(20),"
 					+ "nationality VARCHAR(20),"
-					+ "PRIMARY KEY(id)"
+					+ "PRIMARY KEY(id),"
+					+ "UNIQUE(nik)"
 					+ ")");
 			
 			stt.execute("CREATE TABLE IF NOT EXISTS debtorRequests("
@@ -175,7 +180,25 @@ public class Database {
 
 	public void addInvestor(Investor investor) {
 		
-		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String values = String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'", investor.getNik(), investor.getName(), investor.getGender(), investor.getAddress(), investor.getRtrw(), investor.getVillage(), investor.getDistrict(), investor.getReligion(), investor.getMarriageStatus(), investor.getOccupation(), investor.getNationality());
+			
+			stt.execute("INSERT INTO debtors(nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality) VALUES("
+					+ values
+					+ ")");
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 		
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -321,6 +344,26 @@ public class Database {
 	}
 
 	public void addDebtor(Debtor debtor) {
+		
+	try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String values = String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'", debtor.getNik(), debtor.getName(), debtor.getGender(), debtor.getAddress(), debtor.getRtrw(), debtor.getVillage(), debtor.getDistrict(), debtor.getReligion(), debtor.getMarriageStatus(), debtor.getOccupation(), debtor.getNationality());
+			
+			stt.execute("INSERT INTO debtors(nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality) VALUES("
+					+ values
+					+ ")");
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
