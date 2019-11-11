@@ -61,6 +61,12 @@ public class InvestorMain extends JPanel {
 				}
 			}
 
+			@Override
+			public void formRequest(int amountRequested) {
+				// TODO Auto-generated method stub
+				
+			}
+
 		});
 
 		setDesign();

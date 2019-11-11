@@ -350,12 +350,8 @@ public class Database {
 					
 				Debtor debtor = new Debtor(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);
 					
-				debtors.add(debtor);
-				
-				
+				debtors.add(debtor);	
 			}
-			
-			
 			
 	}catch(Exception e) {
 		e.printStackTrace();
@@ -466,6 +462,27 @@ public class Database {
 		}
 
 		
+	}
+	
+	public void addDebtorRequest(int debtorId, int amountRequested) {
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String values = String.format("%d, %d", debtorId, amountRequested);
+			
+			stt.execute("INSERT INTO debtorRequests (debtorId, amtRequested) VALUES("
+					+ values
+					+ ")");
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
 	}
 
 	public void editDebtor(int id, Debtor newDebtor) {

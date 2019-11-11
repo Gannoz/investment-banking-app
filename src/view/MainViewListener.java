@@ -19,6 +19,8 @@ public interface MainViewListener {
 	public void removeDebtorInfo(int id);
 
 	public void getDebtorInfo(int id);
+	
+	public void addDebtorRequest(int debtorId, int amountRequested);
 
 	// MANAGE
 	public void manageInvestorRequest(int id);

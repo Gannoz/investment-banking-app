@@ -125,6 +125,12 @@ public class Controller {
 				setData();
 			}
 
+			@Override
+			public void addDebtorRequest(int debtorId, int amountRequested) {
+				// TODO Auto-generated method stub
+				mainModel.addDebtorRequest(debtorId, amountRequested);
+			}
+
 		});
 
 	}

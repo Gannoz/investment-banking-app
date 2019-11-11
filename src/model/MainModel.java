@@ -120,6 +120,10 @@ public class MainModel {
 	public void removeDebtor(int id) {
 		db.removeDebtor(id);
 	}
+	
+	public void addDebtorRequest(int debtorId, int amountRequested) {
+		db.addDebtorRequest(debtorId, amountRequested);
+	}
 
 	public long getTotalInvestments() {
 		return investments.getTotalInvestments();

@@ -10,10 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -45,6 +44,7 @@ public class DebtorForm extends JPanel {
 	private JButton addBtn;
 	private JButton editBtn;
 	private JButton removeBtn;
+	private JButton requestBtn;
 
 	private JLabel colon1;
 	private JLabel colon2;
@@ -95,6 +95,7 @@ public class DebtorForm extends JPanel {
 		addBtn = new JButton("Add");
 		editBtn = new JButton("Edit");
 		removeBtn = new JButton("Remove");
+		requestBtn = new JButton("Request");
 
 		colon1 = new JLabel(":");
 		colon2 = new JLabel(":");
@@ -156,6 +157,19 @@ public class DebtorForm extends JPanel {
 		removeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formListener.formRemoveRequest();
+			}
+		});
+		
+		requestBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					int amountRequested = Integer.parseInt(JOptionPane.showInputDialog("Enter amount requested"));
+					formListener.formRequest(amountRequested);
+				}catch(Exception er) {
+					er.printStackTrace();
+				}
+				
 			}
 		});
 
@@ -462,6 +476,9 @@ public class DebtorForm extends JPanel {
 
 			c.gridx++;
 			add(removeBtn, c);
+			
+			c.gridx++;
+			add(requestBtn, c);
 		}
 
 	}

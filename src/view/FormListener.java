@@ -7,5 +7,7 @@ public interface FormListener {
 	public void formEditRequest(FormEvent e);
 
 	public void formRemoveRequest();
+	
+	public void formRequest(int amountRequested);
 
 }

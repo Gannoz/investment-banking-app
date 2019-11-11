@@ -38,6 +38,12 @@ public class DebtorPanel extends JPanel {
 				debtorListener.getDebtorInfo(id);
 			}
 
+			@Override
+			public void addRequest(int debtorId, int amountRequested) {
+				// TODO Auto-generated method stub
+				debtorListener.addRequest(debtorId, amountRequested);
+			}
+
 		});
 
 		setLayout(new BorderLayout());

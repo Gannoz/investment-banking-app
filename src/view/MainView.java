@@ -102,6 +102,12 @@ public class MainView extends JFrame {
 			public void getDebtorInfo(int id) {
 				viewListener.getDebtorInfo(id);
 			}
+
+			@Override
+			public void addRequest(int debtorId, int amountRequested) {
+				viewListener.addDebtorRequest(debtorId, amountRequested);
+				
+			}
 		});
 
 		// MANAGE LISTENER
