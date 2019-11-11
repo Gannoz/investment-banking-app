@@ -40,6 +40,15 @@ public class Debtor extends Person {
 
 		this.amountBorrowed = amountBorrowedId;
 	}
+	
+	public Debtor(int id, String nik, String name, Gender gender, String address, String rtrw, String village,
+			String district, String religion, String marriageStatus, String occupation, String nationality) {
+		super(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation,
+				nationality);
+		
+		count = id;
+		count++;
+	}
 
 	public int getAmountBorrowed() {
 		return amountBorrowed;
