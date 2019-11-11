@@ -26,9 +26,13 @@ public class Database {
 	private List<Debtor> managedDebtors;
 	private List<Debtor> unpaidDebtors;
 	
-	Connection con = null;
-	Statement stt = null;
-	ResultSet rs = null;
+	private Connection con = null;
+	private Statement stt = null;
+	private ResultSet rs = null;
+	
+	private String url 		= "jdbc:mysql://localhost:3306/InvestmentBankingApp?serverTimezone=UTC";
+	private String user 	= "root";
+	private String password = "testpassword";
 
 	public Database() {
 
@@ -40,10 +44,6 @@ public class Database {
 		unmanagedDebtors = new LinkedList<Debtor>();
 		managedDebtors = new LinkedList<Debtor>();
 		unpaidDebtors = new LinkedList<Debtor>();
-		
-		String url 		= "jdbc:mysql://localhost:3306/InvestmentBankingApp?serverTimezone=UTC";
-		String user 	= "root";
-		String password = "testpassword";
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -174,6 +174,9 @@ public class Database {
 	}
 
 	public void addInvestor(Investor investor) {
+		
+		
+		
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
