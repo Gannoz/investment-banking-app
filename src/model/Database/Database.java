@@ -136,6 +136,8 @@ public class Database {
 		}finally {
 			close();
 		}
+		
+		updateLists();
 
 	}
 	
@@ -145,6 +147,130 @@ public class Database {
 		try { rs.close(); } catch(Exception e) { };
 		try { stt.close(); } catch(Exception e) { };
 		try { con.close(); } catch(Exception e) { };
+	}
+	
+	private void updateLists() {
+		
+		// DEBTORS
+		debtors.clear();
+		
+		try {
+				
+				Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+				con = DriverManager.getConnection(url, user, password);
+				
+				stt = con.createStatement();
+				
+				rs = stt.executeQuery("SELECT * FROM debtors");
+				
+				while(rs.next()) {
+					int id = rs.getInt("id");
+					String nik = rs.getString("nik");
+					String name = rs.getString("name");
+					Gender gender = null;
+					String address = rs.getString("address");
+					String rtrw = rs.getString("rtrw");
+					String village = rs.getString("village");
+					String district = rs.getString("district");
+					String religion = rs.getString("religion");
+					String marriageStatus = rs.getString("marriageStatus");
+					String occupation = rs.getString("occupation");
+					String nationality = rs.getString("nationality");
+	 
+					String genderCat = rs.getString("gender");
+						if (genderCat.equals("M")) {
+							gender = Gender.M;
+						}else if(genderCat.equals("F")) {
+							gender = Gender.F;
+						}
+						
+					Debtor debtor = new Debtor(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);
+						
+					debtors.add(debtor);	
+				}
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		// UNMANAGED DEBTORS
+		unmanagedDebtorRequests.clear();
+		
+		try {
+				
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed = false");
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				int debtorId = rs.getInt("debtorId");
+				long amtRequested = rs.getLong("amtRequested");
+				boolean managed = rs.getBoolean("managed");
+				Date timeCreated = rs.getDate("timeCreated");
+					
+				DebtorRequest request = new DebtorRequest(id, debtorId, amtRequested, managed, timeCreated);
+				
+				unmanagedDebtorRequests.add(request);
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
+		
+		// MANAGED DEBTORS
+		managedDebtorRequests.clear();
+		
+		try {
+				
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed = true");
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				int debtorId = rs.getInt("debtorId");
+				long amtRequested = rs.getLong("amtRequested");
+				boolean managed = rs.getBoolean("managed");
+				Date timeCreated = rs.getDate("timeCreated");
+					
+				DebtorRequest request = new DebtorRequest(id, debtorId, amtRequested, managed, timeCreated);
+				
+				managedDebtorRequests.add(request);
+				
+			rs = stt.executeQuery("SELECT * FROM debtorManaged WHERE fulfilled = false");
+			
+			while(rs.next()) {
+				int requestId = rs.getInt("requestId");
+				Date timeManaged = rs.getDate("timeManaged");
+				
+				for(DebtorRequest managedRequest : managedDebtorRequests) {
+					if(managedRequest.getId() == requestId) {
+						managedRequest.setTimeManaged(timeManaged);
+					}
+				}
+				
+			}
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
+		
 	}
 
 	// INVESTOR
@@ -316,49 +442,6 @@ public class Database {
 	// DEBTOR
 
 	public List<Debtor> getDebtors() {
-		
-		debtors.clear();
-		
-	try {
-			
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection(url, user, password);
-			
-			stt = con.createStatement();
-			
-			rs = stt.executeQuery("SELECT * FROM debtors");
-			
-			while(rs.next()) {
-				int id = rs.getInt("id");
-				String nik = rs.getString("nik");
-				String name = rs.getString("name");
-				Gender gender = null;
-				String address = rs.getString("address");
-				String rtrw = rs.getString("rtrw");
-				String village = rs.getString("village");
-				String district = rs.getString("district");
-				String religion = rs.getString("religion");
-				String marriageStatus = rs.getString("marriageStatus");
-				String occupation = rs.getString("occupation");
-				String nationality = rs.getString("nationality");
- 
-				String genderCat = rs.getString("gender");
-					if (genderCat.equals("M")) {
-						gender = Gender.M;
-					}else if(genderCat.equals("F")) {
-						gender = Gender.F;
-					}
-					
-				Debtor debtor = new Debtor(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);
-					
-				debtors.add(debtor);	
-			}
-			
-	}catch(Exception e) {
-		e.printStackTrace();
-	}finally {
-		close();
-	}
 					
 	return Collections.unmodifiableList(debtors);
 
@@ -366,84 +449,11 @@ public class Database {
 
 	public List<DebtorRequest> getUnmanagedDebtors() {
 		
-		unmanagedDebtorRequests.clear();
-		
-		try {
-				
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection(url, user, password);
-			
-			stt = con.createStatement();
-			
-			rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed = false");
-			
-			while(rs.next()) {
-				int id = rs.getInt("id");
-				int debtorId = rs.getInt("debtorId");
-				long amtRequested = rs.getLong("amtRequested");
-				boolean managed = rs.getBoolean("managed");
-				Date timeCreated = rs.getDate("timeCreated");
-					
-				DebtorRequest request = new DebtorRequest(id, debtorId, amtRequested, managed, timeCreated);
-				
-				unmanagedDebtorRequests.add(request);
-				
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close();	
-		}
-
 		return Collections.unmodifiableList(unmanagedDebtorRequests);
 	}
 
 	public List<DebtorRequest> getManagedDebtors() {
 		
-		managedDebtorRequests.clear();
-		
-		try {
-				
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection(url, user, password);
-			
-			stt = con.createStatement();
-			
-			rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed = true");
-			
-			while(rs.next()) {
-				int id = rs.getInt("id");
-				int debtorId = rs.getInt("debtorId");
-				long amtRequested = rs.getLong("amtRequested");
-				boolean managed = rs.getBoolean("managed");
-				Date timeCreated = rs.getDate("timeCreated");
-					
-				DebtorRequest request = new DebtorRequest(id, debtorId, amtRequested, managed, timeCreated);
-				
-				managedDebtorRequests.add(request);
-				
-			rs = stt.executeQuery("SELECT * FROM debtorManaged WHERE fulfilled = false");
-			
-			while(rs.next()) {
-				int requestId = rs.getInt("requestId");
-				Date timeManaged = rs.getDate("timeManaged");
-				
-				for(DebtorRequest managedRequest : managedDebtorRequests) {
-					if(managedRequest.getId() == requestId) {
-						managedRequest.setTimeManaged(timeManaged);
-					}
-				}
-				
-			}
-				
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close();	
-		}
 
 		return Collections.unmodifiableList(managedDebtorRequests);
 	}
@@ -465,7 +475,7 @@ public class Database {
 
 	public void addDebtor(Debtor debtor) {
 		
-	try {
+		try {
 			
 		Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 		con = DriverManager.getConnection(url, user, password);
@@ -477,20 +487,14 @@ public class Database {
 		stt.execute("INSERT INTO debtors(nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality) VALUES("
 				+ values
 				+ ")");
-	
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		debtor.setTimeCreated(LocalDateTime.now().format(dtf));
-
-		debtors.add(debtor);
-//		unmanagedRequests.add(debtor);
-			
+		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			close();
 		}
-
+		
+		updateLists();
 		
 	}
 	
@@ -508,11 +512,15 @@ public class Database {
 					+ values
 					+ ")");
 				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				close();
-			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		updateLists();
+		
+		
 	}
 
 	public void editDebtor(int id, Debtor newDebtor) {
@@ -537,31 +545,8 @@ public class Database {
 			close();
 		}
 
-		Debtor debtorEdited = null;
-		for (Debtor debtor : debtors) {
-			if (debtor.getId() == id) {
-				debtorEdited = debtor;
-			}
-		}
-		int index = debtors.indexOf(debtorEdited);
-		debtors.remove(debtorEdited);
-		debtors.add(index, newDebtor);
+		updateLists();
 
-		try {
-//			index = unmanagedRequests.indexOf(debtorEdited);
-//			unmanagedRequests.remove(debtorEdited);
-//			unmanagedRequests.add(index, newDebtor);
-		} catch (Exception e) {
-
-		}
-
-		try {
-//			index = managedRequests.indexOf(debtorEdited);
-//			managedRequests.remove(debtorEdited);
-//			managedRequests.add(index, newDebtor);
-		} catch (Exception e) {
-
-		}
 	}
 
 	public void manageDebtor(int id) {
@@ -592,20 +577,7 @@ public class Database {
 			close();
 		}
 
-		Debtor debtorManaged = null;
-		for (Debtor debtor : debtors) {
-			if (debtor.getId() == id) {
-				debtorManaged = debtor;
-			}
-		}
-		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		debtorManaged.setTimeManaged(LocalDateTime.now().format(dtf));
-		
-//		unmanagedRequests.remove(debtorManaged);
-//		managedRequests.add(debtorManaged);
-		unpaidDebtors.add(debtorManaged);
+		updateLists();
 	}
 
 	public void unmanageDebtor(int id) {
@@ -618,7 +590,7 @@ public class Database {
 		}
 //		unmanagedRequests.add(debtorUnmanaged);
 //		managedRequests.remove(debtorUnmanaged);
-		unpaidDebtors.remove(debtorUnmanaged);
+//		unpaidDebtors.remove(debtorUnmanaged);
 	}
 
 	public void paidDebtor(int id) {
