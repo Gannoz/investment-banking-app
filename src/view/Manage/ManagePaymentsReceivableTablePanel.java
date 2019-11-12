@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
-import model.Debtor;
+import model.DebtorRequest;
 import view.DebtorTableListener;
 
 public class ManagePaymentsReceivableTablePanel extends JPanel {
@@ -65,7 +65,7 @@ public class ManagePaymentsReceivableTablePanel extends JPanel {
 		this.listener = listener;
 	}
 
-	public void setTableData(List<Debtor> db) {
+	public void setTableData(List<DebtorRequest> db) {
 		tableModel.setData(db);
 	}
 

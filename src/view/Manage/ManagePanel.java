@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import model.Debtor;
+import model.DebtorRequest;
 import model.Investor;
 
 public class ManagePanel extends JPanel {
@@ -74,8 +75,8 @@ public class ManagePanel extends JPanel {
 		manageMain.setData(investorEquity, totalEarnings);
 	}
 
-	public void setTableData(List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors,
-			List<Investor> managedInvestors, List<Debtor> managedDebtors) {
+	public void setTableData(List<Investor> unmanagedInvestors, List<DebtorRequest> unmanagedDebtors,
+			List<Investor> managedInvestors, List<DebtorRequest> managedDebtors) {
 
 		manageMain.setTableData(unmanagedInvestors, unmanagedDebtors, managedInvestors, managedDebtors);
 	}

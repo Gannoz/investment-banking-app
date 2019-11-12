@@ -58,7 +58,7 @@ public class DebtorForm extends JPanel {
 	private JLabel colon10;
 	private JLabel colon11;
 	private JLabel colon12;
-
+	
 	private JTextField NIKField;
 	private JTextField nameField;
 	private JTextField genderField;

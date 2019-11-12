@@ -75,11 +75,11 @@ public class MainModel {
 		return db.getDebtors();
 	}
 
-	public List<Debtor> getUnmanagedDebtors() {
+	public List<DebtorRequest> getUnmanagedDebtors() {
 		return db.getUnmanagedDebtors();
 	}
 
-	public List<Debtor> getManagedDebtors() {
+	public List<DebtorRequest> getManagedDebtors() {
 		return db.getManagedDebtors();
 	}
 

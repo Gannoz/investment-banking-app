@@ -4,14 +4,13 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Debtor;
+import model.DebtorRequest;
 import model.Investor;
 import view.DebtorTableListener;
 import view.InvestorTableListener;
@@ -237,8 +236,8 @@ public class ManageMain extends JPanel {
 
 	}
 
-	public void setTableData(List<Investor> unmanagedInvestors, List<Debtor> unmanagedDebtors,
-			List<Investor> managedInvestors, List<Debtor> managedDebtors) {
+	public void setTableData(List<Investor> unmanagedInvestors, List<DebtorRequest> unmanagedDebtors,
+			List<Investor> managedInvestors, List<DebtorRequest> managedDebtors) {
 
 		investorOffersTablePanel.setTableData(unmanagedInvestors);
 		debtorRequestsTablePanel.setTableData(unmanagedDebtors);

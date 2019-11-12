@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import model.Debtor;
+import model.DebtorRequest;
 import model.Gender;
 import model.Investor;
 import model.MainModel;
@@ -279,12 +280,12 @@ public class Controller {
 		return mainModel.getDebtors();
 	}
 
-	public List<Debtor> getUnmanagedDebtors() {
+	public List<DebtorRequest> getUnmanagedDebtors() {
 
 		return mainModel.getUnmanagedDebtors();
 	}
 
-	public List<Debtor> getManagedDebtors() {
+	public List<DebtorRequest> getManagedDebtors() {
 
 		return mainModel.getManagedDebtors();
 	}

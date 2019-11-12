@@ -1,9 +1,9 @@
 package model.Database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.Debtor;
+import model.DebtorRequest;
 import model.Gender;
 import model.Investor;
 
@@ -23,8 +24,8 @@ public class Database {
 	private List<Investor> unpaidInvestors;
 
 	private List<Debtor> debtors;
-	private List<Debtor> unmanagedDebtors;
-	private List<Debtor> managedDebtors;
+	private List<DebtorRequest> unmanagedDebtorRequests;
+	private List<DebtorRequest> managedDebtorRequests;
 	private List<Debtor> unpaidDebtors;
 	
 	private Connection con = null;
@@ -42,8 +43,8 @@ public class Database {
 		managedInvestors = new LinkedList<Investor>();
 		unpaidInvestors = new LinkedList<Investor>();
 		debtors = new LinkedList<Debtor>();
-		unmanagedDebtors = new LinkedList<Debtor>();
-		managedDebtors = new LinkedList<Debtor>();
+		unmanagedDebtorRequests = new LinkedList<DebtorRequest>();
+		managedDebtorRequests = new LinkedList<DebtorRequest>();
 		unpaidDebtors = new LinkedList<Debtor>();
 		
 		try {
@@ -113,7 +114,7 @@ public class Database {
 					+ ")");
 			
 			stt.execute("CREATE TABLE IF NOT EXISTS debtorManaged("
-					+ "requestId BIGINT,"
+					+ "requestId BIGINT NOT NULL,"
 					+ "fulfilled BOOLEAN DEFAULT FALSE,"
 					+ "timeManaged TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
 					+ "PRIMARY KEY (requestId),"
@@ -121,7 +122,7 @@ public class Database {
 					+ ")");
 			
 			stt.execute("CREATE TABLE IF NOT EXISTS debtorFees("
-					+ "requestId BIGINT,"
+					+ "requestId BIGINT NOT NULL,"
 					+ "lastPaid TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
 					+ "feePercent FLOAT,"
 					+ "feePending FLOAT,"
@@ -363,59 +364,88 @@ public class Database {
 
 	}
 
-	public List<Debtor> getUnmanagedDebtors() {
+	public List<DebtorRequest> getUnmanagedDebtors() {
 		
-//		debtors.clear();
-//		
-//		try {
-//				
-//			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-//			con = DriverManager.getConnection(url, user, password);
-//			
-//			stt = con.createStatement();
-//			
-//			rs = stt.executeQuery("SELECT * FROM debtors WHERE managed = false");
-//			
-//			while(rs.next()) {
-//				int id = rs.getInt("id");
-//				String nik = rs.getString("nik");
-//				String name = rs.getString("name");
-//				Gender gender = null;
-//				String address = rs.getString("address");
-//				String rtrw = rs.getString("rtrw");
-//				String village = rs.getString("village");
-//				String district = rs.getString("district");
-//				String religion = rs.getString("religion");
-//				String marriageStatus = rs.getString("marriageStatus");
-//				String occupation = rs.getString("occupation");
-//				String nationality = rs.getString("nationality");
-//	 
-//					String genderCat = rs.getString("gender");
-//					if (genderCat.equals("M")) {
-//						gender = Gender.M;
-//					}else if(genderCat.equals("F")) {
-//						gender = Gender.F;
-//					}
-//					
-//				Debtor debtor = new Debtor(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);
-//					
-//				debtors.add(debtor);
-//				
-//				
-//			}
-//			
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			close();x	
-//		}
+		unmanagedDebtorRequests.clear();
+		
+		try {
+				
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed = false");
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				int debtorId = rs.getInt("debtorId");
+				long amtRequested = rs.getLong("amtRequested");
+				boolean managed = rs.getBoolean("managed");
+				Date timeCreated = rs.getDate("timeCreated");
+					
+				DebtorRequest request = new DebtorRequest(id, debtorId, amtRequested, managed, timeCreated);
+				
+				unmanagedDebtorRequests.add(request);
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
 
-		return Collections.unmodifiableList(unmanagedDebtors);
+		return Collections.unmodifiableList(unmanagedDebtorRequests);
 	}
 
-	public List<Debtor> getManagedDebtors() {
+	public List<DebtorRequest> getManagedDebtors() {
+		
+		managedDebtorRequests.clear();
+		
+		try {
+				
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed = true");
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				int debtorId = rs.getInt("debtorId");
+				long amtRequested = rs.getLong("amtRequested");
+				boolean managed = rs.getBoolean("managed");
+				Date timeCreated = rs.getDate("timeCreated");
+					
+				DebtorRequest request = new DebtorRequest(id, debtorId, amtRequested, managed, timeCreated);
+				
+				managedDebtorRequests.add(request);
+				
+			rs = stt.executeQuery("SELECT * FROM debtorManaged WHERE fulfilled = false");
+			
+			while(rs.next()) {
+				int requestId = rs.getInt("requestId");
+				Date timeManaged = rs.getDate("timeManaged");
+				
+				for(DebtorRequest managedRequest : managedDebtorRequests) {
+					if(managedRequest.getId() == requestId) {
+						managedRequest.setTimeManaged(timeManaged);
+					}
+				}
+				
+			}
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
 
-		return Collections.unmodifiableList(managedDebtors);
+		return Collections.unmodifiableList(managedDebtorRequests);
 	}
 
 	public List<Debtor> getUnpaidDebtors() {
@@ -453,7 +483,7 @@ public class Database {
 		debtor.setTimeCreated(LocalDateTime.now().format(dtf));
 
 		debtors.add(debtor);
-		unmanagedDebtors.add(debtor);
+//		unmanagedRequests.add(debtor);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -501,11 +531,11 @@ public class Database {
 					+ "");
 		
 				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				close();
-			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 
 		Debtor debtorEdited = null;
 		for (Debtor debtor : debtors) {
@@ -518,23 +548,49 @@ public class Database {
 		debtors.add(index, newDebtor);
 
 		try {
-			index = unmanagedDebtors.indexOf(debtorEdited);
-			unmanagedDebtors.remove(debtorEdited);
-			unmanagedDebtors.add(index, newDebtor);
+//			index = unmanagedRequests.indexOf(debtorEdited);
+//			unmanagedRequests.remove(debtorEdited);
+//			unmanagedRequests.add(index, newDebtor);
 		} catch (Exception e) {
 
 		}
 
 		try {
-			index = managedDebtors.indexOf(debtorEdited);
-			managedDebtors.remove(debtorEdited);
-			managedDebtors.add(index, newDebtor);
+//			index = managedRequests.indexOf(debtorEdited);
+//			managedRequests.remove(debtorEdited);
+//			managedRequests.add(index, newDebtor);
 		} catch (Exception e) {
 
 		}
 	}
 
 	public void manageDebtor(int id) {
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String update = String.format("SET managed = %b WHERE id = %d", true, id);
+			
+			stt.execute("UPDATE debtorRequests "
+					+ update
+					+ "");
+			
+			String value = String.format("%d", id);
+			
+			stt.execute("INSERT INTO debtorManaged(requestId) VALUES("
+					+ value
+					+ ")");
+		
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 
 		Debtor debtorManaged = null;
 		for (Debtor debtor : debtors) {
@@ -547,8 +603,8 @@ public class Database {
 
 		debtorManaged.setTimeManaged(LocalDateTime.now().format(dtf));
 		
-		unmanagedDebtors.remove(debtorManaged);
-		managedDebtors.add(debtorManaged);
+//		unmanagedRequests.remove(debtorManaged);
+//		managedRequests.add(debtorManaged);
 		unpaidDebtors.add(debtorManaged);
 	}
 
@@ -560,8 +616,8 @@ public class Database {
 				debtorUnmanaged = debtor;
 			}
 		}
-		unmanagedDebtors.add(debtorUnmanaged);
-		managedDebtors.remove(debtorUnmanaged);
+//		unmanagedRequests.add(debtorUnmanaged);
+//		managedRequests.remove(debtorUnmanaged);
 		unpaidDebtors.remove(debtorUnmanaged);
 	}
 
@@ -608,16 +664,16 @@ public class Database {
 
 		debtors.remove(debtorRemoved);
 
-		try {
-			unmanagedDebtors.remove(debtorRemoved);
-		} catch (Exception e) {
-
-		}
-
-		try {
-			managedDebtors.remove(debtorRemoved);
-		} catch (Exception e) {
-
-		}
+//		try {
+//			unmanagedRequests.remove(debtorRemoved);
+//		} catch (Exception e) {
+//
+//		}
+//
+//		try {
+//			managedRequests.remove(debtorRemoved);
+//		} catch (Exception e) {
+//
+//		}
 	}
 }

@@ -6,19 +6,20 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import model.Debtor;
+import model.DebtorRequest;
 
 public class ManageDebtorRequestsTableModel extends AbstractTableModel {
 
-	List<Debtor> db = new LinkedList<Debtor>();
+	List<DebtorRequest> db = new LinkedList<DebtorRequest>();
 
-	String[] colNames = { "Id", "Amount Requested", "Request Date" };
+	String[] colNames = { "ID", "Debtor ID", "Amt Requested", "Request Date" };
 
 	public String getColumnName(int column) {
 
 		return colNames[column];
 	}
 
-	public void setData(List<Debtor> db) {
+	public void setData(List<DebtorRequest> db) {
 
 		this.db = db;
 	}
@@ -30,23 +31,25 @@ public class ManageDebtorRequestsTableModel extends AbstractTableModel {
 
 	public int getColumnCount() {
 
-		return 3;
+		return colNames.length;
 	}
 
-	public List<Debtor> getData() {
+	public List<DebtorRequest> getData() {
 		return db;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
-		Debtor debtor = db.get(rowIndex);
+		DebtorRequest debtor = db.get(rowIndex);
 
 		switch (columnIndex) {
 		case 0:
 			return debtor.getId();
 		case 1:
-			return debtor.getAmountBorrowed();
+			return debtor.getDebtorId();
 		case 2:
+			return debtor.getAmtRequested();
+		case 3:
 			return debtor.getTimeCreated();
 		}
 		return null;

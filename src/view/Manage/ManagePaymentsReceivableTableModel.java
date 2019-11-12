@@ -6,10 +6,11 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import model.Debtor;
+import model.DebtorRequest;
 
 public class ManagePaymentsReceivableTableModel extends AbstractTableModel {
 
-	List<Debtor> db = new LinkedList<Debtor>();
+	List<DebtorRequest> db = new LinkedList<DebtorRequest>();
 
 	String[] colNames = { "Id", "Amount Lent", "Time Managed" };
 
@@ -18,12 +19,12 @@ public class ManagePaymentsReceivableTableModel extends AbstractTableModel {
 		return colNames[column];
 	}
 
-	public void setData(List<Debtor> db) {
+	public void setData(List<DebtorRequest> db) {
 
 		this.db = db;
 	}
 
-	public List<Debtor> getData() {
+	public List<DebtorRequest> getData() {
 		return db;
 	}
 
@@ -39,14 +40,16 @@ public class ManagePaymentsReceivableTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
-		Debtor debtor = db.get(rowIndex);
+		DebtorRequest debtor = db.get(rowIndex);
 
 		switch (columnIndex) {
 		case 0:
 			return debtor.getId();
 		case 1:
-			return debtor.getAmountBorrowed();
+			return debtor.getDebtorId();
 		case 2:
+			return debtor.getAmtRequested();
+		case 3:
 			return debtor.getTimeManaged();
 		}
 		return null;

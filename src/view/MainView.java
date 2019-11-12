@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import model.Debtor;
+import model.DebtorRequest;
 import model.Investor;
 import view.Dashboard.DashboardPanel;
 import view.Debtor.DebtorListener;
@@ -231,7 +232,7 @@ public class MainView extends JFrame {
 	}
 
 	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<Investor> unmanagedInvestors,
-			List<Debtor> unmanagedDebtors, List<Investor> managedInvestors, List<Debtor> managedDebtors,
+			List<DebtorRequest> unmanagedDebtors, List<Investor> managedInvestors, List<DebtorRequest> managedDebtors,
 			List<Investor> unpaidInvestors, List<Debtor> unpaidDebtors) {
 
 		dashboardPanel.setTableData(investors, debtors);
