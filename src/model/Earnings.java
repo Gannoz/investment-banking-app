@@ -22,12 +22,16 @@ public class Earnings {
 		
 		return (long) (amount * calcDebtorFeeMultiplier(amount));
 	}
+	
+	public float getFeePercentage(long amount) {
+		return 100 * calcDebtorFeeMultiplier(amount);
+	}
 
 	public float calcDebtorFeeMultiplier(long amount) {
 
 		if (amount <= 500000) {
-			System.out.println("Fees Calculated");
 			return (float) 0.0102;
+			
 		} else if (amount <= 1000000) {
 
 			return (float) 0.0128;

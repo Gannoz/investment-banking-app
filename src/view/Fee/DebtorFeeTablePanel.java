@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
-import model.Debtor;
+import model.DebtorFee;
 import view.DebtorTableListener;
 
 public class DebtorFeeTablePanel extends JPanel {
@@ -40,7 +40,7 @@ public class DebtorFeeTablePanel extends JPanel {
 					int row = table.rowAtPoint(e.getPoint());
 
 					if (e.getClickCount() == 2 && clickedTable.getSelectedRow() != -1) {
-						listener.sendDebtorId(tableModel.getData().get(row).getId());
+						listener.sendDebtorId(tableModel.getData().get(row).getDebtorId());
 					}
 				} catch (IndexOutOfBoundsException ex) {
 					ex.printStackTrace();
@@ -62,7 +62,7 @@ public class DebtorFeeTablePanel extends JPanel {
 		this.listener = listener;
 	}
 
-	public void setData(List<Debtor> debtors) {
+	public void setData(List<DebtorFee> debtors) {
 		tableModel.setData(debtors);
 	}
 

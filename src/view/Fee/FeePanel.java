@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import model.Debtor;
+import model.DebtorFee;
 import model.Investor;
 
 public class FeePanel extends JPanel {
@@ -44,7 +44,7 @@ public class FeePanel extends JPanel {
 		this.listener = listener;
 	}
 
-	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
+	public void setTableData(List<Investor> investors, List<DebtorFee> debtors) {
 		feeMain.setTableData(investors, debtors);
 	}
 

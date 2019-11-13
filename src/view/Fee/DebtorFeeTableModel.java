@@ -6,52 +6,52 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import model.Debtor;
+import model.DebtorFee;
 
 public class DebtorFeeTableModel extends AbstractTableModel {
 
-	List<Debtor> db = new LinkedList<Debtor>();
+	List<DebtorFee> db = new LinkedList<DebtorFee>();
 
-	String[] colNames = { "ID", "Name", "Fee %", "Fee Amount" };
+	String[] colNames = { "Debtor ID", "Last Paid", "Fee %", "Amt Borrowed", "Fee Amount" };
 
 	public String getColumnName(int column) {
 		return colNames[column];
 	}
 
-	public void setData(List<Debtor> db) {
+	public void setData(List<DebtorFee> db) {
 
 		this.db = db;
 	}
 
-	public List<Debtor> getData() {
+	public List<DebtorFee> getData() {
 
 		return db;
 	}
 
-	@Override
 	public int getColumnCount() {
 
 		return colNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
 
 		return db.size();
 	}
 
-	@Override
 	public Object getValueAt(int row, int col) {
 
-		Debtor debtor = db.get(row);
+		DebtorFee debtor = db.get(row);
 
 		switch (col) {
 		case 0:
-			return debtor.getId();
+			return debtor.getDebtorId();
 		case 1:
-			return debtor.getName();
+			return debtor.getLastPaid();
 		case 2:
-			return debtor.getFeePercentage();
+			return debtor.getFeePercent();
 		case 3:
+			return debtor.getAmountRequested();
+		case 4:
 			return debtor.getFeeAmount();
 		}
 		return null;

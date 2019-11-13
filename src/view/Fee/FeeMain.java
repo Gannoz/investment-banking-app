@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import model.Debtor;
+import model.DebtorFee;
 import model.Investor;
 import view.DebtorTableListener;
 import view.InvestorTableListener;
@@ -48,12 +48,12 @@ public class FeeMain extends JPanel {
 	}
 
 	public void setFeeListener(FeeListener listener) {
-
+		
 		this.listener = listener;
 	}
 
-	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
-
+	public void setTableData(List<Investor> investors, List<DebtorFee> debtors) {
+		
 		investorFeeTablePanel.setData(investors);
 		debtorFeeTablePanel.setData(debtors);
 	}

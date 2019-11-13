@@ -79,7 +79,7 @@ public class MainModel {
 		return db.getManagedDebtors();
 	}
 
-	public List<Debtor> getUnpaidDebtors() {
+	public List<DebtorFee> getUnpaidDebtors() {
 		return db.getUnpaidDebtors();
 	}
 

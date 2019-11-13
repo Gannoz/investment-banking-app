@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -21,17 +22,22 @@ public class Database {
 	private List<Debtor> debtors;
 	private List<DebtorRequest> unmanagedDebtorRequests;
 	private List<DebtorRequest> managedDebtorRequests;
-	private List<Debtor> unpaidDebtors;
+	private List<DebtorFee> unpaidDebtors;
 	
 	private Connection con = null;
 	private Statement stt = null;
 	private ResultSet rs = null;
+	private String query;
 	
 	private String url 		= "jdbc:mysql://localhost:3306/InvestmentBankingApp?serverTimezone=UTC";
 	private String user 	= "root";
 	private String password = "testpassword";
+	
+	private Earnings earningsObject;
 
 	public Database() {
+		
+		earningsObject = new Earnings();
 
 		investors = new LinkedList<Investor>();
 		unmanagedInvestors = new LinkedList<Investor>();
@@ -40,7 +46,7 @@ public class Database {
 		debtors = new LinkedList<Debtor>();
 		unmanagedDebtorRequests = new LinkedList<DebtorRequest>();
 		managedDebtorRequests = new LinkedList<DebtorRequest>();
-		unpaidDebtors = new LinkedList<Debtor>();
+		unpaidDebtors = new LinkedList<DebtorFee>();
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -119,8 +125,7 @@ public class Database {
 			stt.execute("CREATE TABLE IF NOT EXISTS debtorFees("
 					+ "requestId BIGINT NOT NULL,"
 					+ "lastPaid TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
-					+ "feePercent FLOAT,"
-					+ "feePending FLOAT,"
+					+ "feeMultiplier FLOAT,"
 					+ "PRIMARY KEY (requestId),"
 					+ "FOREIGN KEY (requestId) REFERENCES debtorRequests(id)"
 					+ ")");
@@ -259,6 +264,58 @@ public class Database {
 			}
 				
 			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
+		
+		// UNPAID DEBTORS
+		unpaidDebtors.clear();
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			rs = stt.executeQuery("SELECT * FROM debtorFees");
+			
+			while(rs.next()) {
+				int requestId = rs.getInt("requestId");
+				Date date = rs.getDate("lastPaid");
+				LocalDate lastPaid = date.toLocalDate();
+				float feeMultiplier = rs.getFloat("feeMultiplier");
+		
+				DebtorFee fee = new DebtorFee(requestId, lastPaid, feeMultiplier);
+				
+				unpaidDebtors.add(fee);
+			}
+				
+			rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed=true");
+			
+			while(rs.next()) {
+				int requestId = rs.getInt("id");
+				int debtorId = rs.getInt("debtorId");
+				int amountRequested = rs.getInt("amtRequested");
+				
+				for(DebtorFee fee: unpaidDebtors) {
+					if(requestId == fee.getRequestId()) {
+						fee.setDebtorId(debtorId);
+						fee.setAmountRequested(amountRequested);
+						fee.update();
+						
+						if(fee.getFeeAmount() == 0) {
+							unpaidDebtors.remove(fee);
+						}
+					}
+				}
+				
+			}
+				
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -453,7 +510,7 @@ public class Database {
 		return Collections.unmodifiableList(managedDebtorRequests);
 	}
 
-	public List<Debtor> getUnpaidDebtors() {
+	public List<DebtorFee> getUnpaidDebtors() {
 		return Collections.unmodifiableList(unpaidDebtors);
 	}
 
@@ -600,7 +657,23 @@ public class Database {
 					+ value
 					+ ")");
 			
-			stt.execute("SELECT amtRequested");
+			query = String.format("SELECT * FROM debtorRequests WHERE id=%d", id);
+			
+			rs = stt.executeQuery(query);
+			
+			long amtRequested = 0;
+			
+			while(rs.next()) {
+				amtRequested = rs.getInt("amtRequested");
+			}
+			
+			
+			float feePercent = earningsObject.calcDebtorFeeMultiplier(amtRequested);
+			
+			
+			query = String.format("INSERT INTO debtorFees (requestId, feeMultiplier) VALUES(%d, %f)", id, feePercent);
+			
+			stt.execute(query);
 		
 				
 		}catch(Exception e) {
@@ -627,10 +700,14 @@ public class Database {
 					+ update
 					+ "");
 			
-			String value = String.format("WHERE requestId=%d", id);
+			String condition = String.format("WHERE requestId=%d", id);
 			
 			stt.execute("DELETE FROM debtorManaged "
-					+ value
+					+ condition
+					+ "");
+			
+			stt.execute("DELETE FROM debtorFees "
+					+ condition
 					+ "");
 		
 				
@@ -687,16 +764,5 @@ public class Database {
 
 		debtors.remove(debtorRemoved);
 
-//		try {
-//			unmanagedRequests.remove(debtorRemoved);
-//		} catch (Exception e) {
-//
-//		}
-//
-//		try {
-//			managedRequests.remove(debtorRemoved);
-//		} catch (Exception e) {
-//
-//		}
 	}
 }

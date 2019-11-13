@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import model.Debtor;
+import model.DebtorFee;
 import model.DebtorRequest;
 import model.Gender;
 import model.Investor;
@@ -290,7 +291,7 @@ public class Controller {
 		return mainModel.getManagedDebtors();
 	}
 
-	public List<Debtor> getUnpaidDebtors() {
+	public List<DebtorFee> getUnpaidDebtors() {
 		return mainModel.getUnpaidDebtors();
 	}
 
