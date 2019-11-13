@@ -12,7 +12,7 @@ public class ManagePaymentsReceivableTableModel extends AbstractTableModel {
 
 	List<DebtorRequest> db = new LinkedList<DebtorRequest>();
 
-	String[] colNames = { "Id", "Amount Lent", "Time Managed" };
+	String[] colNames = { "Id", "Debtor ID", "Amount Lent", "Time Managed" };
 
 	public String getColumnName(int column) {
 
@@ -35,7 +35,7 @@ public class ManagePaymentsReceivableTableModel extends AbstractTableModel {
 
 	public int getColumnCount() {
 
-		return 3;
+		return colNames.length;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {

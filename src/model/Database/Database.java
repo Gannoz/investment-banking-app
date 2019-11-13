@@ -425,7 +425,7 @@ public class Database {
 			}
 		}
 		investors.remove(investorRemoved);
-
+		
 		try {
 			unmanagedInvestors.remove(investorRemoved);
 		} catch (Exception e) {
@@ -581,16 +581,35 @@ public class Database {
 	}
 
 	public void unmanageDebtor(int id) {
-
-		Debtor debtorUnmanaged = null;
-		for (Debtor debtor : debtors) {
-			if (debtor.getId() == id) {
-				debtorUnmanaged = debtor;
-			}
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String update = String.format("SET managed = %b WHERE id = %d", false, id);
+			
+			stt.execute("UPDATE debtorRequests "
+					+ update
+					+ "");
+			
+			String value = String.format("WHERE requestId=%d", id);
+			
+			stt.execute("DELETE FROM debtorManaged "
+					+ value
+					+ "");
+		
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
 		}
-//		unmanagedRequests.add(debtorUnmanaged);
-//		managedRequests.remove(debtorUnmanaged);
-//		unpaidDebtors.remove(debtorUnmanaged);
+
+		updateLists();
+
 	}
 
 	public void paidDebtor(int id) {
