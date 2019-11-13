@@ -1,4 +1,4 @@
-package model.Investments;
+package model;
 
 public class Investments {
 

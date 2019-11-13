@@ -3,10 +3,6 @@ package model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import model.Database.Database;
-import model.Earnings.Earnings;
-import model.Investments.Investments;
-
 public class MainModel {
 
 	private Database db;

@@ -1,4 +1,4 @@
-package model.Database;
+package model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,11 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import model.Debtor;
-import model.DebtorRequest;
-import model.Gender;
-import model.Investor;
 
 public class Database {
 
@@ -463,13 +458,49 @@ public class Database {
 	}
 
 	public Debtor getDebtor(int id) {
-
+		
 		Debtor selectedDebtor = null;
-		for (Debtor debtor : debtors) {
-			if (debtor.getId() == id) {
-				selectedDebtor = debtor;
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String query = String.format("SELECT * FROM debtors WHERE id=%d", id);
+			
+			rs = stt.executeQuery(query);
+			
+			while(rs.next()) {
+				String nik = rs.getString("nik");
+				String name = rs.getString("name");
+				Gender gender = null;
+				String address = rs.getString("address");
+				String rtrw = rs.getString("rtrw");
+				String village = rs.getString("village");
+				String district = rs.getString("district");
+				String religion = rs.getString("religion");
+				String marriageStatus = rs.getString("marriageStatus");
+				String occupation = rs.getString("occupation");
+				String nationality = rs.getString("nationality");
+ 
+				String genderCat = rs.getString("gender");
+					if (genderCat.equals("M")) {
+						gender = Gender.M;
+					}else if(genderCat.equals("F")) {
+						gender = Gender.F;
+					}
+					
+				selectedDebtor = new Debtor(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);	
 			}
-		}
+			
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		close();
+	}
+		
 		return selectedDebtor;
 	}
 
@@ -538,7 +569,6 @@ public class Database {
 					+ update
 					+ "");
 		
-				
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -569,6 +599,8 @@ public class Database {
 			stt.execute("INSERT INTO debtorManaged(requestId) VALUES("
 					+ value
 					+ ")");
+			
+			stt.execute("SELECT amtRequested");
 		
 				
 		}catch(Exception e) {
