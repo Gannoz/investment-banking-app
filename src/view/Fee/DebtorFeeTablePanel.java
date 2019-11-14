@@ -40,7 +40,7 @@ public class DebtorFeeTablePanel extends JPanel {
 					int row = table.rowAtPoint(e.getPoint());
 
 					if (e.getClickCount() == 2 && clickedTable.getSelectedRow() != -1) {
-						listener.sendDebtorId(tableModel.getData().get(row).getDebtorId());
+						listener.sendDebtorId(tableModel.getData().get(row).getRequestId());
 					}
 				} catch (IndexOutOfBoundsException ex) {
 					ex.printStackTrace();

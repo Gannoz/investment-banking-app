@@ -12,7 +12,7 @@ public class DebtorFeeTableModel extends AbstractTableModel {
 
 	List<DebtorFee> db = new LinkedList<DebtorFee>();
 
-	String[] colNames = { "Debtor ID", "Last Paid", "Fee %", "Amt Borrowed", "Fee Amount" };
+	String[] colNames = { "Request ID", "Last Paid", "Fee %", "Amt Borrowed", "Fee Amount" };
 
 	public String getColumnName(int column) {
 		return colNames[column];
@@ -40,19 +40,19 @@ public class DebtorFeeTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int col) {
 
-		DebtorFee debtor = db.get(row);
+		DebtorFee debtorFee = db.get(row);
 
 		switch (col) {
 		case 0:
-			return debtor.getDebtorId();
+			return debtorFee.getRequestId();
 		case 1:
-			return debtor.getLastPaid();
+			return debtorFee.getLastPaid();
 		case 2:
-			return debtor.getFeePercent();
+			return debtorFee.getFeePercent();
 		case 3:
-			return debtor.getAmountRequested();
+			return debtorFee.getAmountRequested();
 		case 4:
-			return debtor.getFeeAmount();
+			return debtorFee.getFeeAmount();
 		}
 		return null;
 	}

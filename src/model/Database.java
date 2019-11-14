@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -82,6 +83,7 @@ public class Database {
 					+ "UNIQUE(nik)"
 					+ ")");
 			
+			stt.execute("DROP TABLE IF EXISTS earnings");
 //			stt.execute("DROP TABLE IF EXISTS debtorFees");
 //			stt.execute("DROP TABLE IF EXISTS debtorManaged");
 //			stt.execute("DROP TABLE IF EXISTS debtorRequests");
@@ -130,6 +132,15 @@ public class Database {
 					+ "FOREIGN KEY (requestId) REFERENCES debtorRequests(id)"
 					+ ")");
 			
+			stt.execute("CREATE TABLE IF NOT EXISTS earnings("
+					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "requestId BIGINT,"
+					+ "earning BIGINT,"
+					+ "timePaid TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "PRIMARY KEY(id),"
+					+ "FOREIGN KEY(requestId) REFERENCES debtorRequests(id)"
+					+ ")");
+			
 				
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -137,7 +148,7 @@ public class Database {
 			close();
 		}
 		
-		updateLists();
+		updateData();
 
 	}
 	
@@ -149,7 +160,7 @@ public class Database {
 		try { con.close(); } catch(Exception e) { };
 	}
 	
-	private void updateLists() {
+	private void updateData() {
 		
 		// DEBTORS
 		debtors.clear();
@@ -324,6 +335,48 @@ public class Database {
 		}
 		
 	}
+	
+	public long calcDebtorFeeAmount(long amount) {
+		return earningsObject.calcDebtorFeeAmount(amount);
+	}
+
+	public float calcDebtorFeeMultiplier(long amount) {
+		return earningsObject.calcDebtorFeeMultiplier(amount);
+	}
+	
+	public long getTotalEarnings() {
+		return earningsObject.getTotalEarnings();
+	}
+	
+	public long getMonthEarnings() {
+		return earningsObject.getMonthEarnings();
+	}
+	
+	public long getYearEarnings() {
+		return earningsObject.getYearEarnings();
+	}
+	
+	public void addEarnings(int requestId, long earning) {
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			query = String.format("INSERT INTO earnings(requestId,earning) VALUES(%d, %d)",requestId, earning);
+			
+			stt.execute(query);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
+		
+	}
+	
 
 	// INVESTOR
 
@@ -560,6 +613,57 @@ public class Database {
 		
 		return selectedDebtor;
 	}
+	
+	public DebtorFee getDebtorFee(int requestId) {
+		
+		DebtorFee selectedFee = null;
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			query = String.format("SELECT * FROM debtorFees WHERE requestId=%d", requestId);
+			
+			rs = stt.executeQuery(query);
+			
+			while(rs.next()) {
+				Date date = rs.getDate("lastPaid");
+				LocalDate lastPaid = date.toLocalDate();
+				float feeMultiplier = rs.getFloat("feeMultiplier");
+		
+				DebtorFee fee = new DebtorFee(requestId, lastPaid, feeMultiplier);
+				
+				rs = stt.executeQuery("SELECT * FROM debtorRequests WHERE managed=true AND id=" + requestId);
+				
+				while(rs.next()) {
+
+					int debtorId = rs.getInt("debtorId");
+					int amountRequested = rs.getInt("amtRequested");
+					
+					if(requestId == fee.getRequestId()) {
+						fee.setDebtorId(debtorId);
+						fee.setAmountRequested(amountRequested);
+						fee.update();
+						
+						selectedFee = fee;
+					}
+					
+					
+				}
+			}
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
+		
+		return selectedFee;
+	}
+	
 
 	public void addDebtor(Debtor debtor) {
 		
@@ -582,7 +686,7 @@ public class Database {
 			close();
 		}
 		
-		updateLists();
+		updateData();
 		
 	}
 	
@@ -606,7 +710,7 @@ public class Database {
 			close();
 		}
 		
-		updateLists();
+		updateData();
 		
 		
 	}
@@ -632,7 +736,7 @@ public class Database {
 			close();
 		}
 
-		updateLists();
+		updateData();
 
 	}
 
@@ -682,7 +786,7 @@ public class Database {
 			close();
 		}
 
-		updateLists();
+		updateData();
 	}
 
 	public void unmanageDebtor(int id) {
@@ -717,21 +821,41 @@ public class Database {
 			close();
 		}
 
-		updateLists();
+		updateData();
 
 	}
 
-	public void paidDebtor(int id) {
-
-		Debtor unpaidDebtor = null;
-		for (Debtor debtor : debtors) {
-			if (debtor.getId() == id) {
-				debtor.setPaid(true);
-				unpaidDebtor = debtor;
-			}
+	public void paidDebtor(int requestId) {
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String update = String.format("SET lastPaid = CURRENT_TIMESTAMP WHERE requestId = %d", requestId);
+			
+			stt.execute("UPDATE debtorFees "
+					+ update
+					+ "");
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
 		}
 
-		unpaidDebtors.remove(unpaidDebtor);
+//		Debtor unpaidDebtor = null;
+//		for (Debtor debtor : debtors) {
+//			if (debtor.getId() == requestId) {
+//				debtor.setPaid(true);
+//				unpaidDebtor = debtor;
+//			}
+//		}
+//
+//		unpaidDebtors.remove(unpaidDebtor);
+		updateData();
 	}
 
 	public void removeDebtor(int id) {

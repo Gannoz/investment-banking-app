@@ -9,7 +9,7 @@ public class DebtorFee {
 	private int debtorId;
 	private float feeMultiplier;
 	private long amountRequested;
-	private double feeAmount;
+	private long feeAmount;
 	private LocalDate lastPaid;
 	private LocalDate currentDate;
 	
@@ -23,17 +23,15 @@ public class DebtorFee {
 	public void update() {
 		
 		currentDate = LocalDate.now();
-		System.out.println(lastPaid);
-		System.out.println(currentDate);
 		
 		Period diff = Period.between(lastPaid, currentDate);
 		
 		int yearDiff = diff.getYears();
 		int monthDiff = diff.getMonths() + (yearDiff * 12);
 		
-		System.out.println(monthDiff);
-		
 		feeAmount =  (long)(amountRequested * feeMultiplier) * monthDiff;
+		
+		System.out.println("Fee updated");
 		
 	}
 
@@ -73,11 +71,11 @@ public class DebtorFee {
 		this.amountRequested = amountRequested;
 	}
 
-	public double getFeeAmount() {
+	public long getFeeAmount() {
 		return feeAmount;
 	}
 
-	public void setFeeAmount(double feeAmount) {
+	public void setFeeAmount(long feeAmount) {
 		this.feeAmount = feeAmount;
 	}
 

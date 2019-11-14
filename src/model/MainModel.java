@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -120,6 +121,14 @@ public class MainModel {
 	public void addDebtorRequest(int debtorId, int amountRequested) {
 		db.addDebtorRequest(debtorId, amountRequested);
 	}
+	
+	// FEES
+	
+	public DebtorFee getDebtorFee(int requestId) {
+		return db.getDebtorFee(requestId);
+	}
+	
+	// INVESTMENTS
 
 	public long getTotalInvestments() {
 		return investments.getTotalInvestments();
@@ -128,29 +137,31 @@ public class MainModel {
 	public long getTotalInvested() {
 		return investments.getTotalInvested();
 	}
+	
+	// EARNINGS
 
 	public long calcDebtorFeeAmount(long amount) {
-		return earnings.calcDebtorFeeAmount(amount);
+		return db.calcDebtorFeeAmount(amount);
 	}
 
 	public float calcDebtorFeeMultiplier(long amount) {
-		return earnings.calcDebtorFeeMultiplier(amount);
+		return db.calcDebtorFeeMultiplier(amount);
 	}
 	
 	public long getTotalEarnings() {
-		return earnings.getTotalEarnings();
+		return db.getTotalEarnings();
 	}
 	
 	public long getMonthEarnings() {
-		return earnings.getMonthEarnings();
+		return db.getMonthEarnings();
 	}
 	
 	public long getYearEarnings() {
-		return earnings.getYearEarnings();
+		return db.getYearEarnings();
 	}
 	
-	public void addTotalEarnings(long earning) {
-		earnings.addEarnings(earning, LocalDateTime.now());
+	public void addEarnings(int requestId, long earning) {
+		db.addEarnings(requestId, earning);
 	}
 
 }

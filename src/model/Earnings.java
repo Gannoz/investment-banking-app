@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class Earnings {
@@ -49,7 +49,7 @@ public class Earnings {
 		return 0;
 	}
 
-	public void addEarnings(long earnings, LocalDateTime time) {
+	public void addEarnings(long earnings, LocalDate time) {
 		this.totalEarnings += earnings;
 		
 		if (time.getMonthValue() == currentMonth) {

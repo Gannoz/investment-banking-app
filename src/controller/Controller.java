@@ -98,11 +98,11 @@ public class Controller {
 				manageDebtor(id);
 
 				// Change the fee percentage and fee amount of the debtor
-				Debtor debtor = mainModel.getDebtor(id);
-				long amountBorrowed = debtor.getAmountBorrowed();
-				float feeMultiplier = mainModel.calcDebtorFeeMultiplier(amountBorrowed);
-				debtor.setFeePercentage(feeMultiplier * 100);
-				debtor.setFeeAmount((long) (amountBorrowed * feeMultiplier));
+//				Debtor debtor = mainModel.getDebtor(id);
+//				long amountBorrowed = debtor.getAmountBorrowed();
+//				float feeMultiplier = mainModel.calcDebtorFeeMultiplier(amountBorrowed);
+//				debtor.setFeePercentage(feeMultiplier * 100);
+//				debtor.setFeeAmount((long) (amountBorrowed * feeMultiplier));
 
 				// Set data to view
 				setData();
@@ -119,10 +119,10 @@ public class Controller {
 			}
 
 			@Override
-			public void paidDebtorRequest(int id) {
-				Debtor debtor = mainModel.getDebtor(id);
-				mainModel.addTotalEarnings(debtor.getFeeAmount());
-				paidDebtor(id);
+			public void paidDebtorRequest(int requestId) {
+				DebtorFee debtorFee = mainModel.getDebtorFee(requestId);
+				mainModel.addEarnings(requestId, debtorFee.getFeeAmount());
+				paidDebtor(requestId);
 				
 				setData();
 			}
