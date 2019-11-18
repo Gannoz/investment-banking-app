@@ -60,10 +60,38 @@ public class Database {
 			stt.execute("USE InvestmentBankingApp");
 			
 			// CREATE TABLES
+//			stt.execute("DROP TABLE IF EXISTS investors");
+//			stt.execute("CREATE TABLE IF NOT EXISTS investors("
+//					+ "id BIGINT AUTO_INCREMENT,"
+//					+ "nik BIGINT,"
+//					+ "name VARCHAR(50),"
+//					+ "gender ENUM('M', 'F'),"
+//					+ "address VARCHAR(50),"
+//					+ "rtrw VARCHAR(50),"
+//					+ "village VARCHAR(50),"
+//					+ "district VARCHAR(50),"
+//					+ "religion VARCHAR(20),"
+//					+ "marriageStatus VARCHAR(20),"
+//					+ "occupation VARCHAR(20),"
+//					+ "nationality VARCHAR(20),"
+//					+ "amountInvested BIGINT,"
+//					+ "managed BOOLEAN,"	
+//					+ "paid BOOLEAN,"
+//					+ "timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+//					+ "timeManaged TIMESTAMP,"
+//					+ "PRIMARY KEY(id),"
+//					+ "UNIQUE(nik)"
+//					+ ")");
+//
+			stt.execute("DROP TABLE IF EXISTS investments");
+			stt.execute("DROP TABLE IF EXISTS investorFees");
+			stt.execute("DROP TABLE IF EXISTS investorManaged");
+			stt.execute("DROP TABLE IF EXISTS investorRequests");
 			stt.execute("DROP TABLE IF EXISTS investors");
+			
 			stt.execute("CREATE TABLE IF NOT EXISTS investors("
-					+ "id BIGINT AUTO_INCREMENT,"
-					+ "nik BIGINT,"
+					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "nik VARCHAR(25),"
 					+ "name VARCHAR(50),"
 					+ "gender ENUM('M', 'F'),"
 					+ "address VARCHAR(50),"
@@ -74,13 +102,44 @@ public class Database {
 					+ "marriageStatus VARCHAR(20),"
 					+ "occupation VARCHAR(20),"
 					+ "nationality VARCHAR(20),"
-					+ "amountInvested BIGINT,"
-					+ "managed BOOLEAN,"	
-					+ "paid BOOLEAN,"
-					+ "timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
-					+ "timeManaged TIMESTAMP,"
 					+ "PRIMARY KEY(id),"
 					+ "UNIQUE(nik)"
+					+ ")");
+			
+			stt.execute("CREATE TABLE IF NOT EXISTS investorRequests("
+					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "investorId BIGINT,"
+					+ "amtOffered BIGINT,"
+					+ "managed BOOLEAN DEFAULT false,"
+					+ "timeCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "PRIMARY KEY (id),"
+					+ "FOREIGN KEY (investorId) REFERENCES investors(id)"
+					+ ")");
+			
+			stt.execute("CREATE TABLE IF NOT EXISTS investorManaged("
+					+ "requestId BIGINT NOT NULL,"
+					+ "fulfilled BOOLEAN DEFAULT FALSE,"
+					+ "timeManaged TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "PRIMARY KEY (requestId),"
+					+ "FOREIGN KEY (requestId) REFERENCES investorRequests(id)"
+					+ ")");
+			
+			stt.execute("CREATE TABLE IF NOT EXISTS investorFees("
+					+ "requestId BIGINT NOT NULL,"
+					+ "lastPaid TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "feeMultiplier FLOAT,"
+					+ "PRIMARY KEY (requestId),"
+					+ "FOREIGN KEY (requestId) REFERENCES investorRequests(id)"
+					+ ")");
+			
+			stt.execute("CREATE TABLE IF NOT EXISTS investments("
+					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
+					+ "requestId BIGINT,"
+					+ "investment BIGINT,"
+					+ "invested BIGINT,"
+					+ "timePaid TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "PRIMARY KEY(id),"
+					+ "FOREIGN KEY(requestId) REFERENCES investorRequests(id)"
 					+ ")");
 			
 //			stt.execute("DROP TABLE IF EXISTS earnings");
