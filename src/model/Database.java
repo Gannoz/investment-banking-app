@@ -83,11 +83,11 @@ public class Database {
 //					+ "UNIQUE(nik)"
 //					+ ")");
 //
-			stt.execute("DROP TABLE IF EXISTS investments");
-			stt.execute("DROP TABLE IF EXISTS investorFees");
-			stt.execute("DROP TABLE IF EXISTS investorManaged");
-			stt.execute("DROP TABLE IF EXISTS investorRequests");
-			stt.execute("DROP TABLE IF EXISTS investors");
+//			stt.execute("DROP TABLE IF EXISTS investments");
+//			stt.execute("DROP TABLE IF EXISTS investorFees");
+//			stt.execute("DROP TABLE IF EXISTS investorManaged");
+//			stt.execute("DROP TABLE IF EXISTS investorRequests");
+//			stt.execute("DROP TABLE IF EXISTS investors");
 			
 			stt.execute("CREATE TABLE IF NOT EXISTS investors("
 					+ "id BIGINT NOT NULL AUTO_INCREMENT,"
@@ -220,6 +220,50 @@ public class Database {
 	}
 	
 	private void updateData() {
+		
+		// INVESTORS
+		investors.clear();
+		
+		try {
+				
+				Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+				con = DriverManager.getConnection(url, user, password);
+				
+				stt = con.createStatement();
+				
+				rs = stt.executeQuery("SELECT * FROM investors");
+				
+				while(rs.next()) {
+					int id = rs.getInt("id");
+					String nik = rs.getString("nik");
+					String name = rs.getString("name");
+					Gender gender = null;
+					String address = rs.getString("address");
+					String rtrw = rs.getString("rtrw");
+					String village = rs.getString("village");
+					String district = rs.getString("district");
+					String religion = rs.getString("religion");
+					String marriageStatus = rs.getString("marriageStatus");
+					String occupation = rs.getString("occupation");
+					String nationality = rs.getString("nationality");
+	 
+					String genderCat = rs.getString("gender");
+						if (genderCat.equals("M")) {
+							gender = Gender.M;
+						}else if(genderCat.equals("F")) {
+							gender = Gender.F;
+						}
+						
+					Investor debtor = new Investor(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality);
+						
+					investors.add(debtor);	
+				}
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 		
 		// DEBTORS
 		debtors.clear();
@@ -499,7 +543,6 @@ public class Database {
 	}
 
 	public void addInvestor(Investor investor) {
-		
 		try {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -509,7 +552,7 @@ public class Database {
 			
 			String values = String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'", investor.getNik(), investor.getName(), investor.getGender(), investor.getAddress(), investor.getRtrw(), investor.getVillage(), investor.getDistrict(), investor.getReligion(), investor.getMarriageStatus(), investor.getOccupation(), investor.getNationality());
 			
-			stt.execute("INSERT INTO debtors(nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality) VALUES("
+			stt.execute("INSERT INTO investors(nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation, nationality) VALUES("
 					+ values
 					+ ")");
 			
@@ -520,13 +563,14 @@ public class Database {
 			close();
 		}
 		
+		updateData();
 
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		investor.setTimeCreated(LocalDateTime.now().format(dtf));
-
-		investors.add(investor);
-		unmanagedInvestors.add(investor);
+//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//
+//		investor.setTimeCreated(LocalDateTime.now().format(dtf));
+//
+//		investors.add(investor);
+//		unmanagedInvestors.add(investor);
 	}
 
 	public void editInvestor(int id, Investor newInvestor) {

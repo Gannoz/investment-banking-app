@@ -43,6 +43,13 @@ public class Investor extends Person {
 		this.amountInvested = amountInvested;
 
 	}
+	
+	public Investor(int id, String nik, String name, Gender gender, String address, String rtrw, String village,
+			String district, String religion, String marriageStatus, String occupation, String nationality) {
+		super(id, nik, name, gender, address, rtrw, village, district, religion, marriageStatus, occupation,
+				nationality);
+
+	}
 
 	public int getAmountInvested() {
 		return amountInvested;
