@@ -575,31 +575,26 @@ public class Database {
 
 	public void editInvestor(int id, Investor newInvestor) {
 
-		Investor investorEdited = null;
-		for (Investor investor : investors) {
-			if (investor.getId() == id) {
-				investorEdited = investor;
-			}
-		}
-		int index = investors.indexOf(investorEdited);
-		investors.remove(investorEdited);
-		investors.add(index, newInvestor);
-
 		try {
-			index = unmanagedInvestors.indexOf(investorEdited);
-			unmanagedInvestors.remove(investorEdited);
-			unmanagedInvestors.add(index, newInvestor);
-		} catch (Exception e) {
-
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String update = String.format("SET nik='%s', name='%s', gender='%s', address='%s', rtrw='%s', village='%s', district='%s', religion='%s', marriageStatus='%s', occupation='%s', nationality='%s' WHERE id=%d", newInvestor.getNik(), newInvestor.getName(), newInvestor.getGender(), newInvestor.getAddress(), newInvestor.getRtrw(), newInvestor.getVillage(), newInvestor.getDistrict(), newInvestor.getReligion(), newInvestor.getMarriageStatus(), newInvestor.getOccupation(), newInvestor.getNationality(), id);
+			
+			stt.execute("UPDATE investors "
+					+ update
+					+ "");
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
 		}
 
-		try {
-			index = managedInvestors.indexOf(investorEdited);
-			managedInvestors.remove(investorEdited);
-			managedInvestors.add(index, newInvestor);
-		} catch (Exception e) {
-
-		}
+		updateData();
 	}
 
 	public void manageInvestor(int id) {
@@ -654,25 +649,24 @@ public class Database {
 
 	public void removeInvestor(int id) {
 
-		Investor investorRemoved = null;
-		for (Investor investor : investors) {
-			if (investor.getId() == id) {
-				investorRemoved = investor;
-			}
+		try {	
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			String query = String.format("DELETE FROM investors WHERE id = %d;", id);
+			
+			stt.execute(query);
+					
+		}catch(Exception e) {
+			e.printStackTrace();	
+		}finally {
+			close();
 		}
-		investors.remove(investorRemoved);
-		
-		try {
-			unmanagedInvestors.remove(investorRemoved);
-		} catch (Exception e) {
-
-		}
-
-		try {
-			managedInvestors.remove(investorRemoved);
-		} catch (Exception e) {
-
-		}
+						
+		updateData();
 	}
 
 	// DEBTOR
@@ -1007,17 +1001,7 @@ public class Database {
 			close();
 		}
 						
-		
-		
-		
-		Debtor debtorRemoved = null;
-		for (Debtor debtor : debtors) {
-			if (debtor.getId() == id) {
-				debtorRemoved = debtor;
-			}
-		}
-
-		debtors.remove(debtorRemoved);
+		updateData();
 
 	}
 }
