@@ -235,7 +235,6 @@ public class MainView extends JFrame {
 	}
 
 	public void setData(long totalInvestments, long totalInvested, long totalEarnings, long monthEarnings, long yearEarnings) {
-
 		dashboardPanel.setData(totalInvestments, totalInvested, totalEarnings, monthEarnings, yearEarnings);
 		managePanel.setData(totalInvestments - totalInvested, totalEarnings);
 	}
