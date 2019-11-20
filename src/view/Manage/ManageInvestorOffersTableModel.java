@@ -5,12 +5,11 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.Debtor;
-import model.Investor;
+import model.InvestorRequest;
 
 public class ManageInvestorOffersTableModel extends AbstractTableModel {
 
-	List<Investor> db = new LinkedList<Investor>();
+	List<InvestorRequest> db = new LinkedList<InvestorRequest>();
 
 	String[] colNames = { "Id", "Amount Offered", "Offer Date" };
 
@@ -19,12 +18,12 @@ public class ManageInvestorOffersTableModel extends AbstractTableModel {
 		return colNames[column];
 	}
 
-	public void setData(List<Investor> db) {
+	public void setData(List<InvestorRequest> db) {
 
 		this.db = db;
 	}
 
-	public List<Investor> getData() {
+	public List<InvestorRequest> getData() {
 		return db;
 	}
 
@@ -40,13 +39,13 @@ public class ManageInvestorOffersTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
-		Investor investor = db.get(rowIndex);
+		InvestorRequest investor = db.get(rowIndex);
 
 		switch (columnIndex) {
 		case 0:
 			return investor.getId();
 		case 1:
-			return investor.getAmountInvested();
+			return investor.getAmtRequested();
 		case 2:
 			return investor.getTimeCreated();
 		}

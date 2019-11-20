@@ -7,6 +7,7 @@ import model.DebtorFee;
 import model.DebtorRequest;
 import model.Gender;
 import model.Investor;
+import model.InvestorRequest;
 import model.MainModel;
 import model.Person;
 import view.FormEvent;
@@ -230,7 +231,7 @@ public class Controller {
 		return mainModel.getInvestors();
 	}
 
-	public List<Investor> getUnmanagedInvestors() {
+	public List<InvestorRequest> getUnmanagedInvestors() {
 
 		return mainModel.getUnmanagedInvestors();
 	}

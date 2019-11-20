@@ -9,9 +9,9 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.Debtor;
 import model.DebtorRequest;
 import model.Investor;
+import model.InvestorRequest;
 import view.DebtorTableListener;
 import view.InvestorTableListener;
 
@@ -236,7 +236,7 @@ public class ManageMain extends JPanel {
 
 	}
 
-	public void setTableData(List<Investor> unmanagedInvestors, List<DebtorRequest> unmanagedDebtors,
+	public void setTableData(List<InvestorRequest> unmanagedInvestors, List<DebtorRequest> unmanagedDebtors,
 			List<Investor> managedInvestors, List<DebtorRequest> managedDebtors) {
 
 		investorOffersTablePanel.setTableData(unmanagedInvestors);

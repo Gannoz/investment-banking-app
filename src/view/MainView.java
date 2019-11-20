@@ -12,6 +12,7 @@ import model.Debtor;
 import model.DebtorFee;
 import model.DebtorRequest;
 import model.Investor;
+import model.InvestorRequest;
 import view.Dashboard.DashboardPanel;
 import view.Debtor.DebtorListener;
 import view.Debtor.DebtorPanel;
@@ -239,7 +240,7 @@ public class MainView extends JFrame {
 		managePanel.setData(totalInvestments - totalInvested, totalEarnings);
 	}
 
-	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<Investor> unmanagedInvestors,
+	public void setTableData(List<Investor> investors, List<Debtor> debtors, List<InvestorRequest> unmanagedInvestors,
 			List<DebtorRequest> unmanagedDebtors, List<Investor> managedInvestors, List<DebtorRequest> managedDebtors,
 			List<Investor> unpaidInvestors, List<DebtorFee> unpaidDebtors) {
 
