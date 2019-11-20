@@ -6,46 +6,43 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import model.Investor;
+import model.InvestorRequest;
 
 public class ManagePaymentsPayableTableModel extends AbstractTableModel {
 
-	List<Investor> db = new LinkedList<Investor>();
+	List<InvestorRequest> db = new LinkedList<InvestorRequest>();
 
 	String[] colNames = { "Id", "Amount Borrowed", "Time Managed" };
 
 	public String getColumnName(int column) {
-
 		return colNames[column];
 	}
 
-	public void setData(List<Investor> db) {
-
+	public void setData(List<InvestorRequest> db) {
 		this.db = db;
 	}
 
-	public List<Investor> getData() {
+	public List<InvestorRequest> getData() {
 		return db;
 	}
 
 	public int getRowCount() {
-
 		return db.size();
 	}
 
 	public int getColumnCount() {
-
 		return 3;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
-		Investor investor = db.get(rowIndex);
+		InvestorRequest investor = db.get(rowIndex);
 
 		switch (columnIndex) {
 		case 0:
 			return investor.getId();
 		case 1:
-			return investor.getAmountInvested();
+			return investor.getAmtRequested();
 		case 2:
 			return investor.getTimeManaged();
 		}

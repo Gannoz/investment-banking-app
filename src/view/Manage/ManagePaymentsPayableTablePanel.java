@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
-import model.Investor;
+import model.InvestorRequest;
 import view.InvestorTableListener;
 
 public class ManagePaymentsPayableTablePanel extends JPanel {
@@ -64,7 +64,7 @@ public class ManagePaymentsPayableTablePanel extends JPanel {
 		this.listener = listener;
 	}
 
-	public void setTableData(List<Investor> db) {
+	public void setTableData(List<InvestorRequest> db) {
 		tableModel.setData(db);
 	}
 

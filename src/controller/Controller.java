@@ -236,7 +236,7 @@ public class Controller {
 		return mainModel.getUnmanagedInvestors();
 	}
 
-	public List<Investor> getManagedInvestors() {
+	public List<InvestorRequest> getManagedInvestors() {
 
 		return mainModel.getManagedInvestors();
 	}

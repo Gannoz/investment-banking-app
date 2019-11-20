@@ -237,7 +237,7 @@ public class ManageMain extends JPanel {
 	}
 
 	public void setTableData(List<InvestorRequest> unmanagedInvestors, List<DebtorRequest> unmanagedDebtors,
-			List<Investor> managedInvestors, List<DebtorRequest> managedDebtors) {
+			List<InvestorRequest> managedInvestors, List<DebtorRequest> managedDebtors) {
 
 		investorOffersTablePanel.setTableData(unmanagedInvestors);
 		debtorRequestsTablePanel.setTableData(unmanagedDebtors);
