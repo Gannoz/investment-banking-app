@@ -11,5 +11,7 @@ public interface InvestorListener {
 	public void removeInvestorInfo(int id);
 
 	public void getInvestorInfo(int id);
+	
+	public void addRequest(int investorId, long amountRequested);
 
 }

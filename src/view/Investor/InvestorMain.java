@@ -62,9 +62,9 @@ public class InvestorMain extends JPanel {
 			}
 
 			@Override
-			public void formRequest(int amountRequested) {
+			public void formRequest(long amountRequested) {
 				// TODO Auto-generated method stub
-				
+				investorListener.addRequest(investorId, amountRequested);
 			}
 
 		});

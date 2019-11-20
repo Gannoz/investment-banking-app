@@ -38,6 +38,12 @@ public class InvestorPanel extends JPanel {
 				investorListener.getInvestorInfo(id);
 			}
 
+			@Override
+			public void addRequest(int investorId, long amountRequested) {
+				investorListener.addRequest(investorId, amountRequested);
+				
+			}
+
 		});
 
 		setLayout(new BorderLayout());

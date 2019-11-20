@@ -82,6 +82,12 @@ public class MainView extends JFrame {
 			public void getInvestorInfo(int id) {
 				viewListener.getInvestorInfo(id);
 			}
+
+			@Override
+			public void addRequest(int investorId, long amountRequested) {
+				viewListener.addInvestorRequest(investorId, amountRequested);
+				
+			}
 		});
 
 		// DEBTOR LISTENER
@@ -106,10 +112,11 @@ public class MainView extends JFrame {
 			}
 
 			@Override
-			public void addRequest(int debtorId, int amountRequested) {
+			public void addRequest(int debtorId, long amountRequested) {
 				viewListener.addDebtorRequest(debtorId, amountRequested);
 				
 			}
+
 		});
 
 		// MANAGE LISTENER

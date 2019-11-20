@@ -39,7 +39,7 @@ public class DebtorPanel extends JPanel {
 			}
 
 			@Override
-			public void addRequest(int debtorId, int amountRequested) {
+			public void addRequest(int debtorId, long amountRequested) {
 				// TODO Auto-generated method stub
 				debtorListener.addRequest(debtorId, amountRequested);
 			}

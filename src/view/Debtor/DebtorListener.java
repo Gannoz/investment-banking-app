@@ -12,5 +12,5 @@ public interface DebtorListener {
 
 	public void getDebtorInfo(int id);
 	
-	public void addRequest(int debtorId, int amountRequested);
+	public void addRequest(int debtorId, long amountRequested);
 }

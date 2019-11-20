@@ -10,6 +10,8 @@ public interface MainViewListener {
 	public void removeInvestorInfo(int index);
 
 	public void getInvestorInfo(int id);
+	
+	public void addInvestorRequest(int investorId, long amountRequested);
 
 	// DEBTOR
 	public void addDebtorInfo(FormEvent e);
@@ -20,7 +22,7 @@ public interface MainViewListener {
 
 	public void getDebtorInfo(int id);
 	
-	public void addDebtorRequest(int debtorId, int amountRequested);
+	public void addDebtorRequest(int debtorId, long amountRequested);
 
 	// MANAGE
 	public void manageInvestorRequest(int id);

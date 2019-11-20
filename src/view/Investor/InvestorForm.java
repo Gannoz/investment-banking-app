@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -71,6 +72,7 @@ public class InvestorForm extends JPanel {
 	private JButton addBtn;
 	private JButton editBtn;
 	private JButton removeBtn;
+	private JButton requestBtn;
 
 	public InvestorForm() {
 
@@ -91,6 +93,7 @@ public class InvestorForm extends JPanel {
 		addBtn = new JButton("Add");
 		editBtn = new JButton("Edit");
 		removeBtn = new JButton("Remove");
+		requestBtn = new JButton("Request");
 
 		colon1 = new JLabel(":");
 		colon2 = new JLabel(":");
@@ -153,6 +156,19 @@ public class InvestorForm extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				formListener.formRemoveRequest();
+			}
+		});
+		
+		requestBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					int amountRequested = Integer.parseInt(JOptionPane.showInputDialog("Enter amount requested"));
+					formListener.formRequest(amountRequested);
+				}catch(Exception er) {
+					er.printStackTrace();
+				}
+				
 			}
 		});
 
@@ -449,6 +465,7 @@ public class InvestorForm extends JPanel {
 			addBtn.setPreferredSize(size);
 			editBtn.setPreferredSize(size);
 			removeBtn.setPreferredSize(size);
+			requestBtn.setPreferredSize(size);
 
 			GridBagConstraints c = new GridBagConstraints();
 
@@ -466,6 +483,9 @@ public class InvestorForm extends JPanel {
 
 			c.gridx++;
 			add(removeBtn, c);
+			
+			c.gridx++;
+			add(requestBtn, c);
 		}
 
 	}

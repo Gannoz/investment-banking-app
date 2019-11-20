@@ -8,6 +8,6 @@ public interface FormListener {
 
 	public void formRemoveRequest();
 	
-	public void formRequest(int amountRequested);
+	public void formRequest(long amountRequested);
 
 }

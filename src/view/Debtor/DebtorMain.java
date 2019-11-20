@@ -61,7 +61,7 @@ public class DebtorMain extends JPanel {
 			}
 
 			@Override
-			public void formRequest(int amountRequested) {
+			public void formRequest(long amountRequested) {
 				// TODO Auto-generated method stub
 				debtorListener.addRequest(debtorId, amountRequested);
 			}

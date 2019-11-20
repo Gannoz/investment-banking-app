@@ -130,9 +130,15 @@ public class Controller {
 			}
 
 			@Override
-			public void addDebtorRequest(int debtorId, int amountRequested) {
+			public void addDebtorRequest(int debtorId, long amountRequested) {
 				// TODO Auto-generated method stub
 				mainModel.addDebtorRequest(debtorId, amountRequested);
+			}
+
+			@Override
+			public void addInvestorRequest(int investorId, long amountRequested) {
+				mainModel.addInvestorRequest(investorId, amountRequested);
+				
 			}
 
 		});
