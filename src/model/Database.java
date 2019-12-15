@@ -83,7 +83,7 @@ public class Database {
 					+ "UNIQUE(nik)"
 					+ ")");
 			
-			stt.execute("DROP TABLE IF EXISTS earnings");
+//			stt.execute("DROP TABLE IF EXISTS earnings");
 //			stt.execute("DROP TABLE IF EXISTS debtorFees");
 //			stt.execute("DROP TABLE IF EXISTS debtorManaged");
 //			stt.execute("DROP TABLE IF EXISTS debtorRequests");
@@ -333,6 +333,34 @@ public class Database {
 		}finally {
 			close();	
 		}
+		
+		// EARNINGS
+		
+		earningsObject.resetEarnings();;
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, user, password);
+			
+			stt = con.createStatement();
+			
+			rs = stt.executeQuery("SELECT * FROM earnings");
+			
+			while(rs.next()) {
+				long earning = rs.getInt("earning");
+				LocalDate timePaid = rs.getDate("timePaid").toLocalDate();
+				
+				earningsObject.addEarnings(earning, timePaid);
+				System.out.println(earning + " is added");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();	
+		}
+		
 		
 	}
 	
@@ -871,7 +899,7 @@ public class Database {
 				stt.execute(query);
 						
 		}catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();	
 		}finally {
 			close();
 		}

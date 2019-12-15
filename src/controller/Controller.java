@@ -25,7 +25,9 @@ public class Controller {
 		mainModel = new MainModel();
 
 		// Set MainView Listener ======================================
-
+		
+		setData();
+		
 		mainView.setTableData(getInvestors(), getDebtors(), getUnmanagedInvestors(), getUnmanagedDebtors(),
 				getManagedInvestors(), getManagedDebtors(), getUnpaidInvestors(), getUnpaidDebtors());
 

@@ -60,6 +60,12 @@ public class Earnings {
 			this.yearEarnings += earnings;
 		}
 	}
+	
+	public void resetEarnings() {
+		this.totalEarnings = 0;
+		this.monthEarnings = 0;
+		this.yearEarnings = 0;
+	}
 
 	public long getTotalEarnings() {
 		return totalEarnings;
