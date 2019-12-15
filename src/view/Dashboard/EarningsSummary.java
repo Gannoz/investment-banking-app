@@ -26,8 +26,8 @@ public class EarningsSummary extends JPanel {
 	private JLabel currentMonthContainer;
 	private JLabel currentYearContainer;
 	private long paidDebtors;
-	private long currentMonth;
-	private long currentYear;
+	private long currentMonthEarnings;
+	private long currentYearEarnings;
 
 	private JButton test;
 
@@ -54,9 +54,9 @@ public class EarningsSummary extends JPanel {
 
 	}
 	
-	public void setData(long monthEarnings, long totalEarnings) {
-		currentMonth = monthEarnings;
-		currentYear = totalEarnings;
+	public void setData(long monthEarnings, long yearEarnings) {
+		currentMonthEarnings = monthEarnings;
+		currentYearEarnings = yearEarnings;
 		
 		update();
 	}
@@ -67,8 +67,8 @@ public class EarningsSummary extends JPanel {
 
 	public void update() {
 		paidDebtorsContainer.setText(numberToCommaString(paidDebtors) + "%");
-		currentMonthContainer.setText(numberToCommaString(currentMonth));
-		currentYearContainer.setText(numberToCommaString(currentYear));
+		currentMonthContainer.setText(numberToCommaString(currentMonthEarnings));
+		currentYearContainer.setText(numberToCommaString(currentYearEarnings));
 	}
 
 	public void setDesign() {

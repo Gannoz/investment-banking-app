@@ -140,7 +140,7 @@ public class Controller {
 	}
 	
 	public void setData() {
-		mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings(), getMonthEarnings());
+		mainView.setData(getTotalInvestments(), getTotalInvested(), getTotalEarnings(), getMonthEarnings(), getYearEarnings());
 	}
 
 	// Model-View Methods ======================================
@@ -211,6 +211,10 @@ public class Controller {
 	
 	public long getMonthEarnings() {
 		return mainModel.getMonthEarnings();
+	}
+	
+	public long getYearEarnings() {
+		return mainModel.getYearEarnings();
 	}
 
 	// INVESTOR ======================================

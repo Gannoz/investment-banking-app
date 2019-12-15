@@ -37,9 +37,9 @@ public class DashboardMain extends JPanel {
 		topDebtors.refreshTable();
 	}
 
-	public void setData(long totalInvestments, long totalInvested, long totalEarnings, long monthEarnings) {
+	public void setData(long totalInvestments, long totalInvested, long totalEarnings, long monthEarnings, long yearEarnings) {
 		investmentSummary.setData(totalInvestments, totalInvested, totalEarnings);
-		earningsSummary.setData(monthEarnings, totalEarnings);
+		earningsSummary.setData(monthEarnings, yearEarnings);
 	}
 
 	public void setTableData(List<Investor> investors, List<Debtor> debtors) {
